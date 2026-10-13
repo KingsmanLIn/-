@@ -1,0 +1,92 @@
+{
+  "version": 2,
+  "settings": {
+    "vault_path": "",
+    "sync_enabled": false,
+    "last_sync": "",
+    "sync_error": "",
+    "ai": {
+      "provider": "ollama",
+      "base_url": "http://127.0.0.1:1",
+      "model": "synthetic-model",
+      "api_key_env": "",
+      "mode": "local_loopback",
+      "max_output_tokens": 4096,
+      "auto_analyze": false,
+      "max_concurrent_jobs": 1,
+      "config_revision": 2,
+      "credential_revision": 1,
+      "limits": {
+        "max_queue_depth": 20,
+        "max_requests_per_job": 2,
+        "daily_request_limit": 100
+      }
+    },
+    "last_rebind_parked": []
+  },
+  "papers": [
+    {
+      "id": "49356ece-af7a-443c-ab73-97aef99720ad",
+      "title": "合成验收论文",
+      "authors": "",
+      "year": "",
+      "venue": "",
+      "doi": "",
+      "citation": "",
+      "tags": "",
+      "language": "zh",
+      "type": "empirical",
+      "fields": {
+        "question": "",
+        "motivation": "",
+        "claim": "",
+        "data": "",
+        "variables": "",
+        "method": "",
+        "evidence": "",
+        "robustness": "",
+        "boundaries": "",
+        "assessment": "",
+        "summary": "",
+        "connections": "",
+        "next": ""
+      },
+      "steps": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "annotations": [],
+      "pageOffset": 0,
+      "pageLabels": [],
+      "lastPage": 1,
+      "revision": 0,
+      "created": "2026-10-12T11:49:48.040+00:00",
+      "updated": "2026-10-12T11:49:48.040+00:00",
+      "archived": false,
+      "note_name": "合成验收论文--49356ece.md",
+      "analysis": {
+        "status": "ready",
+        "stage": "done",
+        "progress": 100,
+        "message": "参考分析已就绪（13 个字段，13 条引文已核对；原文 3 页，本次只送入第 1–3 页）",
+        "source_sha256": "f2e813f3a259ffd23abca5735771ec9eb6c74275185b3fe96de5095a21084742",
+        "prompt_version": "reading-card-v2",
+        "provider": "ollama",
+        "adapter": "fake",
+        "model": "synthetic-model",
+        "language": "zh",
+        "requested_at": "2026-10-12T11:49:48Z",
+        "started_at": "2026-10-12T11:49:48Z",
+        "completed_at": "2026-10-12T11:49:48Z",
+        "updated_at": "2026-10-12T11:49:48Z",
+        "duration_ms": 406,
+        "attempt": 1,
+        "error_code": "",
+        "error_message": "",
+        "answer_file": "49356ece-af7a-443c-ab73-97aef99720ad.json"
+      }
+    }
+  ]
+}

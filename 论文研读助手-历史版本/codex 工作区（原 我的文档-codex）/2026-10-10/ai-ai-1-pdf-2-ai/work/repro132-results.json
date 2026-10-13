@@ -1,0 +1,53 @@
+{
+  "target_mismatch": {
+    "old_target_received": 0,
+    "new_target_received": 2,
+    "new_target_received_auth": true,
+    "frozen_target_is_old": true,
+    "target_changed": true,
+    "final_status": "failed"
+  },
+  "late_failure": {
+    "status_after_new_success": "ready",
+    "status_after_old_failure": "failed",
+    "answer_file_still_exists": true,
+    "current_job_is_new": true
+  },
+  "duplicate_json": {
+    "production_parser_accepts": true,
+    "production_validator_accepts": true,
+    "strict_helper_rejects": true
+  },
+  "budget_rollover": {
+    "daily_limit": 1001,
+    "accepted_reservations": 1003,
+    "reported_spend": 1000,
+    "journal_length": 1000
+  },
+  "short_secret": {
+    "credential_accepted": true,
+    "echo_detected": false
+  },
+  "health_echo": {
+    "http_status": 200,
+    "browser_response_contains_known_key": true,
+    "guard_knows_key": true,
+    "upstream_get_count": 2
+  },
+  "cancel_adaptation": {
+    "cancel_acknowledged": true,
+    "actual_posts": 2,
+    "final_status": "cancelled"
+  },
+  "drip_deadline": {
+    "read_timeout": 0.1,
+    "elapsed": 0.625,
+    "response_ok": true
+  },
+  "ui_mode": {
+    "requested_mode": "cloud_https",
+    "returned_mode": "local_loopback",
+    "stored_mode": "local_loopback",
+    "http_status": 200
+  }
+}

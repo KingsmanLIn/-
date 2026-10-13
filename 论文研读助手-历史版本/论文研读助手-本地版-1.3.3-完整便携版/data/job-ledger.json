@@ -1,0 +1,420 @@
+{
+  "version": 1,
+  "approvals": {
+    "9edf1d4b-561b-47a2-860e-9119d865f54b": {
+      "approval_id": "ap-4d180d94deed45e1",
+      "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b",
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "credential_ref": "env:PAPER_READER_KEY",
+      "model": "deepseek-flash",
+      "scope": "manual",
+      "revoked": true,
+      "config_revision": 3,
+      "credential_revision": 2,
+      "source_sha256": "3f06bbedffe2942a5a3e9c7ccfb995aa87db3a4591f9cad1d046230db570d2dd",
+      "credential_identity": "cdf9f97b6ab002553c97331854fc8133db5c96ead99c027172dc5837d0a9ad81",
+      "granted_at": "2026-10-12T15:08:05Z",
+      "revoked_at": "2026-10-12T17:13:10Z",
+      "revoked_reason": "configuration_changed"
+    },
+    "497bb7a8-5767-473d-843a-7540e724e058": {
+      "approval_id": "ap-08c5b243abf2aeae",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "credential_ref": "env:PAPER_READER_KEY",
+      "model": "deepseek-flash",
+      "scope": "manual",
+      "revoked": false,
+      "config_revision": 4,
+      "credential_revision": 2,
+      "source_sha256": "794c9e5ccfc6a0b734f4479b8495df8ad6ed52f10088396cf05650dba35d1b2e",
+      "credential_identity": "20ff82f48400258cb5e29c2dc1b5ba2bf206ba87fc8a292276323c9ef768e48f",
+      "granted_at": "2026-10-12T18:00:58Z"
+    }
+  },
+  "jobs": {
+    "497bb7a8-5767-473d-843a-7540e724e058": {
+      "job_id": "job-56d64a6a8f537890",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "generation": 5,
+      "source_sha256": "794c9e5ccfc6a0b734f4479b8495df8ad6ed52f10088396cf05650dba35d1b2e",
+      "profile_id": "prof-bfdee21f90d63755",
+      "adapter": "openai_compatible",
+      "mode": "cloud_https",
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "model": "deepseek-flash",
+      "credential_ref": "env:PAPER_READER_KEY",
+      "credential_revision": 2,
+      "config_revision": 4,
+      "policy_version": "job-policy-v1",
+      "prompt_version": "reading-card-v2",
+      "language": "en",
+      "approval_id": "ap-08c5b243abf2aeae",
+      "budget_id": "bud-145e81de15bad7c7",
+      "created_at": "2026-10-12T18:00:58Z",
+      "reason": "force",
+      "base_url": "https://api.deepseek.com",
+      "max_output_tokens": 32768,
+      "vision": true,
+      "max_figure_pages": 2,
+      "credential_identity": "20ff82f48400258cb5e29c2dc1b5ba2bf206ba87fc8a292276323c9ef768e48f"
+    }
+  },
+  "active": {
+    "497bb7a8-5767-473d-843a-7540e724e058": "job-56d64a6a8f537890"
+  },
+  "spend": [],
+  "outcomes": {},
+  "journal": [
+    {
+      "job_id": "job-eb0b2113ca732fe3",
+      "paper_id": "93cf2c85-bdc6-484b-9b4d-93029bafe5de",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T14:57:24Z",
+      "settled": "not_sent",
+      "note": "config_error",
+      "started_at_epoch": 1791817044.700333,
+      "refunded": true
+    },
+    {
+      "job_id": "job-58666fc807479fb1",
+      "paper_id": "a4fad000-22bd-44a6-860b-6bd2813ded9c",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T14:57:36Z",
+      "settled": "not_sent",
+      "note": "config_error",
+      "started_at_epoch": 1791817056.847549,
+      "refunded": true
+    },
+    {
+      "job_id": "job-e2617ee4425bebb6",
+      "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T15:00:40Z",
+      "settled": "sent",
+      "note": "invalid_json",
+      "started_at_epoch": 1791817240.5931168
+    },
+    {
+      "job_id": "job-654f18a5faed9ab5",
+      "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T15:01:11Z",
+      "settled": "sent",
+      "note": "invalid_json",
+      "started_at_epoch": 1791817271.0489817
+    },
+    {
+      "job_id": "job-d968341663b46586",
+      "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T15:08:06Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791817686.253477
+    },
+    {
+      "job_id": "job-d968341663b46586",
+      "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b",
+      "kind": "repair",
+      "sequence": 2,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T15:09:15Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791817755.336924
+    },
+    {
+      "job_id": "job-03547192ca1acd3b",
+      "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T16:07:07Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791821227.7689228
+    },
+    {
+      "job_id": "job-03547192ca1acd3b",
+      "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0",
+      "kind": "pass",
+      "sequence": 2,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T16:08:15Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791821295.353097
+    },
+    {
+      "job_id": "job-03547192ca1acd3b",
+      "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0",
+      "kind": "pass",
+      "sequence": 3,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T16:09:22Z",
+      "settled": "sent",
+      "note": "invalid_json",
+      "started_at_epoch": 1791821362.9941506
+    },
+    {
+      "job_id": "job-ed866296c89e0535",
+      "paper_id": "83e2216e-9c08-47a2-8547-55a2501f5193",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T16:10:48Z",
+      "settled": "sent",
+      "note": "invalid_json",
+      "started_at_epoch": 1791821448.1414983
+    },
+    {
+      "job_id": "job-af878d7f7292dff0",
+      "paper_id": "42ee57a0-1981-4b6e-b2a2-ed6631fd57cf",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T16:12:18Z",
+      "settled": "sent",
+      "note": "invalid_json",
+      "started_at_epoch": 1791821538.26404
+    },
+    {
+      "job_id": "job-0260ab99616df59d",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:23:16Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791825796.7776709
+    },
+    {
+      "job_id": "job-0260ab99616df59d",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "pass",
+      "sequence": 2,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:25:16Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791825916.9021637
+    },
+    {
+      "job_id": "job-0260ab99616df59d",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "pass",
+      "sequence": 3,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:26:21Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791825981.9770052
+    },
+    {
+      "job_id": "job-0260ab99616df59d",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "repair",
+      "sequence": 4,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:27:31Z",
+      "settled": "sent",
+      "note": "invalid_json",
+      "started_at_epoch": 1791826051.1242418
+    },
+    {
+      "job_id": "job-a0def8888d00907b",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:42:33Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791826953.5133078
+    },
+    {
+      "job_id": "job-a0def8888d00907b",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "pass",
+      "sequence": 2,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:43:49Z",
+      "settled": "sent",
+      "note": "invalid_json",
+      "started_at_epoch": 1791827029.587798
+    },
+    {
+      "job_id": "job-0f6839bb3eef35f9",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:46:20Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791827180.6015384
+    },
+    {
+      "job_id": "job-0f6839bb3eef35f9",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "pass",
+      "sequence": 2,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:47:30Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791827250.3762083
+    },
+    {
+      "job_id": "job-0f6839bb3eef35f9",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "pass",
+      "sequence": 3,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:48:12Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791827292.3559868
+    },
+    {
+      "job_id": "job-0f6839bb3eef35f9",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "repair",
+      "sequence": 4,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:49:18Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791827358.1226633
+    },
+    {
+      "job_id": "job-95b4ff8e5f55ad97",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:52:38Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791827558.6058555
+    },
+    {
+      "job_id": "job-95b4ff8e5f55ad97",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "pass",
+      "sequence": 2,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:53:39Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791827619.9725244
+    },
+    {
+      "job_id": "job-95b4ff8e5f55ad97",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "pass",
+      "sequence": 3,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:54:41Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791827681.1890984
+    },
+    {
+      "job_id": "job-95b4ff8e5f55ad97",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "repair",
+      "sequence": 4,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:55:40Z",
+      "settled": "sent",
+      "note": "invalid_json",
+      "started_at_epoch": 1791827740.2144773
+    },
+    {
+      "job_id": "job-95b4ff8e5f55ad97",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "repair-retry-json",
+      "sequence": 5,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:57:57Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791827877.3768137
+    },
+    {
+      "job_id": "job-56d64a6a8f537890",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T18:01:00Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791828060.1991174
+    },
+    {
+      "job_id": "job-56d64a6a8f537890",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "pass",
+      "sequence": 2,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T18:02:31Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791828151.7406585
+    },
+    {
+      "job_id": "job-56d64a6a8f537890",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "pass",
+      "sequence": 3,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T18:03:32Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791828212.9929118
+    },
+    {
+      "job_id": "job-56d64a6a8f537890",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "repair",
+      "sequence": 4,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T18:04:40Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791828280.1362758
+    },
+    {
+      "job_id": "job-56d64a6a8f537890",
+      "paper_id": "497bb7a8-5767-473d-843a-7540e724e058",
+      "kind": "repair-again",
+      "sequence": 5,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T18:05:25Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791828325.880011
+    }
+  ],
+  "targets": {
+    "cloud_https|https://api.deepseek.com": {
+      "credential_ref": "env:PAPER_READER_KEY",
+      "model": "deepseek-flash",
+      "approved_at": "2026-10-12T18:00:58Z"
+    }
+  }
+}

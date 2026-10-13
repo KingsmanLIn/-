@@ -1,0 +1,94 @@
+{
+  "version": 1,
+  "approvals": {
+    "d12ded1d-5676-4431-bb8d-2b76fdc0ef3e": {
+      "approval_id": "ap-49a8164ae87987d4",
+      "paper_id": "d12ded1d-5676-4431-bb8d-2b76fdc0ef3e",
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "credential_ref": "env:PAPER_READER_KEY",
+      "model": "deepseek-flash",
+      "scope": "manual",
+      "revoked": false,
+      "config_revision": 2,
+      "credential_revision": 2,
+      "source_sha256": "64afc91d7bb9c80ba3b97a8c892eb99368093046403e198e5453d57530043f10",
+      "credential_identity": "1a7ec16a16a1a381b9370485293a2759803bea2e5263c42621c65cbf6c710683",
+      "granted_at": "2026-10-12T17:32:48Z"
+    }
+  },
+  "jobs": {
+    "d12ded1d-5676-4431-bb8d-2b76fdc0ef3e": {
+      "job_id": "job-9135f3b58b8943a6",
+      "paper_id": "d12ded1d-5676-4431-bb8d-2b76fdc0ef3e",
+      "generation": 2,
+      "source_sha256": "64afc91d7bb9c80ba3b97a8c892eb99368093046403e198e5453d57530043f10",
+      "profile_id": "prof-bfdee21f90d63755",
+      "adapter": "openai_compatible",
+      "mode": "cloud_https",
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "model": "deepseek-flash",
+      "credential_ref": "env:PAPER_READER_KEY",
+      "credential_revision": 2,
+      "config_revision": 2,
+      "policy_version": "job-policy-v1",
+      "prompt_version": "reading-card-v2",
+      "language": "en",
+      "approval_id": "ap-49a8164ae87987d4",
+      "budget_id": "bud-3dd050c66901bd1b",
+      "created_at": "2026-10-12T17:32:48Z",
+      "reason": "manual",
+      "base_url": "https://api.deepseek.com",
+      "max_output_tokens": 32768,
+      "vision": true,
+      "max_figure_pages": 8,
+      "credential_identity": "1a7ec16a16a1a381b9370485293a2759803bea2e5263c42621c65cbf6c710683"
+    }
+  },
+  "active": {
+    "d12ded1d-5676-4431-bb8d-2b76fdc0ef3e": "job-9135f3b58b8943a6"
+  },
+  "spend": [],
+  "outcomes": {},
+  "journal": [
+    {
+      "job_id": "job-9135f3b58b8943a6",
+      "paper_id": "d12ded1d-5676-4431-bb8d-2b76fdc0ef3e",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:32:50Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791826370.586689
+    },
+    {
+      "job_id": "job-9135f3b58b8943a6",
+      "paper_id": "d12ded1d-5676-4431-bb8d-2b76fdc0ef3e",
+      "kind": "pass",
+      "sequence": 2,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:33:34Z",
+      "settled": "sent",
+      "note": "",
+      "started_at_epoch": 1791826414.4928744
+    },
+    {
+      "job_id": "job-9135f3b58b8943a6",
+      "paper_id": "d12ded1d-5676-4431-bb8d-2b76fdc0ef3e",
+      "kind": "pass",
+      "sequence": 3,
+      "target_identity": "cloud_https|https://api.deepseek.com",
+      "started_at": "2026-10-12T17:34:50Z",
+      "settled": "sent",
+      "note": "invalid_json",
+      "started_at_epoch": 1791826490.5592678
+    }
+  ],
+  "targets": {
+    "cloud_https|https://api.deepseek.com": {
+      "credential_ref": "env:PAPER_READER_KEY",
+      "model": "deepseek-flash",
+      "approved_at": "2026-10-12T17:32:48Z"
+    }
+  }
+}

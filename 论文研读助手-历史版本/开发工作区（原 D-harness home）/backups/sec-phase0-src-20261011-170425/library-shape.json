@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "papers": 3,
+  "settings": [
+    "ai",
+    "last_sync",
+    "sync_enabled",
+    "sync_error",
+    "vault_path"
+  ],
+  "note": "结构摘要，不是数据副本；人工记录未复制到开发备份"
+}

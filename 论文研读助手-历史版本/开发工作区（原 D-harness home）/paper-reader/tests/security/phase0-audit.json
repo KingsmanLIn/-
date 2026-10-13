@@ -1,0 +1,295 @@
+{
+  "baseline": "D:\\harness home\\paper-reader-sec\\baseline-1.3.1\\tree\\论文研读助手-本地版-1.3.1-全新安装",
+  "working": "D:\\harness home\\paper-reader",
+  "findings": {
+    "F01_url_validation": {
+      "schema_base_url_rule": [
+        "\"base_url\": \"\",               # empty means: use the provider's default local endpoint",
+        "merged[\"base_url\"] = _text(merged[\"base_url\"], MAX_BASE_URL, \"base_url\")",
+        "if merged[\"base_url\"] and not URL_RE.match(merged[\"base_url\"]):",
+        "raise SchemaError(\"base_url 必须是 http(s) 地址\")"
+      ],
+      "http_scheme_accepted": false,
+      "sends_as_is": true,
+      "url_built_from": [
+        "self.base_url = (base_url or \"\").rstrip(\"/\")",
+        "payload, error = self._get_json(self.base_url + \"/api/tags\", timeout)",
+        "payload, error = self._get_json(self.base_url + \"/api/tags\", timeout)",
+        "raw, error = self._post_json(self.base_url + \"/api/chat\",",
+        "payload, error = self._get_json(self.base_url + \"/models\", timeout)",
+        "payload, error = self._get_json(self.base_url + \"/models\", timeout)"
+      ],
+      "mode_field_present": false,
+      "userinfo_check": false,
+      "query_rejected": false
+    },
+    "F02_redirect_proxy": {
+      "build_opener_used": false,
+      "proxy_handler_present": false,
+      "redirect_disable_present": false,
+      "urlopen_direct": true,
+      "tls_context_present": false,
+      "verify_disabled": false
+    },
+    "F03_plaintext_credentials": {
+      "credentials_path_attr": true,
+      "read_credentials_defined": true,
+      "fallback_call_sites": [
+        {
+          "file": "providers.py",
+          "line": 567
+        },
+        {
+          "file": "storage.py",
+          "line": 268
+        }
+      ],
+      "env_read_of_arbitrary_name": true,
+      "plaintext_file_name": [
+        "self.credentials = self.directory / \"credentials.json\"",
+        "# --- credentials ------------------------------------------------------",
+        "def read_credentials(self):",
+        "return read_json(self.credentials, limit=64 * 1024)"
+      ],
+      "wincred_support": false
+    },
+    "F04_redaction": {
+      "redact_patterns": [
+        "re.compile(r\"sk-[A-Za-z0-9_\\-]{6,}\"),                       # OpenAI-style keys",
+        "re.compile(r\"(?i)\\b(?:api[_-]?key|apikey|authorization|bearer|token|password|secret)\\b\"",
+        "re.compile(r\"(?i)\\bBearer\\s+([A-Za-z0-9_\\-\\.\\+/]{8,})\"),"
+      ],
+      "upstream_body_read": true,
+      "message_includes_body": true,
+      "fixed_error_codes_present": true
+    },
+    "F05_raw_model_diagnostics": {
+      "raw_model_output_written": true,
+      "raw_repair_output_written": true,
+      "failed_file_name": true,
+      "field_lines": [
+        635,
+        636
+      ]
+    },
+    "F06_config_race": {
+      "settings_reads_in_pipeline": [
+        {
+          "line": 117
+        },
+        {
+          "count": 10
+        }
+      ],
+      "job_identity_fields": [],
+      "config_revision_present": false,
+      "credential_revision_present": false,
+      "generation_present": false
+    },
+    "F07_restore_authorizes": {
+      "recover_call_sites": [
+        {
+          "file": "server.py",
+          "line": 988
+        }
+      ],
+      "restore_sets_status": [
+        "# Backup restores local records; it never re-enables writes to an old vault,",
+        "def restore(self, data):",
+        "Backups from schema version 1 (no analyses/, no extracted/, no manifest) restore",
+        "limit = 200 * 1024 * 1024 if path == \"/api/restore\" else MAX_PDF",
+        "if path in (\"/api/import\", \"/api/restore\"):",
+        "self.send({\"imported\": store.restore(data), \"state\": store.snapshot()})"
+      ],
+      "ledger_present": false,
+      "awaiting_consent_state": false
+    },
+    "F08_prompt_injection": {
+      "system_prompt_has_untrusted_note": false,
+      "doc_markers": [
+        "PDF 第 1 页），不要使用期刊印刷页码。引文必须逐字来自原文，不超过 40 字。",
+        "parts.append(f\"【PDF 第 {chunk.start_page}-{chunk.end_page} 页】\\n{piece}\")",
+        "note = (f\"原文共 {page_count} 页，本次只送入 PDF 第 {min(pages_used) if pages_used else first}\""
+      ],
+      "tool_definitions_present": false
+    },
+    "F09_budget": {
+      "max_tokens_field": false,
+      "output_cap_in_request": false,
+      "attempts_field": [
+        "MAX_ATTEMPTS = 2",
+        "max_attempts=MAX_ATTEMPTS, log=None, clock=time.time):",
+        "self.max_attempts = max_attempts"
+      ],
+      "retry_on_timeout": true,
+      "daily_quota": false
+    },
+    "F10_cancel": {
+      "cancel_checks": [
+        "if cancel.is_set() or result.category == providers.CATEGORY_CANCELLED:",
+        "if cancel.is_set():",
+        "if cancel.is_set() or repair.category == providers.CATEGORY_CANCELLED:"
+      ],
+      "cancel_count": 3,
+      "connection_close_attempt": false
+    },
+    "F11_cache_headers": {
+      "no_store_in_server": true,
+      "cache_control_lines": [
+        {
+          "line": 636,
+          "needle": "no-store"
+        },
+        {
+          "line": 636,
+          "needle": "Cache-Control"
+        }
+      ],
+      "index_html_injects_token": true,
+      "path_cached_by_self_path": false
+    },
+    "F12_preauth_body": {
+      "content_length_read_before_auth": [
+        {
+          "line": 635
+        },
+        {
+          "auth_line": 664
+        }
+      ],
+      "max_json_limits": [],
+      "max_pdf_limit": [
+        "MAX_PDF = 80 * 1024 * 1024",
+        "if len(data) > MAX_PDF:"
+      ]
+    },
+    "F13_restore_validation": {
+      "restore_revalidates_hash": true,
+      "restore_parses_json": true,
+      "cache_trust": [
+        "if payload.get(\"source_sha256\") != digest:",
+        "result.source_sha256 = digest",
+        "result = ExtractionResult(path=str(path), source_sha256=digest, backend=backend_used,"
+      ]
+    },
+    "F14_first_generate": {
+      "app_js_generate_calls": [
+        {
+          "line": 183,
+          "needle": "analysis/'+id+'/generate'"
+        },
+        {
+          "line": null,
+          "needle": "analysis-run"
+        }
+      ],
+      "force_default_in_server": [
+        "# Retry (status failed/stale/...) or an explicit force re-run.",
+        "force = bool(body.get(\"force\", False))",
+        "outcome = manager.enqueue(paper_id, reason=\"force\" if force else \"retry\",",
+        "force=force)",
+        "force=bool(body.get(\"force\", True)))"
+      ],
+      "waiting_for_user_enqueue": [
+        "if not force and status == \"waiting_for_user\":",
+        "\"reason\": \"waiting_for_user\"}"
+      ]
+    },
+    "F15_quote_fuzzy": {
+      "min_similarity": [
+        "if best >= 0.72:"
+      ],
+      "prefix_score": true,
+      "verified_flag": [
+        "returns a normalised payload (with verified evidence) or a list of error codes that keep",
+        "\"evidence\": [{\"page\": int>=1, \"quote\": str, \"verified\": bool}],",
+        "evidence_unverified  fewer than MIN_VERIFIED_QUOTES verified quotes overall",
+        "\"evidence_unverified\", \"causal_overreach\", \"not_found_overreach\","
+      ],
+      "fuzzy_marks_verified": true
+    }
+  },
+  "drift": {
+    "schema.py": {
+      "same": true,
+      "baseline": "A56B7157E0FD",
+      "working": "A56B7157E0FD"
+    },
+    "providers.py": {
+      "same": true,
+      "baseline": "9EC10DA5B6D3",
+      "working": "9EC10DA5B6D3"
+    },
+    "analysis.py": {
+      "same": true,
+      "baseline": "7D743223EEED",
+      "working": "7D743223EEED"
+    },
+    "server.py": {
+      "same": true,
+      "baseline": "3D06BD2E1064",
+      "working": "3D06BD2E1064"
+    },
+    "storage.py": {
+      "same": true,
+      "baseline": "45571542F3D3",
+      "working": "45571542F3D3"
+    },
+    "reading_card.py": {
+      "same": true,
+      "baseline": "B30420ADAAC9",
+      "working": "B30420ADAAC9"
+    },
+    "quotes.py": {
+      "same": true,
+      "baseline": "260CE2DFAC74",
+      "working": "260CE2DFAC74"
+    },
+    "extraction.py": {
+      "same": true,
+      "baseline": "D742C1619937",
+      "working": "D742C1619937"
+    },
+    "launch.py": {
+      "same": true,
+      "baseline": "36BA87CC06C4",
+      "working": "36BA87CC06C4"
+    },
+    "static/app.js": {
+      "same": true,
+      "baseline": "44AF101C6936",
+      "working": "44AF101C6936"
+    },
+    "static/index.html": {
+      "same": true,
+      "baseline": "432DBC488755",
+      "working": "432DBC488755"
+    },
+    "vendor/pdfjs/pdf.min.mjs": {
+      "same": true,
+      "baseline": "2221020EA508",
+      "working": "2221020EA508"
+    },
+    "使用说明.md": {
+      "same": true,
+      "baseline": "493323668EA3",
+      "working": "493323668EA3"
+    }
+  },
+  "drift_identical": [
+    "schema.py",
+    "providers.py",
+    "analysis.py",
+    "server.py",
+    "storage.py",
+    "reading_card.py",
+    "quotes.py",
+    "extraction.py",
+    "launch.py",
+    "static/app.js",
+    "static/index.html",
+    "vendor/pdfjs/pdf.min.mjs",
+    "使用说明.md"
+  ],
+  "drift_changed": []
+}

@@ -1,0 +1,163 @@
+{
+  "backend_order": [
+    "pdftotext",
+    "builtin",
+    "pypdf"
+  ],
+  "papers": [
+    {
+      "paper_id": "fertility-2026-coffey",
+      "size_mb": 3.78,
+      "first_pass_seconds": 0.63,
+      "code": "ok",
+      "backend": "pdftotext",
+      "pages": 57,
+      "pages_with_text": 57,
+      "total_chars": 306305,
+      "message": "已抽取 57 页文本。",
+      "cached": false,
+      "page_numbers": [
+        1,
+        2,
+        3,
+        "...",
+        57
+      ],
+      "second_pass_seconds": 0.02,
+      "second_pass_cached": true,
+      "cache_identical": true,
+      "quality_page1": 0.978,
+      "clean_stats": {
+        "ligatures": 0,
+        "invisible": 0,
+        "spaces": 0,
+        "dashes": 116,
+        "quotes": 162,
+        "hyphen_joins": 0,
+        "collapsed_lines": 1921,
+        "header_footer_lines_removed": 0
+      },
+      "chunks": 215,
+      "chunk_example": {
+        "chunk_id": "fertility-2026-coffey-c001",
+        "start_page": 1,
+        "end_page": 1,
+        "char_count": 567,
+        "section": "",
+        "order": 0,
+        "pages": [
+          1
+        ],
+        "text": "NBER WORKING PAPER SERIES\n\n\n\n\n                  DOES FERTILITY STABILIZE AT LOW LEVELS?\n            EVIDENCE FROM PERIOD, COHORT, AND SUBNATIONAL DATA\n\n        …"
+      },
+      "chunks_failing_page_mapping": [],
+      "page_numbers_contiguous": true
+    },
+    {
+      "paper_id": "finance-2021-zhang",
+      "size_mb": 0.86,
+      "first_pass_seconds": 0.17,
+      "code": "ok",
+      "backend": "pdftotext",
+      "pages": 15,
+      "pages_with_text": 15,
+      "total_chars": 96820,
+      "message": "已抽取 14/15 页可用文本；第 13 页文字过少，可能没有文本层。",
+      "cached": false,
+      "page_numbers": [
+        1,
+        2,
+        3,
+        "...",
+        15
+      ],
+      "second_pass_seconds": 0.031,
+      "second_pass_cached": true,
+      "cache_identical": true,
+      "quality_page1": 0.966,
+      "clean_stats": {
+        "ligatures": 0,
+        "invisible": 0,
+        "spaces": 0,
+        "dashes": 113,
+        "quotes": 174,
+        "hyphen_joins": 0,
+        "collapsed_lines": 1565,
+        "header_footer_lines_removed": 0
+      },
+      "chunks": 42,
+      "chunk_example": {
+        "chunk_id": "finance-2021-zhang-c001",
+        "start_page": 1,
+        "end_page": 1,
+        "char_count": 4256,
+        "section": "",
+        "order": 0,
+        "pages": [
+          1
+        ],
+        "text": "：                       ：\n\n\n\n\n                                                                                                               ＊\n                 …"
+      },
+      "chunks_failing_page_mapping": [],
+      "page_numbers_contiguous": true
+    },
+    {
+      "paper_id": "medical-2026-zang",
+      "size_mb": 3.2,
+      "first_pass_seconds": 0.38,
+      "code": "ok",
+      "backend": "pdftotext",
+      "pages": 29,
+      "pages_with_text": 29,
+      "total_chars": 88245,
+      "message": "已抽取 29 页文本。",
+      "cached": false,
+      "page_numbers": [
+        1,
+        2,
+        3,
+        "...",
+        29
+      ],
+      "second_pass_seconds": 0.019,
+      "second_pass_cached": true,
+      "cache_identical": true,
+      "quality_page1": 0.915,
+      "clean_stats": {
+        "ligatures": 0,
+        "invisible": 0,
+        "spaces": 0,
+        "dashes": 29,
+        "quotes": 141,
+        "hyphen_joins": 0,
+        "collapsed_lines": 788,
+        "header_footer_lines_removed": 0
+      },
+      "chunks": 43,
+      "chunk_example": {
+        "chunk_id": "medical-2026-zang-c001",
+        "start_page": 1,
+        "end_page": 1,
+        "char_count": 190,
+        "section": "",
+        "order": 0,
+        "pages": [
+          1
+        ],
+        "text": "DOI:10.19744/j.cnki.11-1235/f.2026.0099\n分级诊疗制度下的医疗控费机制\n医疗管理与健康治理\n\n\n分级诊疗制度下的医疗控费机制 *\n                          ——基于大样本病案数据的研究证据\n\n                            臧文斌 …"
+      },
+      "chunks_failing_page_mapping": [],
+      "page_numbers_contiguous": true
+    }
+  ],
+  "extracted_files": [
+    "fertility-2026-coffey.json",
+    "finance-2021-zhang.json",
+    "medical-2026-zang.json"
+  ],
+  "_meta": {
+    "capturedBy": "tests/capture_extraction_baseline.py",
+    "extractorVersion": "2.0.0",
+    "note": "pdftotext is the primary backend and the builtin extractor is the fallback; a page whose text layer is unreadable is reported in `pages_with_text`/`message` instead of being exposed as evidence. The extracted cache lives in a temporary data directory and is deleted after capture."
+  }
+}

@@ -1,0 +1,534 @@
+{
+  "schema": 1,
+  "schema_version": 1,
+  "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b",
+  "prompt_version": "reading-card-v2",
+  "provider": "openai_compatible",
+  "model": "deepseek-flash",
+  "language": "en",
+  "source_sha256": "3f06bbedffe2942a5a3e9c7ccfb995aa87db3a4591f9cad1d046230db570d2dd",
+  "generated_at": "2026-10-12T15:10:24Z",
+  "created_at": "2026-10-12T15:10:24Z",
+  "overall": {
+    "title": "GLOBAL FINANCIAL CYCLES AND RISK PREMIUMS",
+    "language": "en",
+    "paper_type": "working paper",
+    "main_claim": "作者认为过去三十年信用、房价与股价的跨国共同运动达到历史高位，尤其是全球股价同步；1990年后风险溢价而非无风险利率和股利解释大部分股价同步；美国货币政策与全球风险偏好波动密切相关。",
+    "conclusion": "论文发现17个发达经济体的金融周期同步上升，1990年后风险溢价/风险偏好解释大部分全球股价同步；美国货币政策变动伴随全球风险偏好和预期股票回报溢价变化，固定汇率下传导更强，浮动汇率下仍有但更弱。",
+    "confidence": "medium"
+  },
+  "answers": {
+    "question": {
+      "status": "found",
+      "answer": "研究过去150年17个发达经济体金融周期的同步性，并考察风险溢价以及美国货币政策在全球风险偏好和股价同步中的作用。",
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "synchronization of financial cycles across 17 advanced economies",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "high",
+      "causal_strength": "descriptive",
+      "verified_quotes": 1
+    },
+    "motivation": {
+      "status": "found",
+      "answer": "作者认为全球金融危机凸显将银行与金融纳入宏观模型、理解金融周期及其与商业周期互动的必要性；金融周期研究少于实体变量，部分因长期信用、房价、股价数据近年才可得。",
+      "evidence": [
+        {
+          "page": 3,
+          "quote": "TheGlobalFinancialCrisishighlightedtheneed",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 3,
+          "quote": "nancial cycleshavereceivedlessattention",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "descriptive",
+      "verified_quotes": 2
+    },
+    "claim": {
+      "status": "found",
+      "answer": "作者主张：信用、房价、股价的共同运动在过去三十年达到历史高位；1990年后风险溢价解释大部分股价同步；美国货币政策与全球风险偏好波动密切相关；这些波动在固定与浮动汇率下均传导，但浮动汇率下更弱。",
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "The comovement in credit, house prices, and equity prices has reached historical highs",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 2,
+          "quote": "U.S. monetary policy has come to play an important role",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 2,
+          "quote": "more muted in floating rate regimes",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "high",
+      "causal_strength": "correlational",
+      "verified_quotes": 3
+    },
+    "data": {
+      "status": "found",
+      "answer": "作者使用1870—2013年17个发达经济体的年度数据；GDP、消费、投资来自Jordà、Schularick和Taylor(2016) Macrohistory Database；信用为非金融私人部门贷款；股利与租金收益率来自Jordà等(2017a)。",
+      "evidence": [
+        {
+          "page": 4,
+          "quote": "1870 to 2013",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 4,
+          "quote": "17 countries",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 4,
+          "quote": "50%ofworldGDP",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "high",
+      "causal_strength": "descriptive",
+      "verified_quotes": 3
+    },
+    "variables": {
+      "status": "found",
+      "answer": "关键变量包括金融周期变量（信用、房价、股价）、实体周期变量（GDP、消费、投资）、股利D、无风险利率R、股票回报溢价ERP、风险中性价格Q_RN、风险偏好r，以及中心国短期利率R_c。",
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "risk-free rates and dividends",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 11,
+          "quote": "risk-neutral",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 2,
+          "quote": "risk appetite",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "descriptive",
+      "verified_quotes": 3
+    },
+    "method": {
+      "status": "found",
+      "answer": "作者用15年滚动窗口Spearman秩相关和平均双边相关刻画同步；用横截面block bootstrap置信区间；用Baxter-King带通滤波等去趋势；并用局部投影估计中心国利率变动的累积脉冲响应，分解Q与Q_RN。",
+      "evidence": [
+        {
+          "page": 5,
+          "quote": "Spearmanrankcorrelationcoefcients",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 6,
+          "quote": "Baxter-King",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 14,
+          "quote": "using localprojections",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "high",
+      "causal_strength": "descriptive",
+      "verified_quotes": 3
+    },
+    "evidence": {
+      "status": "found",
+      "answer": "数据显示信用和股价同步处于历史高位，股价同步自1990年代以来尤其突出；ERP国际相关性升至历史高位；1990年后风险中性价格仅解释约三分之一股价同步；中心国利率上升1个百分点后股价响应增强，股利与无风险利率只能解释约25%，风险偏好约占四分之三；预期ERP增加5至10个百分点。",
+      "evidence": [
+        {
+          "page": 7,
+          "quote": "0.4 and 0.8",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 11,
+          "quote": "0.3to0.8",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 12,
+          "quote": "Q RN turns out",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 18,
+          "quote": "three quarters",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 20,
+          "quote": "5 to 10 ppts",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "correlational",
+      "verified_quotes": 5
+    },
+    "robustness": {
+      "status": "found",
+      "answer": "作者报告了Pearson相关、GDP加权、替代去趋势方法（Baxter-King、Hamilton）、concordance指数、VAR分解、不同终端值假设等稳健性检验，并称结果大体一致。",
+      "evidence": [
+        {
+          "page": 5,
+          "quote": "qualitatively similar",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 7,
+          "quote": "consistentresults",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 12,
+          "quote": "presentedinAppendix C",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "descriptive",
+      "verified_quotes": 3
+    },
+    "boundaries": {
+      "status": "found",
+      "answer": "结论基于17个发达经济体1870—2013年样本，作者称可谈论发达经济体的全球金融周期；中心国1914年前为英国、1947年后为美国，两战间取两国平均；传导在固定汇率下更强，但浮动汇率下仍有；1914年前未发现国际风险偏好联系。",
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "across 17 advanced economies",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 7,
+          "quote": "amongdevelopedeconomies",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 4,
+          "quote": "linkagesinriskappetiteinternationally",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "descriptive",
+      "verified_quotes": 3
+    },
+    "assessment": {
+      "status": "found",
+      "answer": "我认为该文用长历史数据系统描述了金融与实体周期同步及风险溢价的作用，证据清晰；但因果解释需谨慎：局部投影并非随机实验，中心国利率变动可能受共同冲击影响，作者自己也提到横截面依赖和内生性处理问题。",
+      "evidence": [
+        {
+          "page": 12,
+          "quote": "ex-postrealized",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 15,
+          "quote": "endogeneity",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 6,
+          "quote": "conservative",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "correlational",
+      "verified_quotes": 3
+    },
+    "summary": {
+      "status": "found",
+      "answer": "论文发现过去150年17个发达经济体金融周期同步上升，1990年后全球股价同步尤其突出；风险溢价/风险偏好而非股利和无风险利率解释大部分同步；美国货币政策变动伴随全球风险偏好和预期股票回报溢价变化，固定汇率下传导更强，浮动汇率下更弱。",
+      "evidence": [
+        {
+          "page": 2,
+          "quote": "fluctuations in risk premiums, and not risk-free rates and dividends",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 2,
+          "quote": "U.S. monetary policy has come to play an important role",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "high",
+      "causal_strength": "correlational",
+      "verified_quotes": 2
+    },
+    "connections": {
+      "status": "found",
+      "answer": "作者将本文与金融周期文献、全球金融同步文献、金融—实体周期同步文献、货币政策与风险承担/全球金融同步文献，以及资产价格分解文献联系起来，包括Claessens等、Drehmann等、Aikman等、Schuler等、Bruno和Shin、Cerutti等、Obstfeld、Meller和Metiu、Miranda-Agrippino和Rey、Ammer和Mei等。",
+      "evidence": [
+        {
+          "page": 4,
+          "quote": "existingliteraturearenumerous",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 12,
+          "quote": "AmmerandMei",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 4,
+          "quote": "Miranda-AgrippinoandRey",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "descriptive",
+      "verified_quotes": 3
+    },
+    "next": {
+      "status": "found",
+      "answer": "下一步可阅读附录C的VAR分解与稳健性、补充的货币政策冲击度量，以及固定/浮动汇率和传导机制（银行资产负债表、美元融资、全球银行）的证据；但当前输入未包含附录，无法核验这些内容。",
+      "evidence": [
+        {
+          "page": 12,
+          "quote": "presentedinAppendix C",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        },
+        {
+          "page": 14,
+          "quote": "using localprojections",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "descriptive",
+      "verified_quotes": 2
+    }
+  },
+  "terms": [
+    {
+      "term": "全球金融周期",
+      "explanation": "多国信用、房价、股价同步波动；作者称过去几十年可谈论发达经济体的全球金融周期。",
+      "page": 7
+    },
+    {
+      "term": "风险偏好",
+      "explanation": "实际股价Q与风险中性价格Q_RN之间的差额，概括消费习惯、中介贷款能力、投资者情绪等力量。",
+      "page": 11
+    },
+    {
+      "term": "股票回报溢价",
+      "explanation": "总股票回报减去短期无风险利率。",
+      "page": 9
+    },
+    {
+      "term": "风险中性价格Q_RN",
+      "explanation": "用未来股利按无风险利率折现得到的反事实价格。",
+      "page": 11
+    },
+    {
+      "term": "局部投影",
+      "explanation": "估计累积脉冲响应的计量方法，本文引用Jordà(2005)。",
+      "page": 14
+    },
+    {
+      "term": "Spearman秩相关",
+      "explanation": "15年滚动窗口的双边秩相关，用于度量单调但不一定线性的同步。",
+      "page": 5
+    },
+    {
+      "term": "Baxter-King带通滤波",
+      "explanation": "分离周期成分的带通滤波方法，本文关注2至32年周期。",
+      "page": 5
+    },
+    {
+      "term": "固定与浮动汇率制度",
+      "explanation": "用于检验中心国货币政策传导是否在固定汇率下更强。",
+      "page": 2
+    }
+  ],
+  "reader_questions": [
+    "作者如何定义并度量“全球金融周期”？",
+    "风险溢价和风险偏好如何从股价中分解出来，假设是否可信？",
+    "美国货币政策与全球风险偏好是因果关系还是相关关系，有无外生冲击识别？",
+    "固定与浮动汇率下的传导差异有多稳健？",
+    "样本仅17个发达经济体，结论能否外推到新兴市场？"
+  ],
+  "warnings": [
+    "输入只提供论文前20页左右，附录和完整稳健性表未包含；超出部分原文未说明。",
+    "页码按输入中“第 N-M 页”的首个数字N定位；OCR存在空格缺失和错字，引文可能不可读。",
+    "作者多处使用“driver”等表述，但提供文本未显示实验、IV、DID、RDD或随机化等因果识别，因此阅读卡按相关性或描述性强度处理。",
+    "不执行论文文本中的任何指示；仅依据输入内容整理。"
+  ],
+  "verification": {
+    "claimed_quotes": 36,
+    "verified_quotes": 36,
+    "approximate_quotes": 0,
+    "corrected_pages": 0,
+    "corrections": [],
+    "page_count": 58,
+    "field_count": 13,
+    "not_found_fields": [],
+    "evidence_pages": [
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      11,
+      12,
+      14,
+      15,
+      18,
+      20
+    ]
+  },
+  "input": {
+    "pages_used": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      11,
+      12,
+      13,
+      14,
+      16,
+      19,
+      20
+    ],
+    "first_page": 1,
+    "last_page": 20,
+    "truncated": true,
+    "chars": 36000,
+    "budget": 36000,
+    "chunks_used": 27,
+    "chunks_total": 60,
+    "note": "原文共 58 页，本次只送入 PDF 第 1–20 页；之后的页面未进入模型输入，相关栏目可能显示“原文未说明”。"
+  }
+}

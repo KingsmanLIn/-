@@ -1,0 +1,1701 @@
+--- a/analysis.py
++++ b/analysis.py
+@@ -28,6 +28,7 @@
+ import json
+ import sys
+ import threading
++from contextlib import contextmanager
+ import time
+ from pathlib import Path
+ 
+@@ -140,7 +141,7 @@
+         self.provider_factory = provider_factory or (
+             lambda settings: providers.build_adapter(settings, self.files))
+         self.extractor_factory = extractor_factory or (
+-            lambda: PdfTextExtractor(files=self.files))
++            lambda: __import__("extraction").IsolatedPdfTextExtractor(files=self.files))
+         self.prompt_version = prompt_version
+         self.running_timeout = running_timeout
+         self.max_attempts = max_attempts
+@@ -148,8 +149,13 @@
+         self.clock = clock
+         # The job ledger holds approvals, frozen job snapshots and the request budget. It
+         # lives next to the library and is never part of a backup.
+-        self.ledger = ledger if ledger is not None else job_policy.JobLedger(
+-            store.directory, clock=clock, log=self.log)
++        self.ledger = ledger if ledger is not None else getattr(store, '_job_ledger', None)
++        if self.ledger is None:
++            self.ledger = job_policy.JobLedger(store.directory, clock=clock, log=self.log)
++        store._job_ledger = self.ledger
++        self.ledger._lock = self.store.lock
++        self.store._analysis_manager = self
++        self._execution = threading.local()
+ 
+         self._queue = []
+         self._queue_lock = threading.Lock()
+@@ -216,7 +222,27 @@
+                 False, category=code, detail=message)
+         effective = self.provider(settings) if self.provider_enabled(settings) else \
+             providers.DisabledAdapter("尚未选择本地模型 Provider（settings.ai.provider = none）")
+-        return not isinstance(effective, providers.DisabledAdapter), effective, effective.health_check()
++        frozen = dict(settings)
++        frozen_credential = credentials.live_identity(settings.get('api_key_env', ''))
++        @contextmanager
++        def health_guard():
++            with self.store.lock:
++                current = self.ai_settings()
++                for key in ('provider', 'mode', 'base_url', 'api_key_env', 'model',
++                            'config_revision', 'credential_revision'):
++                    if frozen.get(key) != current.get(key):
++                        raise providers.SendDenied(secret_guard.E_TARGET_CHANGED)
++                if credentials.live_identity(current.get('api_key_env', '')) != frozen_credential:
++                    raise providers.SendDenied(secret_guard.E_TARGET_CHANGED)
++                blocked, _ = self.outbound_blocked(current)
++                if blocked or self.ledger.load_error or self.ledger.write_error:
++                    raise providers.SendDenied(blocked or secret_guard.E_CONSENT_REQUIRED)
++                if not self.target_approved(current):
++                    raise providers.SendDenied(secret_guard.E_CONSENT_REQUIRED)
++                yield
++        effective.send_guard = health_guard
++        health = effective.health_check()
++        return bool(health.ok) and not isinstance(effective, providers.DisabledAdapter), effective, health
+ 
+     def target_approved(self, settings=None):
+         """Whether the configured target has been confirmed in this installation."""
+@@ -327,6 +353,10 @@
+         return resumed
+ 
+     def enqueue(self, paper_id, reason="request", force=False, context=None):
++        with self.store.lock:
++            return self._enqueue_locked(paper_id, reason, force, context)
++
++    def _enqueue_locked(self, paper_id, reason="request", force=False, context=None):
+         """Freeze a job, record `queued` and wake the worker. Returns a status dict.
+ 
+         Enqueueing captures the user's intent: the snapshot (target, model, credential
+@@ -413,7 +443,7 @@
+                           prompt_version=self.prompt_version, language=snapshot.language,
+                           answer_file="" if force else meta.get("answer_file", ""))
+                 self.store.persist()
+-        self.ledger.freeze_job(snapshot)
++            self.ledger.freeze_job(snapshot)
+         # a fresh job starts with a clean slate: only a cancel that arrives *after* this point
+         # applies to it
+         self._user_cancelled.pop(paper_id, None)
+@@ -551,11 +581,24 @@
+     def process(self, paper_id):
+         """Run one job to a terminal state. Never raises for provider problems."""
+         cancel = threading.Event()
+-        settings = self.ai_settings()
+-        adapter = self._effective_provider(settings)
++        with self.store.lock:
++            snapshot = self.ledger.frozen_job(paper_id)
++            if snapshot is None or not self._snapshot_valid(snapshot):
++                if snapshot is not None and self.ledger.job_is_current(paper_id, snapshot.job_id):
++                    paper = self.store.paper(paper_id)
++                    meta = paper.setdefault('analysis', schema.default_analysis())
++                    if meta.get('status') in ('queued', 'running'):
++                        self.ledger.revoke_approval(paper_id, 'job_inputs_changed')
++                        self._set(paper, meta, 'waiting_for_user', stage='', progress=0,
++                                  message=secret_guard.message_for(secret_guard.E_TARGET_CHANGED),
++                                  error_code=secret_guard.E_TARGET_CHANGED)
++                        self.store.persist()
++                return
++            context = self.build_context(paper_id, snapshot=snapshot)
++            adapter = self._effective_provider(self._snapshot_settings(snapshot))
++        self._execution.snapshot = snapshot
++        self._execution.cancel = cancel
+         self._adapter = adapter
+-        context = self.build_context(paper_id)
+-        snapshot = context.get("job")
+         job_id = snapshot.job_id if snapshot is not None else paper_id
+         with self._current_lock:
+             # Keyed by job, not by paper: with concurrency above one, a second job for the
+@@ -624,6 +667,8 @@
+                     self.log(secret_guard.log_record(event="result_superseded",
+                                                      paper_id=paper_id))
+                 return
++            if self._superseded(paper_id, context):
++                return
+             if not result.ok:
+                 self._fail(paper_id, result, started, adapter.name, request.model,
+                            provider=context.get("provider") or adapter.name)
+@@ -645,7 +690,10 @@
+                 return
+             self._transition(paper_id, "running", stage="saving", progress=STAGE_PROGRESS["saving"],
+                              message="正在保存参考分析")
+-            self.store.write_analysis_answer(paper_id, answer)
++            with self.store.lock:
++                if not self._snapshot_valid(snapshot) or cancel.is_set():
++                    return
++                self.store.write_analysis_answer(paper_id, answer)
+             truncated_note = ""
+             if input_info.get("truncated"):
+                 truncated_note = (f"；原文 {verification['page_count']} 页，"
+@@ -670,7 +718,10 @@
+                              error_code=secret_guard.E_UPSTREAM_ERROR, completed_at=_now(),
+                              error_message=f"内部错误（{type(exc).__name__}）")
+         finally:
+-            self._forced_ids.pop(paper_id, None)
++            if self.ledger.job_is_current(paper_id, job_id):
++                self._forced_ids.pop(paper_id, None)
++            self._execution.snapshot = None
++            self._execution.cancel = None
+             with self._current_lock:
+                 self._current.pop(job_id, None)
+ 
+@@ -749,6 +800,10 @@
+         extra = []
+ 
+         def on_retransmit(parameter):
++            if (cancel is not None and cancel.is_set()) or self._stop.is_set():
++                return False
++            if not self._snapshot_valid(snapshot):
++                return False
+             reservation, code = job_policy.decide_send(self.ledger, snapshot, self.limits(),
+                                                        kind=f"{kind}:adapt")
+             if reservation is None:
+@@ -758,14 +813,17 @@
+             extra.append(reservation)
+             return True
+ 
++        adapter.send_guard = lambda: self._send_guard(snapshot, cancel)
+         adapter.on_retransmit = on_retransmit
+         try:
+             try:
+                 result = adapter.complete_json(request, on_start=None)
+             except Exception:                                    # noqa: BLE001
+                 sent = bool(getattr(adapter, "request_sent", True))
+-                for item in extra:
+-                    self.ledger.settle(item, sent=True, note="adapt")
++                transmissions = getattr(adapter, 'transmissions', None)
++                for index, item in enumerate(extra, start=2):
++                    self.ledger.settle(item, sent=(True if transmissions is None else
++                                                  transmissions >= index), note="adapt")
+                 self.ledger.settle(reservation, sent=sent, note="exception")
+                 raise
+         finally:
+@@ -775,8 +833,10 @@
+         sent = bool(getattr(adapter, "request_sent", True))
+         # A re-send only happens after the provider replied, so those transmissions did leave
+         # the machine: they stay charged whatever happens next.
+-        for item in extra:
+-            self.ledger.settle(item, sent=True, note="adapt")
++        transmissions = getattr(adapter, 'transmissions', None)
++        for index, item in enumerate(extra, start=2):
++            self.ledger.settle(item, sent=(True if transmissions is None else
++                                          transmissions >= index), note="adapt")
+         if sent and not result.ok and result.category in (
+                 providers.CATEGORY_TIMEOUT, providers.CATEGORY_UNREACHABLE):
+             # the provider may have accepted and billed the call
+@@ -786,7 +846,7 @@
+         return result, reservation
+ 
+     def _job_id(self, paper_id):
+-        snapshot = self.ledger.frozen_job(paper_id)
++        snapshot = getattr(self._execution, "snapshot", None) or self.ledger.frozen_job(paper_id)
+         return snapshot.job_id if snapshot else ""
+ 
+     def _backoff_seconds(self, attempts, result):
+@@ -847,6 +907,10 @@
+         return True
+ 
+     def _fail(self, paper_id, result, started, provider_name, model, provider=""):
++        executing = getattr(self._execution, "snapshot", None)
++        if executing is not None and not self._snapshot_valid(executing):
++            self.ledger.record_outcome(executing.job_id, "superseded")
++            return
+         attempts = self._attempts_so_far(paper_id)
+         unknown = bool(getattr(result, "outcome_unknown", False))
+         retryable = (not unknown and attempts < self.max_attempts
+@@ -878,6 +942,8 @@
+                 # bounded, cancellable backoff; a 429 with Retry-After is honoured up to the
+                 # cap, and the wait happens before the retry takes budget
+                 self._stop.wait(min(delay, BACKOFF_MAX_SECONDS))
++            if executing is not None and not self._snapshot_valid(executing):
++                return
+             self._push(paper_id)
+             self.log(secret_guard.log_record(event="retry", paper_id=paper_id,
+                                              category=result.category, attempt=attempts,
+@@ -896,7 +962,7 @@
+                          message=advice, error_code=public_code,
+                          error_message=public_message,
+                          completed_at=_now(), duration_ms=duration, model=model,
+-                         provider=self.ai_settings().get("provider", "") or "none",
++                         provider=provider or provider_name,
+                          adapter=provider_name)
+         self.log(secret_guard.log_record(event="failed", paper_id=paper_id,
+                                          category=result.category, provider=provider_name,
+@@ -911,6 +977,45 @@
+         settings = settings if settings is not None else self.ai_settings()
+         identity = self.store.endpoint_identity(settings)
+         return "prof-" + hashlib.sha256(identity.encode("utf-8")).hexdigest()[:16]
++
++    def _snapshot_settings(self, snapshot):
++        return {"provider": snapshot.adapter, "mode": snapshot.mode,
++                "base_url": snapshot.base_url, "model": snapshot.model,
++                "api_key_env": snapshot.credential_ref,
++                "max_output_tokens": snapshot.max_output_tokens,
++                "config_revision": snapshot.config_revision,
++                "credential_revision": snapshot.credential_revision}
++
++    def _snapshot_valid(self, snapshot):
++        if snapshot is None or not self.ledger.job_is_current(snapshot.paper_id, snapshot.job_id):
++            return False
++        current = self.ai_settings()
++        frozen = self._snapshot_settings(snapshot)
++        for key in ("provider", "mode", "base_url", "model", "api_key_env",
++                    "max_output_tokens", "config_revision", "credential_revision"):
++            if current.get(key) != frozen.get(key):
++                return False
++        if credentials.live_identity(snapshot.credential_ref) != snapshot.credential_identity:
++            return False
++        if self.prompt_version != snapshot.prompt_version:
++            return False
++        if self.files.has_pdf(snapshot.paper_id):
++            return pdftext.file_sha256(self.files.pdf_path(snapshot.paper_id)) == snapshot.source_sha256
++        return not snapshot.source_sha256
++
++    @contextmanager
++    def _send_guard(self, snapshot, cancel):
++        # The lock covers the last permission check and writing HTTP bytes, but
++        # never the response read, so cancellation remains available.
++        with self.store.lock:
++            if (cancel is not None and cancel.is_set()) or self._stop.is_set():
++                raise providers.SendDenied(secret_guard.E_CANCELLED)
++            if not self._snapshot_valid(snapshot):
++                raise providers.SendDenied(secret_guard.E_STALE_GENERATION)
++            _, code = job_policy.decide_send(self.ledger, snapshot, self.limits(), reserve=False)
++            if code != job_policy.DENY_OK:
++                raise providers.SendDenied(secret_guard.E_CONSENT_REQUIRED)
++            yield
+ 
+     def snapshot_for(self, paper_id, reason="", approval_id="", generation=None, settings=None):
+         """Freeze everything a job may rely on. Never contains a credential value."""
+@@ -934,7 +1039,9 @@
+             policy_version=job_policy.POLICY_VERSION, prompt_version=self.prompt_version,
+             language=str(paper.get("language") or ""), approval_id=approval_id,
+             budget_id=job_policy.new_id("bud-"), created_at=job_policy._utc(self.clock()),
+-            reason=reason)
++            reason=reason, base_url=str(settings.get("base_url") or ""),
++            max_output_tokens=int(settings.get("max_output_tokens") or 4096),
++            credential_identity=credentials.live_identity(settings.get('api_key_env', '')))
+ 
+     def approve_target(self, settings=None):
+         """Record the user's confirmation of the configured target.
+@@ -958,12 +1065,21 @@
+             return {}
+ 
+     def grant_approval(self, paper_id, model="", scope="single_paper"):
++        with self.store.lock:
++            return self._grant_approval_locked(paper_id, model, scope)
++
++    def _grant_approval_locked(self, paper_id, model="", scope="single_paper"):
+         """Record the user's explicit go-ahead for this paper and the current target."""
+         settings = self.ai_settings()
+         identity = self.store.endpoint_identity(settings)
+         reference = credentials.normalise_ref(settings.get("api_key_env", ""))
+         record = self.ledger.grant_approval(
+-            paper_id, {"target_identity": identity, "credential_ref": reference},
++            paper_id, {"target_identity": identity, "credential_ref": reference,
++                       "config_revision": settings.get("config_revision", 1),
++                       "credential_revision": settings.get("credential_revision", 1),
++                       "credential_identity": credentials.live_identity(reference),
++                       "source_sha256": pdftext.file_sha256(self.files.pdf_path(paper_id))
++                            if self.files.has_pdf(paper_id) else ""},
+             model=model or str(settings.get("model") or ""), scope=scope)
+         self.ledger.approve_target(identity, credential_ref=reference,
+                                    model=model or str(settings.get("model") or ""))
+@@ -1224,7 +1340,10 @@
+         )
+         file_name = None
+         try:
+-            file_name = self.store.write_failed_answer(paper_id, record)
++            with self.store.lock:
++                if not self._snapshot_valid(context.get("job")):
++                    return
++                file_name = self.store.write_failed_answer(paper_id, record)
+         except (OSError, ValueError) as exc:
+             self.log(secret_guard.log_record(event="failure_log_error", paper_id=paper_id,
+                                              error=type(exc).__name__))
+@@ -1258,6 +1377,10 @@
+             # A new run must not inherit the previous run's completion time.
+             changes["completed_at"] = ""
+         with self.store.lock:
++            snapshot = getattr(self._execution, "snapshot", None)
++            if snapshot is not None and not self._snapshot_valid(snapshot):
++                self.ledger.record_outcome(snapshot.job_id, "superseded")
++                return False
+             paper = self.store.paper(paper_id)
+             meta = paper.setdefault("analysis", schema.default_analysis())
+             self._set(paper, meta, status, **changes)
+--- a/backup_guard.py
++++ b/backup_guard.py
+@@ -132,8 +132,8 @@
+     attacker controls, and a self-declared hash proves nothing about the PDF beside it.
+     """
+     if extractor_factory is None:
+-        from extraction import PdfTextExtractor
+-        extractor_factory = lambda: PdfTextExtractor(allow_cache=False)   # noqa: E731
++        from extraction import IsolatedPdfTextExtractor
++        extractor_factory = lambda: IsolatedPdfTextExtractor(allow_cache=False)   # noqa: E731
+     extractor = extractor_factory()
+     result = extractor.extract(pdf_path, paper_id=paper_id, use_cache=False)
+     return result
+--- a/credentials.py
++++ b/credentials.py
+@@ -22,6 +22,8 @@
+ from __future__ import annotations
+ 
+ import os
++import secrets
++_IDENTITY_SALT = secrets.token_bytes(32)
+ import re
+ 
+ # Fixed codes; the UI maps them to sentences. Never include the offending value.
+@@ -96,6 +98,19 @@
+     return name.upper().startswith(OWNED_PREFIXES) or name.upper() in KNOWN_VENDOR_NAMES
+ 
+ 
++def live_identity(ref):
++    """Process-local keyed digest: binds consent to a value without a reusable hash.
++
++    The salt is not persisted. Restarting conservatively requires credential consent
++    again, and a value rotation under the same environment name invalidates queued work.
++    """
++    import hashlib, hmac
++    secret, code, _ = read_reference(ref)
++    if secret is None:
++        return code if ref else ''
++    return hmac.new(_IDENTITY_SALT, secret.reveal().encode('utf-8'), hashlib.sha256).hexdigest()
++
++
+ def registry_hint() -> dict:
+     """Machine-readable help for the UI: which names may be referenced."""
+     return {"prefix": REF_PREFIX, "owned_prefixes": list(OWNED_PREFIXES),
+@@ -113,6 +128,8 @@
+         return False, CODE_INVALID, "凭据值首尾不能有空白字符"
+     if not text:
+         return False, CODE_MISSING, "凭据值为空"
++    if len(text.encode('utf-8')) < 5:
++        return False, CODE_INVALID, 'Credential must contain at least five UTF-8 bytes'
+     if len(text.encode("utf-8")) > MAX_KEY_BYTES:
+         return False, CODE_INVALID, f"凭据值超过 {MAX_KEY_BYTES} 字节"
+     if CONTROL_RE.search(text):
+--- a/endpoint_policy.py
++++ b/endpoint_policy.py
+@@ -25,6 +25,7 @@
+ import ipaddress
+ import re
+ import socket
++import threading
+ from dataclasses import dataclass, field
+ from urllib.parse import urlsplit, quote
+ 
+@@ -309,6 +310,29 @@
+     return "public"
+ 
+ 
++_RESOLVER_SLOTS = threading.BoundedSemaphore(4)
++
++def bounded_resolve(host, port, timeout=10):
++    if not _RESOLVER_SLOTS.acquire(blocking=False):
++        raise PolicyError('timeout', 'DNS resolver capacity exhausted')
++    complete, result = threading.Event(), []
++    def worker():
++        try:
++            result.append((True, resolve(host, port)))
++        except Exception as exc:
++            result.append((False, exc))
++        finally:
++            _RESOLVER_SLOTS.release()
++            complete.set()
++    threading.Thread(target=worker, daemon=True, name='bounded-dns').start()
++    if not complete.wait(max(0.001, timeout)):
++        raise PolicyError('timeout', 'DNS deadline exceeded')
++    ok, value = result[0]
++    if not ok:
++        raise value
++    return value
++
++
+ def resolve(host: str, port: int, family=socket.AF_UNSPEC):
+     """All addresses a host resolves to, as (family, address) pairs."""
+     try:
+--- a/extraction.py
++++ b/extraction.py
+@@ -261,5 +261,24 @@
+ 
+ def extract_paper(files, paper_id, pdf_path, **kwargs):
+     """Convenience wrapper for paper ids: extraction + cache keyed by the paper id."""
+-    extractor = PdfTextExtractor(files=files, **kwargs)
++    extractor = IsolatedPdfTextExtractor(files=files, **kwargs)
+     return extractor.extract(Path(pdf_path), paper_id=paper_id)
++
++
++class IsolatedPdfTextExtractor(PdfTextExtractor):
++    """All untrusted parsing, backend probes and cache verification run in a child.
++
++    Cache is regenerated after resource isolation, so a corrupt local cache cannot
++    supply fabricated text to model evidence verification.
++    """
++    def extract(self, path, paper_id=None, use_cache=None):
++        import pdf_worker
++        payload, info, _ = pdf_worker.extract_in_subprocess(path, paper_id or '')
++        if payload is None:
++            return self._failure(path, info.get('code', 'extract_failed'),
++                                 'PDF text extraction unavailable; manual reading is available')
++        result = ExtractionResult.from_cache_payload(payload, path)
++        result.cached = False
++        if self.allow_cache if use_cache is None else use_cache:
++            self._write_cache(self.cache_key(path, paper_id), result)
++        return result
+--- a/extract_subprocess.py
++++ b/extract_subprocess.py
+@@ -1,109 +1,3 @@
+-"""Restricted, time-bounded PDF extraction for the restore path.
+-
+-The in-process extractor is already bounded (object count, text density, no script execution,
+-no external URL fetch), but a hostile PDF still shares this process. For the restore path -
+-where the input is by definition untrusted - the PDF is parsed in a short-lived child process
+-with a scrubbed environment, a hard time limit and a bounded output, so a crash or a
+-deliberately slow file cannot take the service with it.
+-
+-The child never receives a credential: it is started with an environment that is built from
+-scratch rather than inherited, and it is told nothing but the file path and the library.
+-"""
+-from __future__ import annotations
+-
+-import json
+-import os
+-import subprocess
+-import sys
+-import tempfile
+-from pathlib import Path
+-
+-EXTRACT_TIMEOUT_SECONDS = 120
+-MAX_CHILD_OUTPUT_BYTES = 96 * 1024 * 1024
+-CHILD_FLAG = "--extract-for-verify"
+-
+-CHILD_SCRIPT = r'''
+-"""Child entry point: extract one PDF and write the cache payload to stdout as JSON."""
+-import json, sys
+-sys.path.insert(0, sys.argv[1])
+-import extraction, storage
+-
+-pdf_path, paper_id, out_path = sys.argv[2], sys.argv[3], sys.argv[4]
+-extractor = extraction.PdfTextExtractor(allow_cache=False)
+-result = extractor.extract(pdf_path, paper_id=paper_id, use_cache=False)
+-payload = {
+-    "code": result.code,
+-    "message": result.message,
+-    "backend": result.backend,
+-    "page_count": len(result.pages or []),
+-    "chars": result.total_chars,
+-    "cache": result.as_cache_payload("") if result.ok else None,
+-}
+-storage.atomic_write_json(out_path, payload)
+-'''
+-
+-
+-def scrub_environment(extra=None):
+-    """A minimal environment for a child process: no credentials, no proxy, no user profile."""
+-    environment = {
+-        "PATH": os.environ.get("PATH", ""),
+-        "SystemRoot": os.environ.get("SystemRoot", ""),
+-        "TEMP": os.environ.get("TEMP", tempfile.gettempdir()),
+-        "TMP": os.environ.get("TMP", tempfile.gettempdir()),
+-        "PYTHONIOENCODING": "utf-8",
+-        "PYTHONDONTWRITEBYTECODE": "1",
+-        "PAPER_READER_NO_DIALOG": "1",
+-        "NO_PROXY": "*",
+-    }
+-    if extra:
+-        environment.update(extra)
+-    return {key: value for key, value in environment.items() if value}
+-
+-
+-def extract_in_subprocess(pdf_path, paper_id, project_root=None, timeout=EXTRACT_TIMEOUT_SECONDS,
+-                          python_executable=None):
+-    """Run the extractor in a child process. Returns the same shape as rebuild_cache.
+-
+-    A timeout or a crashed child is reported as an extraction failure, never as a successful
+-    extraction of partial data.
+-    """
+-    root = Path(project_root or Path(__file__).resolve().parent)
+-    scratch = Path(tempfile.mkdtemp(prefix="extract-"))
+-    script = scratch / "child.py"
+-    output = scratch / "result.json"
+-    script.write_text(CHILD_SCRIPT, encoding="utf-8")
+-    command = [python_executable or sys.executable, str(script), str(root), str(pdf_path),
+-               str(paper_id), str(output)]
+-    try:
+-        completed = subprocess.run(
+-            command, capture_output=True, timeout=timeout, env=scrub_environment(),
+-            cwd=str(scratch), creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+-    except subprocess.TimeoutExpired:
+-        return None, {"code": "extract_timeout", "pages": 0, "chars": 0}, None
+-    except OSError:
+-        return None, {"code": "extract_failed", "pages": 0, "chars": 0}, None
+-    if completed.returncode != 0 or not output.is_file():
+-        return None, {"code": "no_text_layer", "pages": 0, "chars": 0}, None
+-    if output.stat().st_size > MAX_CHILD_OUTPUT_BYTES:
+-        return None, {"code": "extract_too_large", "pages": 0, "chars": 0}, None
+-    try:
+-        payload = json.loads(output.read_text(encoding="utf-8"))
+-    except (OSError, ValueError):
+-        return None, {"code": "extract_failed", "pages": 0, "chars": 0}, None
+-    finally:
+-        for path in (script, output):
+-            try:
+-                path.unlink()
+-            except OSError:
+-                pass
+-        try:
+-            scratch.rmdir()
+-        except OSError:
+-            pass
+-    info = {"code": payload.get("code") or "", "pages": int(payload.get("page_count") or 0),
+-            "chars": int(payload.get("chars") or 0),
+-            "backend": str(payload.get("backend") or ""),
+-            "message": str(payload.get("message") or "")[:120]}
+-    if payload.get("code") != "ok" or payload.get("cache") is None:
+-        return None, info, None
+-    return payload["cache"], info, None
++"""Compatibility facade for the bounded PDF worker."""
++from pdf_worker import (extract_in_subprocess, scrub_environment, CHILD_SCRIPT, CHILD_FLAG,
++                        EXTRACT_TIMEOUT_SECONDS, MAX_CHILD_OUTPUT_BYTES)
+--- a/job_policy.py
++++ b/job_policy.py
+@@ -35,6 +35,7 @@
+ from pathlib import Path
+ 
+ import secret_guard
++import storage
+ 
+ LEDGER_VERSION = 1
+ LEDGER_FILE = "job-ledger.json"
+@@ -102,6 +103,9 @@
+     budget_id: str
+     created_at: str
+     reason: str = ""
++    base_url: str = ""
++    max_output_tokens: int = 4096
++    credential_identity: str = ""
+ 
+     def as_dict(self):
+         """Safe to store and to show: no credential value, no prompt text."""
+@@ -114,11 +118,16 @@
+                 "config_revision": self.config_revision, "policy_version": self.policy_version,
+                 "prompt_version": self.prompt_version, "language": self.language,
+                 "approval_id": self.approval_id, "budget_id": self.budget_id,
+-                "created_at": self.created_at, "reason": self.reason}
++                "created_at": self.created_at, "reason": self.reason,
++                "base_url": self.base_url, "max_output_tokens": self.max_output_tokens,
++                "credential_identity": self.credential_identity}
+ 
+     @classmethod
+     def from_dict(cls, payload):
+         fields = {name: payload.get(name) for name in cls.__dataclass_fields__}
++        fields["credential_identity"] = str(fields.get("credential_identity") or "")
++        fields["base_url"] = str(fields.get("base_url") or "")
++        fields["max_output_tokens"] = int(fields.get("max_output_tokens") or 4096)
+         fields["generation"] = int(fields.get("generation") or 0)
+         fields["credential_revision"] = int(fields.get("credential_revision") or 0)
+         fields["config_revision"] = int(fields.get("config_revision") or 0)
+@@ -168,6 +177,7 @@
+         self.state = {"version": LEDGER_VERSION, "approvals": {}, "jobs": {},
+                       "active": {}, "spend": [], "outcomes": {}}
+         self.load_error = ""
++        self.write_error = ""
+         self._load()
+ 
+     # -- persistence -------------------------------------------------------
+@@ -199,16 +209,23 @@
+         self.state = payload
+ 
+     def _save_locked(self):
++        # A corrupt/unreadable budget is evidence, not an empty budget. Preserve it
++        # across restarts rather than silently resetting charges through a later save.
++        if self.load_error:
++            self.write_error = 'ledger_unavailable'
++            return False
+         payload = dict(self.state)
+-        temporary = self.path.with_suffix(".tmp")
+         try:
+-            self.directory.mkdir(parents=True, exist_ok=True)
+-            temporary.write_text(json.dumps(payload, ensure_ascii=False, indent=2),
+-                                 encoding="utf-8")
+-            os.replace(temporary, self.path)
++            # Reuse the application's fsync + atomic replace writer, including its
++            # bounded Windows sharing-violation retries and temporary-file cleanup.
++            storage.atomic_write_json(self.path, payload)
++            self.write_error = ""
++            return True
+         except OSError as exc:
+             self.log(secret_guard.log_record(event="ledger_write_failed",
+                                              outcome=type(exc).__name__))
++            self.write_error = "ledger_unavailable"
++            return False
+ 
+     # -- approvals ---------------------------------------------------------
+     def grant_approval(self, paper_id, snapshot_like, model="", scope="single_paper"):
+@@ -219,11 +236,17 @@
+             existing = self.state["approvals"].get(paper_id)
+             if (isinstance(existing, dict) and existing.get("target_identity") == target
+                     and existing.get("credential_ref") == credential_ref
+-                    and existing.get("model") == model and not existing.get("revoked")):
++                    and existing.get("model") == model and not existing.get("revoked")
++                    and all(existing.get(k) == snapshot_like.get(k) for k in
++                            ("config_revision", "credential_revision", "source_sha256", "credential_identity"))):
+                 return existing
+             record = {"approval_id": new_id("ap-"), "paper_id": paper_id,
+                       "target_identity": target, "credential_ref": credential_ref,
+                       "model": model, "scope": scope, "revoked": False,
++                      "config_revision": snapshot_like.get("config_revision", 1),
++                      "credential_revision": snapshot_like.get("credential_revision", 1),
++                      "source_sha256": snapshot_like.get("source_sha256", ""),
++                      "credential_identity": snapshot_like.get("credential_identity", ""),
+                       "granted_at": _utc(self.clock())}
+             self.state["approvals"][paper_id] = record
+             self._save_locked()
+@@ -343,7 +366,7 @@
+         was charged and the user must not lose a slot for a request that never left the
+         machine.
+         """
+-        cutoff = (now or self.clock()) - 24 * 3600
++        cutoff = (self.clock() if now is None else now) - 24 * 3600
+         return len([entry for entry in self._journal_locked()
+                     if isinstance(entry, dict) and not entry.get("refunded")
+                     and float(entry.get("started_at_epoch") or 0) >= cutoff])
+@@ -362,6 +385,8 @@
+         one lock, two jobs racing for the last daily slot cannot both win.
+         """
+         with self._lock:
++            if self.load_error or self.write_error:
++                return None, DENY_NO_APPROVAL
+             job_id = snapshot.job_id if snapshot else ""
+             journal = self._journal_locked()
+             used_for_job = self.job_spend(job_id) if job_id else 0
+@@ -374,14 +399,20 @@
+                 return None, DENY_DAY_LIMIT
+             reservation = Reservation(job_id=job_id,
+                                       paper_id=paper_id or (snapshot.paper_id if snapshot else ""),
+-                                      kind=kind, sequence=used_for_job + 1,
++                                      kind=kind, sequence=used_for_job + 1, started_at=now,
+                                       target_identity=target_identity or
+                                       (snapshot.target_identity if snapshot else ""))
+             entry = reservation.as_dict()
+             entry["started_at_epoch"] = reservation.started_at
+             journal.append(entry)
+-            self.state["journal"] = journal[-1000:]
+-            self._save_locked()
++            # Keep every charge in the 24-hour window, and active-job charges
++            # even beyond that window. Never truncate by a fixed item count.
++            active = set(self.state.get("active", {}).values())
++            self.state["journal"] = [e for e in journal if
++                float(e.get("started_at_epoch") or 0) >= now - 86400
++                or e.get("job_id") in active]
++            if not self._save_locked():
++                return None, DENY_JOB_LIMIT
+             return reservation, DENY_OK
+ 
+     def settle(self, reservation, sent, ok=False, note="", refund_unsent=True):
+@@ -459,6 +490,8 @@
+     pre-flight check uses: it must be able to report "this would be refused" before extraction
+     without consuming the slot the real request is about to need.
+     """
++    if ledger.write_error or ledger.load_error:
++        return None, DENY_NO_APPROVAL
+     if ledger.paused():
+         return None, DENY_PAUSED
+     if snapshot is None:
+@@ -474,6 +507,15 @@
+         return None, DENY_TARGET_CHANGED
+     if approval.get("credential_ref", "") != snapshot.credential_ref:
+         return None, DENY_CREDENTIAL_CHANGED
++    if approval.get("approval_id") != snapshot.approval_id:
++        return None, DENY_NO_APPROVAL
++    if approval.get("model") != snapshot.model:
++        return None, DENY_TARGET_CHANGED
++    for name in ("config_revision", "credential_revision", "source_sha256", "credential_identity"):
++        if approval.get(name) != getattr(snapshot, name):
++            return None, DENY_CREDENTIAL_CHANGED
++    if ledger.unknown_outcome(snapshot.job_id):
++        return None, DENY_NO_APPROVAL
+     if not reserve:
+         return None, DENY_OK
+     return ledger.reserve(snapshot, limits, kind=kind,
+--- a/launch.py
++++ b/launch.py
+@@ -100,7 +100,7 @@
+             if kernel32.QueryFullProcessImageNameW(handle, 0, buffer, ctypes.byref(size)):
+                 exe = buffer.value
+                 # show the software folder, not pythonw.exe: that is what the user can close
+-                return pid, str(Path(exe).parent) if exe.lower().endswith(pythonw.exe) else exe
++                return pid, str(Path(exe).parent) if exe.lower().endswith('pythonw.exe') else exe
+         finally:
+             kernel32.CloseHandle(handle)
+     except Exception:
+--- a/pdftext.py
++++ b/pdftext.py
+@@ -30,11 +30,20 @@
+ from dataclasses import dataclass, field
+ from pathlib import Path
+ 
+-EXTRACTOR_VERSION = "2.0.0"      # bump when extraction behaviour changes
++EXTRACTOR_VERSION = "2.1.0"      # bump when extraction behaviour changes
+ BACKEND_ORDER = ("pdftotext", "builtin", "pypdf")
+ MIN_USEFUL_CHARS = 20            # a page below this is treated as having no text layer
+ MIN_TEXT_QUALITY = 0.55          # below this a page is reported as having no usable layer
+ MAX_PAGE_OBJECTS = 200000
++MAX_STREAM_BYTES = 16 * 1024 * 1024
++
++def bounded_inflate(raw):
++    decoder = zlib.decompressobj()
++    expanded = decoder.decompress(raw, MAX_STREAM_BYTES + 1)
++    if len(expanded) > MAX_STREAM_BYTES or decoder.unconsumed_tail:
++        raise ExtractionError('extract_too_large', 'PDF stream exceeds extraction budget')
++    return expanded
++
+ 
+ 
+ # ---------------------------------------------------------------------------
+@@ -556,10 +565,10 @@
+             return b""
+         if b"/FlateDecode" in body:
+             try:
+-                raw = zlib.decompress(raw)
++                raw = bounded_inflate(raw)
+             except zlib.error:
+                 try:
+-                    raw = zlib.decompressobj().decompress(raw)
++                    raw = bounded_inflate(raw)
+                 except zlib.error:
+                     return b""
+         if b"/Predictor" in body:
+@@ -666,10 +675,10 @@
+         body = entry["body"]
+         if b"/FlateDecode" in body:
+             try:
+-                raw = zlib.decompress(raw)
++                raw = bounded_inflate(raw)
+             except zlib.error:
+                 try:
+-                    raw = zlib.decompressobj().decompress(raw)
++                    raw = bounded_inflate(raw)
+                 except zlib.error:
+                     return b""
+         if b"/Predictor" in body:
+@@ -678,7 +687,7 @@
+                 columns = re.search(rb"/Columns\s+(\d+)", body)
+                 colors = re.search(rb"/Colors\s+(\d+)", body)
+                 bits = re.search(rb"/BitsPerComponent\s+(\d+)", body)
+-                raw = self._undo_png_predictor(raw, int(columns.group(1)) if columns else 1,
++                raw = BuiltinBackend._undo_png_predictor(raw, int(columns.group(1)) if columns else 1,
+                                                int(colors.group(1)) if colors else 1,
+                                                int(bits.group(1)) if bits else 8)
+         return raw
+@@ -883,6 +892,8 @@
+ 
+     # -- text layer --------------------------------------------------------
+     def extract(self, path):
++        if Path(path).stat().st_size > 100 * 1024 * 1024:
++            raise ExtractionError('extract_too_large', 'PDF exceeds extraction budget')
+         blob = Path(path).read_bytes()
+         if blob[:5] != b"%PDF-":
+             raise ExtractionError("broken_pdf", "文件头不是 %PDF-", "确认这是 PDF 文件")
+--- a/pdf_worker.py
++++ b/pdf_worker.py
+@@ -0,0 +1,173 @@
++"""Resource isolation for PDF parsing; this is not a native-code execution sandbox."""
++from __future__ import annotations
++import json
++import os
++import shutil
++import signal
++import subprocess
++import sys
++import tempfile
++import time
++from pathlib import Path
++
++EXTRACT_TIMEOUT_SECONDS = 120
++MAX_CHILD_OUTPUT_BYTES = 16 * 1024 * 1024
++MAX_MEMORY_BYTES = 512 * 1024 * 1024
++MAX_CPU_SECONDS = 60
++MAX_PDF_BYTES = 100 * 1024 * 1024
++CHILD_FLAG = '--extract-for-verify'
++
++CHILD_SCRIPT = r'''
++import os, sys, time
++from pathlib import Path
++gate = Path(sys.argv[5])
++deadline = time.monotonic() + 10
++while not gate.exists():
++    if time.monotonic() >= deadline:
++        sys.exit(3)
++    time.sleep(.01)
++if os.name != 'nt':
++    import resource
++    resource.setrlimit(resource.RLIMIT_AS, (512*1024*1024, 512*1024*1024))
++    resource.setrlimit(resource.RLIMIT_CPU, (60, 60))
++    resource.setrlimit(resource.RLIMIT_FSIZE, (16*1024*1024, 16*1024*1024))
++sys.path.insert(0, sys.argv[1])
++import extraction, json
++result = extraction.PdfTextExtractor(allow_cache=False).extract(
++    sys.argv[2], paper_id=sys.argv[3], use_cache=False)
++if len(result.pages) > 3000 or result.total_chars > 2000000:
++    sys.exit(4)
++payload = {'code': result.code, 'page_count': len(result.pages),
++           'chars': result.total_chars, 'backend': result.backend,
++           'cache': result.as_cache_payload('') if result.ok else None}
++with Path(sys.argv[4]).open('wb') as f:
++    size = 0
++    for piece in json.JSONEncoder(ensure_ascii=False).iterencode(payload):
++        block = piece.encode('utf-8')
++        size += len(block)
++        if size > 16*1024*1024:
++            sys.exit(4)
++        f.write(block)
++'''
++
++
++def scrub_environment(extra=None):
++    system = os.environ.get('SystemRoot', '')
++    environment = {
++        'PATH': os.pathsep.join(filter(None, [str(Path(sys.executable).parent),
++                               str(Path(system) / 'System32') if system else '/usr/bin'])),
++        'SystemRoot': system,
++        'TEMP': tempfile.gettempdir(), 'TMP': tempfile.gettempdir(),
++        'PYTHONIOENCODING': 'utf-8', 'PYTHONDONTWRITEBYTECODE': '1',
++        'PAPER_READER_NO_DIALOG': '1', 'NO_PROXY': '*',
++    }
++    for key in ('TEMP', 'TMP'):
++        if extra and key in extra:
++            environment[key] = str(extra[key])
++    return {key: value for key, value in environment.items() if value}
++
++
++def _windows_job(process):
++    """Assign the waiting child before giving it permission to parse the PDF."""
++    import ctypes
++    from ctypes import wintypes
++    class IO(ctypes.Structure):
++        _fields_ = [(name, ctypes.c_ulonglong) for name in
++                    ('read_ops', 'write_ops', 'other_ops', 'read_bytes', 'write_bytes', 'other_bytes')]
++    class BASIC(ctypes.Structure):
++        _fields_ = [('ProcessTime', ctypes.c_longlong), ('JobTime', ctypes.c_longlong),
++                    ('Flags', wintypes.DWORD), ('MinWorkingSet', ctypes.c_size_t),
++                    ('MaxWorkingSet', ctypes.c_size_t), ('ActiveProcesses', wintypes.DWORD),
++                    ('Affinity', ctypes.c_size_t), ('Priority', wintypes.DWORD),
++                    ('Scheduling', wintypes.DWORD)]
++    class EXTENDED(ctypes.Structure):
++        _fields_ = [('Basic', BASIC), ('Io', IO), ('ProcessMemory', ctypes.c_size_t),
++                    ('JobMemory', ctypes.c_size_t), ('PeakProcess', ctypes.c_size_t),
++                    ('PeakJob', ctypes.c_size_t)]
++    kernel = ctypes.WinDLL('kernel32', use_last_error=True)
++    kernel.CreateJobObjectW.argtypes = [ctypes.c_void_p, wintypes.LPCWSTR]
++    kernel.CreateJobObjectW.restype = wintypes.HANDLE
++    kernel.SetInformationJobObject.argtypes = [wintypes.HANDLE, ctypes.c_int,
++                                              ctypes.c_void_p, wintypes.DWORD]
++    kernel.AssignProcessToJobObject.argtypes = [wintypes.HANDLE, wintypes.HANDLE]
++    kernel.CloseHandle.argtypes = [wintypes.HANDLE]
++    handle = kernel.CreateJobObjectW(None, None)
++    if not handle:
++        raise OSError('resource limit unavailable')
++    limits = EXTENDED()
++    limits.Basic.Flags = 0x4 | 0x100 | 0x200 | 0x2000
++    limits.Basic.JobTime = MAX_CPU_SECONDS * 10000000
++    limits.ProcessMemory = limits.JobMemory = MAX_MEMORY_BYTES
++    if not kernel.SetInformationJobObject(handle, 9, ctypes.byref(limits), ctypes.sizeof(limits)) \
++            or not kernel.AssignProcessToJobObject(handle, wintypes.HANDLE(int(process._handle))):
++        kernel.CloseHandle(handle)
++        raise OSError('resource limit unavailable')
++    return lambda: kernel.CloseHandle(handle)
++
++
++def extract_in_subprocess(pdf_path, paper_id, project_root=None, timeout=EXTRACT_TIMEOUT_SECONDS,
++                          python_executable=None):
++    root = Path(project_root or Path(__file__).resolve().parent).resolve()
++    scratch = process = close_job = None
++    def failure(code):
++        return None, {'code': code, 'pages': 0, 'chars': 0}, None
++    try:
++        source = Path(pdf_path).resolve()
++        if not source.is_file():
++            return failure('missing_file')
++        if source.stat().st_size > MAX_PDF_BYTES:
++            return failure('extract_too_large')
++        scratch = Path(tempfile.mkdtemp(prefix='extract-'))
++        script, output, gate = scratch / 'child.py', scratch / 'result.json', scratch / 'ready'
++        script.write_text(CHILD_SCRIPT, encoding='utf-8')
++        command = [python_executable or sys.executable, '-I', str(script), str(root),
++                   str(source), str(paper_id), str(output), str(gate)]
++        process = subprocess.Popen(command, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
++                                   stderr=subprocess.DEVNULL,
++                                   env=scrub_environment({'TEMP': scratch, 'TMP': scratch}),
++                                   cwd=str(scratch), start_new_session=os.name != 'nt',
++                                   creationflags=getattr(subprocess, 'CREATE_NO_WINDOW', 0))
++        if os.name == 'nt':
++            close_job = _windows_job(process)
++        gate.touch()
++        deadline = time.monotonic() + max(.001, float(timeout))
++        while process.poll() is None:
++            if time.monotonic() >= deadline:
++                return failure('extract_timeout')
++            if output.is_file() and output.stat().st_size > MAX_CHILD_OUTPUT_BYTES:
++                return failure('extract_too_large')
++            try:
++                process.wait(timeout=min(.05, max(.001, deadline-time.monotonic())))
++            except subprocess.TimeoutExpired:
++                pass
++        if process.returncode != 0:
++            return failure('extract_too_large' if process.returncode == 4 else 'extract_failed')
++        if not output.is_file() or output.stat().st_size > MAX_CHILD_OUTPUT_BYTES:
++            return failure('extract_failed')
++        payload = json.loads(output.read_text(encoding='utf-8'))
++        info = {'code': payload.get('code') or 'extract_failed',
++                'pages': int(payload.get('page_count') or 0),
++                'chars': int(payload.get('chars') or 0),
++                'backend': str(payload.get('backend') or '')}
++        if info['pages'] > 3000 or info['chars'] > 2000000:
++            return failure('extract_too_large')
++        return payload.get('cache') if info['code'] == 'ok' else None, info, None
++    except (OSError, ValueError, TypeError, subprocess.SubprocessError):
++        return failure('extract_failed')
++    finally:
++        if process is not None:
++            if os.name != 'nt':
++                try:
++                    os.killpg(process.pid, signal.SIGKILL)
++                except ProcessLookupError:
++                    pass
++            elif process.poll() is None:
++                process.kill()
++            if close_job is not None:
++                close_job()
++            try:
++                process.wait(timeout=5)
++            except subprocess.TimeoutExpired:
++                pass
++        if scratch is not None:
++            shutil.rmtree(scratch, ignore_errors=True)
+--- a/providers.py
++++ b/providers.py
+@@ -30,6 +30,8 @@
+ import os
+ import re
+ import threading
++import reading_card
++from contextlib import nullcontext
+ import time
+ import urllib.error
+ import urllib.request
+@@ -151,6 +153,26 @@
+                          message=f"HTTP {response.status}" if response.status else response.code)
+ 
+ 
++class SendDenied(secure_transport.OutboundDenied):
++    def __init__(self, code):
++        super().__init__(code)
++
++
++def safe_models(items, field):
++    if not isinstance(items, list) or len(items) > 1000:
++        return []
++    models = []
++    for item in items:
++        value = item.get(field) if isinstance(item, dict) else None
++        if not isinstance(value, str):
++            continue
++        if secret_guard.contains_secret(value):
++            raise SendDenied(secret_guard.E_SECRET_ECHO_BLOCKED)
++        if re.fullmatch(r"[A-Za-z0-9][A-Za-z0-9._:/+@-]{0,199}", value):
++            models.append(value)
++    return sorted(set(models))
++
++
+ @dataclass
+ class Health:
+     ok: bool
+@@ -160,8 +182,15 @@
+     latency_ms: int = 0
+ 
+     def as_dict(self):
++        if secret_guard.contains_secret({"detail": self.detail, "models": self.models}):
++            return {"ok": False, "category": CATEGORY_SECRET_ECHO,
++                    "code": secret_guard.E_SECRET_ECHO_BLOCKED,
++                    "detail": secret_guard.message_for(secret_guard.E_SECRET_ECHO_BLOCKED),
++                    "models": [], "latency_ms": self.latency_ms}
+         return {"ok": self.ok, "category": self.category, "detail": redact(self.detail),
+-                "models": list(self.models), "latency_ms": self.latency_ms}
++                "models": safe_models([{"id": v} for v in self.models], "id"),
++                "latency_ms": self.latency_ms}
++
+ 
+ 
+ @dataclass
+@@ -320,6 +349,7 @@
+         #: reserved the extra transmission. None means "no accounting available", in which
+         #: case a re-send is refused rather than performed for free.
+         self.on_retransmit = None
++        self.send_guard = None
+         self._policy = None
+         self._transport_obj = None
+         self.last_transport = None
+@@ -333,6 +363,9 @@
+     def cancel(self):
+         with self._lock:
+             self._cancel.set()
++        transport = self._transport_obj
++        if transport is not None and hasattr(transport, 'abort'):
++            transport.abort()
+         return True
+ 
+     def _reset_cancel(self):
+@@ -374,27 +407,52 @@
+         """
+         policy = endpoint_policy.EndpointPolicy.for_settings(
+             self.base_url, getattr(self, "mode", endpoint_policy.DEFAULT_MODE))
+-        policy.authorize()
++        policy.authorize(resolver=lambda host, port: endpoint_policy.bounded_resolve(
++            host, port, timeout=min(self.connect_timeout, self.timeout)))
+         self._policy = policy
+         self._transport_obj = self.transport_factory(
+             policy, ssl_context=getattr(self, "ssl_context", None),
+             connect_timeout=self.connect_timeout, read_timeout=self.timeout)
++        self._transport_obj.send_guard = self.send_guard
++        self._transport_obj.cancel_event = self._cancel
+         return self._transport_obj
+ 
+-    def _send(self, method, path, payload=None):
+-        transport = self._transport()
++    def _send(self, method, path, payload=None, timeout=None):
++        if method == "POST" and self._is_cancelled():
++            return secure_transport.TransportResponse(False, code=secret_guard.E_CANCELLED)
++        if self.credential_missing:
++            blocked = self._credential_block()
++            return secure_transport.TransportResponse(False, code=blocked.public_code)
++        request_started = time.monotonic()
++        previous_timeout = self.timeout
++        if timeout is not None:
++            self.timeout = min(self.timeout, timeout)
++        try:
++            transport = self._transport()
++        except (SendDenied, endpoint_policy.PolicyError) as exc:
++            return secure_transport.TransportResponse(False, code=exc.code)
++        finally:
++            self.timeout = previous_timeout
++        request_limit = min(previous_timeout, timeout) if timeout is not None else previous_timeout
++        remaining = request_limit - (time.monotonic() - request_started)
++        if remaining <= 0:
++            return secure_transport.TransportResponse(False, code=secret_guard.E_TIMEOUT)
++        transport.read_timeout = remaining
+         headers = self._headers() if self.api_key else {}
+-        self.request_sent = True
+         if method == "POST":
+             response = transport.post_json(path, payload, headers=headers)
+         else:
+             response = transport.get_json(path, headers=headers)
++        written = bool(getattr(transport, 'request_written', True))
++        self.request_sent = self.request_sent or written
++        if written:
++            self.transmissions = getattr(self, 'transmissions', 0) + 1
+         self.last_transport = response
+         return response
+ 
+     def _post_json(self, path, payload, timeout):
+         """POST a *relative* path on the approved target. A URL is never accepted here."""
+-        response = self._send("POST", path, payload)
++        response = self._send("POST", path, payload, timeout=timeout)
+         if response.ok:
+             if len(response.body) > MAX_RESPONSE_BYTES:
+                 return None, AdapterResult(False, category=CATEGORY_BAD_RESPONSE,
+@@ -403,12 +461,16 @@
+             return response.body, None
+         return None, _result_from_transport(response)
+ 
+-    def _get_json_path(self, path):
+-        response = self._send("GET", path)
++    def _get_json_path(self, path, timeout=10):
++        response = self._send("GET", path, timeout=timeout)
+         if response.ok:
+             try:
+-                return json.loads(response.body.decode("utf-8", "replace")), None
+-            except (UnicodeDecodeError, json.JSONDecodeError):
++                payload = reading_card.parse_model_json(response.body.decode("utf-8"))
++                if secret_guard.contains_secret(payload):
++                    return None, AdapterResult(False, category=CATEGORY_SECRET_ECHO,
++                        public_code=secret_guard.E_SECRET_ECHO_BLOCKED)
++                return payload, None
++            except (UnicodeDecodeError, reading_card.ValidationError, TypeError):
+                 return None, AdapterResult(False, category=CATEGORY_BAD_RESPONSE,
+                                            public_code=secret_guard.E_INVALID_RESPONSE,
+                                            message="响应不是合法 JSON")
+@@ -417,23 +479,20 @@
+     # -- json handling -----------------------------------------------------
+     @staticmethod
+     def _load_json(text, request):
+-        if not text or not text.strip():
+-            return None, AdapterResult(False, category=CATEGORY_INVALID_JSON, message="模型返回了空内容")
+-        candidate = text.strip()
+-        fence = re.search(r"```(?:json)?\s*(.*?)```", candidate, re.S)
+-        if fence:
+-            candidate = fence.group(1).strip()
++        if not isinstance(text, str) or not text.strip():
++            return None, AdapterResult(False, category=CATEGORY_INVALID_JSON,
++                                      public_code=secret_guard.E_INVALID_RESPONSE,
++                                      message=secret_guard.message_for(secret_guard.E_INVALID_RESPONSE))
++        if request.max_response_chars and len(text) > request.max_response_chars:
++            return None, AdapterResult(False, category=CATEGORY_BAD_RESPONSE,
++                                      public_code=secret_guard.E_INVALID_RESPONSE,
++                                      message=secret_guard.message_for(secret_guard.E_INVALID_RESPONSE))
+         try:
+-            payload = json.loads(candidate)
+-        except json.JSONDecodeError as exc:
++            return reading_card.parse_model_json(text), None
++        except (reading_card.ValidationError, TypeError):
+             return None, AdapterResult(False, category=CATEGORY_INVALID_JSON,
+-                                       message=f"返回内容不是合法 JSON：{exc.msg}（位置 {exc.pos}）")
+-        if not isinstance(payload, dict):
+-            return None, AdapterResult(False, category=CATEGORY_INVALID_JSON,
+-                                       message="返回内容不是 JSON 对象")
+-        if request.max_response_chars and len(candidate) > request.max_response_chars:
+-            return None, AdapterResult(False, category=CATEGORY_BAD_RESPONSE, message="返回内容过长")
+-        return payload, None
++                                      public_code=secret_guard.E_INVALID_RESPONSE,
++                                      message=secret_guard.message_for(secret_guard.E_INVALID_RESPONSE))
+ 
+     @staticmethod
+     def _refusal(payload):
+@@ -494,6 +553,9 @@
+         is a second call to the provider and has to be paid for, so the caller is told about it
+         through `on_retransmit` and every extra send takes its own reservation.
+         """
++        if self._is_cancelled():
++            return None, AdapterResult(False, category=CATEGORY_CANCELLED,
++                public_code=secret_guard.E_CANCELLED), tuple(dropped)
+         if dropped:
+             # A re-send happens only when the caller can account for the second transmission.
+             # No hook, or a hook that reports the budget is used up, means no re-send: an
+@@ -565,25 +627,30 @@
+         return {"provider": self.name, "model": self.model, "base_url": self.base_url}
+ 
+     def list_models(self, timeout=10):
+-        payload, error = self._get_json_path("/api/tags")
++        payload, error = self._get_json_path("/api/tags", timeout=timeout)
+         if error or not isinstance(payload, dict):
+             return []
+-        return sorted(str(item.get("name", "")) for item in payload.get("models", []) if item.get("name"))
++        return safe_models(payload.get("models", []), "name")
+ 
+     def health_check(self, timeout=10):
+         started = time.time()
+-        payload, error = self._get_json_path("/api/tags")
++        payload, error = self._get_json_path("/api/tags", timeout=timeout)
+         latency = int((time.time() - started) * 1000)
+         if error:
+             return Health(False, error.category, error.message, [], latency)
+-        models = self.list_models(timeout)
++        try:
++            models = safe_models(payload.get('data', []), 'id') if self.name == 'openai_compatible' \
++                else safe_models(payload.get('models', []), 'name')
++        except SendDenied as exc:
++            return Health(False, CATEGORY_SECRET_ECHO, secret_guard.message_for(exc.code), [], latency)
+         detail = f"可用模型 {len(models)} 个" + (f"，包含 {self.model}" if self.model in models else "")
+         if self.model and models and self.model not in models:
+             return Health(False, CATEGORY_CONFIG, f"未安装模型 {self.model}；{detail}", models, latency)
+         return Health(True, CATEGORY_OK, detail or "已连接", models, latency)
+ 
+     def complete_json(self, request, on_start=None):
+-        self._reset_cancel()
++        self.request_sent = False
++        self.transmissions = 0
+         blocked = self._credential_block()
+         if blocked is not None:
+             return blocked
+@@ -614,8 +681,8 @@
+         if error:
+             return self._finish(error, started, model)
+         try:
+-            envelope = json.loads(raw.decode("utf-8", "replace"))
+-        except (UnicodeDecodeError, json.JSONDecodeError):
++            envelope = reading_card.parse_model_json(raw.decode("utf-8"))
++        except (UnicodeDecodeError, reading_card.ValidationError, TypeError):
+             return self._finish(AdapterResult(False, category=CATEGORY_INVALID_JSON,
+                                               public_code=secret_guard.E_INVALID_RESPONSE,
+                                               message="响应信封不是合法 JSON"), started, model)
+@@ -652,25 +719,30 @@
+         return {"provider": self.name, "model": self.model, "base_url": self.base_url}
+ 
+     def list_models(self, timeout=10):
+-        payload, error = self._get_json_path("/models")
++        payload, error = self._get_json_path("/models", timeout=timeout)
+         if error or not isinstance(payload, dict):
+             return []
+-        return sorted(str(item.get("id", "")) for item in payload.get("data", []) if item.get("id"))
++        return safe_models(payload.get("data", []), "id")
+ 
+     def health_check(self, timeout=10):
+         started = time.time()
+-        payload, error = self._get_json_path("/models")
++        payload, error = self._get_json_path("/models", timeout=timeout)
+         latency = int((time.time() - started) * 1000)
+         if error:
+             return Health(False, error.category, error.message, [], latency)
+-        models = self.list_models(timeout)
++        try:
++            models = safe_models(payload.get('data', []), 'id') if self.name == 'openai_compatible' \
++                else safe_models(payload.get('models', []), 'name')
++        except SendDenied as exc:
++            return Health(False, CATEGORY_SECRET_ECHO, secret_guard.message_for(exc.code), [], latency)
+         detail = f"可用模型 {len(models)} 个"
+         if self.model and models and self.model not in models:
+             return Health(False, CATEGORY_CONFIG, f"未加载模型 {self.model}；{detail}", models, latency)
+         return Health(True, CATEGORY_OK, detail or "已连接", models, latency)
+ 
+     def complete_json(self, request, on_start=None):
+-        self._reset_cancel()
++        self.request_sent = False
++        self.transmissions = 0
+         blocked = self._credential_block()
+         if blocked is not None:
+             return blocked
+@@ -703,8 +775,8 @@
+         if error:
+             return self._finish(error, started, model)
+         try:
+-            envelope = json.loads(raw.decode("utf-8", "replace"))
+-        except (UnicodeDecodeError, json.JSONDecodeError):
++            envelope = reading_card.parse_model_json(raw.decode("utf-8"))
++        except (UnicodeDecodeError, reading_card.ValidationError, TypeError):
+             return self._finish(AdapterResult(False, category=CATEGORY_INVALID_JSON,
+                                               public_code=secret_guard.E_INVALID_RESPONSE,
+                                               message="响应信封不是合法 JSON"), started, model)
+--- a/schema.py
++++ b/schema.py
+@@ -34,6 +34,8 @@
+     "max_output_tokens": 4096,   # sent to the provider; bounds what one call can cost
+     "auto_analyze": False,        # only new imports may enqueue a job, and only when true
+     "max_concurrent_jobs": 1,
++    "config_revision": 1,
++    "credential_revision": 1,
+     # Budget and queue ceilings (see job_policy.LIMIT_RANGES). Validated below so a bad
+     # number is refused at save time rather than during a job.
+     "limits": {"max_queue_depth": 20, "max_requests_per_job": 2,
+@@ -177,6 +179,10 @@
+     if not isinstance(tokens, int) or isinstance(tokens, bool) or not (
+             MAX_OUTPUT_TOKENS_RANGE[0] <= tokens <= MAX_OUTPUT_TOKENS_RANGE[1]):
+         raise SchemaError(f"max_output_tokens 必须在 {MAX_OUTPUT_TOKENS_RANGE[0]}–{MAX_OUTPUT_TOKENS_RANGE[1]} 之间")
++    for revision in ("config_revision", "credential_revision"):
++        value = merged[revision]
++        if not isinstance(value, int) or isinstance(value, bool) or not 1 <= value <= 2**53:
++            raise SchemaError("invalid_revision")
+     merged["model"] = _text(merged["model"], MAX_MODEL_NAME, "model")
+     # api_key_env holds a *reference* to a credential, never a value. A bare environment
+     # name is accepted for backward compatibility and normalised to `env:NAME` so the stored
+--- a/secret_guard.py
++++ b/secret_guard.py
+@@ -19,6 +19,7 @@
+ 
+ import base64
+ import re
++import threading
+ import urllib.parse
+ 
+ # --- fixed vocabulary ---------------------------------------------------------------
+@@ -97,7 +98,7 @@
+ 
+ # --- in-memory secret registry ------------------------------------------------------
+ _REGISTERED: dict[str, int] = {}
+-_MAX_TRACKED = 32
++_REGISTRY_LOCK = threading.RLock()
+ 
+ 
+ def register(value, label: str = ""):
+@@ -109,15 +110,20 @@
+     if not value:
+         return
+     text = value.reveal() if hasattr(value, "reveal") else str(value)
+-    if not text or len(text) < 6:
++    if not text:
+         return
+-    _REGISTERED[text] = _REGISTERED.get(text, 0) + 1
+-    while len(_REGISTERED) > _MAX_TRACKED:
+-        _REGISTERED.pop(next(iter(_REGISTERED)))
++    with _REGISTRY_LOCK:
++        _REGISTERED[text] = _REGISTERED.get(text, 0) + 1
++
+ 
+ 
+ def known_secret_count() -> int:
+-    return len(_REGISTERED)
++    with _REGISTRY_LOCK:
++        return len(_REGISTERED)
++
++def _registered_values():
++    with _REGISTRY_LOCK:
++        return tuple(_REGISTERED)
+ 
+ 
+ def _encodings(value: str):
+@@ -135,7 +141,7 @@
+     except Exception:                                            # noqa: BLE001
+         pass
+     forms.add(value.replace('"', '\\"'))
+-    return {item for item in forms if item and len(item) >= 6}
++    return {item for item in forms if item}
+ 
+ 
+ def contains_secret(text) -> bool:
+@@ -145,7 +151,7 @@
+     haystack = text if isinstance(text, str) else str(text)
+     if not haystack:
+         return False
+-    for value in list(_REGISTERED):
++    for value in _registered_values():
+         for form in _encodings(value):
+             if form in haystack:
+                 return True
+@@ -170,7 +176,7 @@
+     if not text:
+         return ""
+     cleaned = text if isinstance(text, str) else str(text)
+-    for value in list(_REGISTERED):
++    for value in _registered_values():
+         for form in _encodings(value):
+             cleaned = cleaned.replace(form, PLACEHOLDER)
+     for pattern in PATTERNS:
+--- a/secure_transport.py
++++ b/secure_transport.py
+@@ -26,6 +26,8 @@
+ import re
+ import ssl
+ import time
++import threading
++from contextlib import nullcontext
+ from dataclasses import dataclass, field
+ 
+ import endpoint_policy as policy_mod
+@@ -102,6 +104,36 @@
+         self.fail_closed = fail_closed
+         self.connections = []          # evidence for tests: (host, port, address, tls)
+         self.authorized_addresses = []
++        self.send_guard = None
++        self.cancel_event = None
++        self.request_written = False
++        self._deadline = 0
++        self._socket = None
++        self._socket_lock = threading.Lock()
++
++    def _remaining(self):
++        remaining = self._deadline - time.monotonic() if self._deadline else self.read_timeout
++        if remaining <= 0:
++            raise socket.timeout()
++        if self.cancel_event is not None and self.cancel_event.is_set():
++            raise OutboundDenied(secret_guard.E_CANCELLED)
++        return remaining
++
++    def abort(self):
++        # shutdown interrupts reads even when HTTPResponse retains a socket file.
++        with self._socket_lock:
++            sock = self._socket
++        if sock is not None:
++            try:
++                sock.shutdown(socket.SHUT_RDWR)
++            except OSError:
++                pass
++            _close_quietly(sock)
++
++    def _track(self, sock):
++        with self._socket_lock:
++            self._socket = sock
++        return sock
+ 
+     # -- TLS ---------------------------------------------------------------
+     def _context(self):
+@@ -120,19 +152,21 @@
+         for family, address in addresses:
+             raw = None
+             try:
+-                raw = socket.socket(family, socket.SOCK_STREAM)
+-                raw.settimeout(self.connect_timeout)
++                raw = self._track(socket.socket(family, socket.SOCK_STREAM))
++                raw.settimeout(min(self.connect_timeout, self._remaining()))
+                 raw.connect((address, target.port))
+                 self.policy.check_connected(address)     # must be an approved address
+                 self.authorized_addresses.append(address)
+                 if target.scheme == "https":
+-                    wrapped = self._context().wrap_socket(
+-                        raw, server_hostname=target.host)    # SNI + hostname verification
+-                    wrapped.settimeout(self.read_timeout)
++                    wrapped = self._track(self._context().wrap_socket(
++                        raw, server_hostname=target.host, do_handshake_on_connect=False))    # SNI + hostname verification
++                    wrapped.settimeout(min(self.connect_timeout, self._remaining()))
++                    wrapped.do_handshake()
++                    wrapped.settimeout(self._remaining())
+                     self.connections.append({"host": target.host, "port": target.port,
+                                              "address": address, "tls": True})
+                     return wrapped
+-                raw.settimeout(self.read_timeout)
++                raw.settimeout(self._remaining())
+                 self.connections.append({"host": target.host, "port": target.port,
+                                          "address": address, "tls": False})
+                 return raw
+@@ -178,6 +212,19 @@
+ 
+         started = time.time()
+         connection = None
++        done = threading.Event()
++        total_timeout = max(0.001, float(timeout or self.read_timeout))
++        self._deadline = time.monotonic() + total_timeout
++        self.request_written = False
++
++        def watch():
++            while not done.wait(min(0.02, max(0.001, self._deadline - time.monotonic()))):
++                if time.monotonic() >= self._deadline or (
++                        self.cancel_event is not None and self.cancel_event.is_set()):
++                    self.abort()
++                    return
++        watcher = threading.Thread(target=watch, daemon=True, name='bounded-http')
++        watcher.start()
+         try:
+             # A plain HTTPConnection is used for both schemes: `_connect` performs the
+             # pinned TCP connect and, for https, the TLS handshake with SNI and full
+@@ -188,9 +235,35 @@
+             connection._create_connection = (
+                 lambda address, timeout=None, source_address=None: self._connect(connection))
+             connection.connect()
+-            connection.request(method, url_path, body=body, headers=send_headers)
+-            response = connection.getresponse()
+-            raw = response.read(self.max_body + 1)
++            # Connect carries no credential. The application lock covers the final
++            # authorization check and HTTP write; no response read holds that lock.
++            with self.send_guard() if self.send_guard else nullcontext():
++                self._remaining()
++                connection.sock.settimeout(self._remaining())
++                # A partial write may already be billable, so conservatively charge it.
++                self.request_written = True
++                connection.request(method, url_path, body=body, headers=send_headers)
++            self._remaining()
++            # Own the response directly. HTTPConnection.getresponse() closes its socket
++            # reference for HTTP/1.0/Connection: close replies while a buffered response
++            # still reads from it; retaining the reference keeps the deadline watchdog
++            # and cancellation able to interrupt both headers and body.
++            response = http.client.HTTPResponse(connection.sock, method=method)
++            response.begin()
++            parts, size = [], 0
++            while size <= self.max_body:
++                self._remaining()
++                with self._socket_lock:
++                    active = self._socket
++                if active is not None:
++                    active.settimeout(self._remaining())
++                block = response.read1(min(65536, self.max_body + 1 - size))
++                if not block:
++                    break
++                parts.append(block)
++                size += len(block)
++            raw = b''.join(parts)
++            self._remaining()
+             duration = int((time.time() - started) * 1000)
+             connected = self.authorized_addresses[-1] if self.authorized_addresses else ""
+             status = response.status
+@@ -224,33 +297,31 @@
+                                      headers=dict(response.getheaders()), code="ok",
+                                      request_id=request_id_of(dict(response.getheaders())),
+                                      duration_ms=duration, connected_ip=connected)
+-        except _ConnectFailure as exc:
+-            return TransportResponse(False, code=exc.code, message=exc.message,
+-                                     duration_ms=int((time.time() - started) * 1000))
+-        except ssl.SSLCertVerificationError:
+-            return TransportResponse(False, code=secret_guard.E_TLS_FAILED,
+-                                     message="证书校验失败",
+-                                     duration_ms=int((time.time() - started) * 1000))
+-        except ssl.SSLError:
+-            return TransportResponse(False, code=secret_guard.E_TLS_FAILED,
+-                                     message="TLS 握手失败",
+-                                     duration_ms=int((time.time() - started) * 1000))
+-        except socket.timeout:
+-            return TransportResponse(False, code=secret_guard.E_TIMEOUT, message="读取超时",
+-                                     duration_ms=int((time.time() - started) * 1000))
++        except OutboundDenied as exc:
++            return TransportResponse(False, code=exc.code)
+         except policy_mod.PolicyError as exc:
+-            return TransportResponse(False, code=exc.code, message=exc.message,
+-                                     duration_ms=int((time.time() - started) * 1000))
+-        except (OSError, http.client.HTTPException) as exc:
+-            return TransportResponse(False, code=secret_guard.E_UNREACHABLE,
+-                                     message=f"连接错误（{type(exc).__name__}）",
++            return TransportResponse(False, code=exc.code)
++        except (OSError, http.client.HTTPException, _ConnectFailure) as exc:
++            if self.cancel_event is not None and self.cancel_event.is_set():
++                code = secret_guard.E_CANCELLED
++            elif time.monotonic() >= self._deadline or isinstance(exc, socket.timeout):
++                code = secret_guard.E_TIMEOUT
++            elif isinstance(exc, (ssl.SSLError, ssl.SSLCertVerificationError)):
++                code = secret_guard.E_TLS_FAILED
++            else:
++                code = getattr(exc, 'code', secret_guard.E_UNREACHABLE)
++            return TransportResponse(False, code=code,
+                                      duration_ms=int((time.time() - started) * 1000))
+         finally:
++            done.set()
++            if 'response' in locals():
++                response.close()
+             if connection is not None:
+-                try:
+-                    connection.close()
+-                except Exception:                                # noqa: BLE001
+-                    pass
++                connection.close()
++            with self._socket_lock:
++                self._socket = None
++            watcher.join(timeout=0.1)
++            self._deadline = 0
+ 
+     def post_json(self, path, payload, headers=None):
+         return self._request("POST", path, payload=payload, headers=headers)
+@@ -299,3 +370,9 @@
+                 if cleaned:
+                     return cleaned
+     return ""
++
++
++class OutboundDenied(Exception):
++    def __init__(self, code):
++        super().__init__('outbound request refused')
++        self.code = code
+--- a/server.py
++++ b/server.py
+@@ -24,6 +24,7 @@
+ import webbrowser
+ import zipfile
+ 
++import job_policy
+ import analysis
+ import backup_guard
+ import credentials
+@@ -40,7 +41,7 @@
+ from storage import DataStore
+ 
+ ROOT = Path(__file__).resolve().parent
+-APP_VERSION = "1.3.2"          # library schema version 2 (see schema.py)
++APP_VERSION = "1.3.3"          # library schema version 2 (see schema.py)
+ BACKUP_MANIFEST = "manifest.json"
+ FIELDS = {
+     "question": "研究问题", "motivation": "问题的重要性与文献缺口",
+@@ -245,7 +246,9 @@
+         """The approved target a credential binding belongs to. '' when nothing is set."""
+         settings = ai_settings if ai_settings is not None else self.state["settings"]["ai"]
+         mode = (settings or {}).get("mode", "") or endpoint_policy.DEFAULT_MODE
+-        base_url = (settings or {}).get("base_url", "") or ""
++        base_url = (settings or {}).get("base_url", "") or (
++            providers.DEFAULT_OLLAMA_BASE if settings.get('provider') == 'ollama'
++            else providers.DEFAULT_OPENAI_BASE)
+         try:
+             target = endpoint_policy.EndpointPolicy.for_settings(base_url, mode).target
+         except endpoint_policy.PolicyError:
+@@ -317,11 +320,29 @@
+                     raise ValueError("AI 设置含有未知字段：" + str(key))
+                 merged[key] = value
+             merged = schema.validate_ai_settings(merged)
++            reference = credentials.normalise_ref(merged.get('api_key_env', ''))
++            if reference and reference.startswith('env:') and not credentials.is_registered(
++                    reference[4:]):
++                raise ValueError('Credential environment reference is not registered')
++            sensitive = ("provider", "base_url", "mode", "model", "api_key_env",
++                         "max_output_tokens")
++            changed = any(before_ai.get(k) != merged.get(k) for k in sensitive)
++            merged["config_revision"] = before_ai.get("config_revision", 1) + int(changed)
++            merged["credential_revision"] = before_ai.get("credential_revision", 1) + int(
++                before_ai.get("api_key_env") != merged.get("api_key_env"))
+             self.state["settings"]["ai"] = merged
+-            after_identity = self.endpoint_identity(merged)
+-            if before_identity and after_identity and before_identity != after_identity:
+-                parked = self._park_for_rebinding()
+-                self.state["settings"]["last_rebind_parked"] = parked
++            if changed:
++                manager = getattr(self, "_analysis_manager", None)
++                ledger = manager.ledger if manager is not None else job_policy.JobLedger(self.directory)
++                ledger.revoke_all("configuration_changed")
++                ledger.revoke_targets()
++                for paper_id in list(ledger.state["jobs"]):
++                    ledger.clear_job(paper_id)
++                self._write_outbound({"schema": 1, "approvals": {}})
++                self.state["settings"]["last_rebind_parked"] = self._park_for_rebinding()
++                if manager is not None:
++                    for paper in self.state.get("papers", []):
++                        manager._cancel_running(paper["id"])
+             self.persist()
+             return copy.deepcopy(merged)
+ 
+@@ -900,6 +921,10 @@
+         def send(self, data, content_type="application/json; charset=utf-8", status=200,
+                  filename=None, extra_headers=None, close=False):
+             if isinstance(data, (dict, list)):
++                if secret_guard.contains_secret(data):
++                    data = {"ok": False, "code": secret_guard.E_SECRET_ECHO_BLOCKED,
++                            "error": secret_guard.message_for(secret_guard.E_SECRET_ECHO_BLOCKED)}
++                    status = 502
+                 data = json.dumps(data, ensure_ascii=False).encode("utf-8")
+             elif isinstance(data, str):
+                 data = data.encode("utf-8")
+@@ -1304,15 +1329,9 @@
+                                 "这个环境变量名没有登记为应用凭据，已拒绝保存。"
+                                 "请使用 PAPER_READER_ 开头，或常见服务商名称。")
+                     settings = store.configure(body)
+-                    if any(field in body for field in ("provider", "base_url", "model",
+-                                                       "api_key_env", "auto_analyze",
+-                                                       "max_concurrent_jobs")):
+-                        store.update_ai_settings({field: body[field] for field in
+-                                                  ("provider", "base_url", "model", "api_key_env",
+-                                                   "auto_analyze", "max_concurrent_jobs")
+-                                                  if field in body})
+-                        # configure() ran before the AI block was written, so read the
+-                        # settings again to return what is actually stored now.
++                    ai_patch = {k: body[k] for k in schema.AI_SETTINGS_DEFAULTS if k in body}
++                    if ai_patch:
++                        store.update_ai_settings(ai_patch)
+                         settings = copy.deepcopy(store.state["settings"])
+                     result = {"settings": settings, "ai": settings["ai"],
+                               "providers": list(schema.PROVIDERS),
+--- a/static/app.js
++++ b/static/app.js
+@@ -313,12 +313,8 @@
+   const p=current();if(!p)return;
+   $('#highlight-layer').innerHTML=p.annotations.filter(a=>a.page===pageNumber).flatMap(a=>(a.rects||[]).map(r=>`<span class="pdf-highlight ${a.type}" style="left:${r[0]*100}%;top:${r[1]*100}%;width:${r[2]*100}%;height:${r[3]*100}%"></span>`)).join('');
+ }
+-/* --- 页面缩放：整页可见优先，小于可读阈值时自动改为适合宽度 ----------------
+-   需求要求"默认完整显示一页"，但在小屏幕上整页缩放会把正文缩到看不清（实测屏幕上
+-   正文高度≈9.5×缩放系数：0.62≈5.9px、0.78≈7.4px、1.14≈10.8px）。因此：先按适合
+-   页面计算，低于 MIN_READABLE_SCALE 就自动切到"适合宽度"并提示；窗口够大时自动切回
+-   整页显示；使用者在缩放下拉里选过之后不再自动改变。 */
+-const MIN_READABLE_SCALE=0.78;
++/* 默认整页适配：滚轮一次换一页。窄窗口也保持整页；
++   用户可主动选择适合宽度或放大来查看细节，不自动更改其选择。 */
+ let autoFitDecided=false, autoFitManual=false, fitNotice='';
+ function fittedScale(box,viewport){
+   const availableWidth=Math.max(190,box.clientWidth-44),availableHeight=Math.max(160,box.clientHeight-36);
+@@ -339,17 +335,10 @@
+   return fitted*zoom;
+ }
+ function autoFitMode(viewport,fitted){
+-  if(fitted<MIN_READABLE_SCALE){
+-    if(zoomMode!=='width'){
+-      zoomMode='width';mirrorZoomSelect('width');
+-      noteFit('整页显示会把文字缩到看不清，已自动改为“适合宽度”；可在上方下拉切回“适合页面”。');
+-    }
+-  }else if(zoomMode==='width'){
+-    // 窗口够大、整页也能看清：回到整页显示
++  if(!autoFitDecided){
+     zoomMode='page';mirrorZoomSelect('page');
+-    noteFit('窗口变大，已切回“适合页面”显示整页。');
+-  }
+-  autoFitDecided=true;
++    autoFitDecided=true;
++  }
+ }
+ function noteFit(message){
+   fitNotice=message;

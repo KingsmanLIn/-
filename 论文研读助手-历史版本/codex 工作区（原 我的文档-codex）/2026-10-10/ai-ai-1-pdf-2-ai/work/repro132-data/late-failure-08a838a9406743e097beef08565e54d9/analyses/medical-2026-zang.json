@@ -1,0 +1,283 @@
+{
+  "schema": 1,
+  "schema_version": 1,
+  "paper_id": "medical-2026-zang",
+  "prompt_version": "reading-card-v2",
+  "provider": "ollama",
+  "model": "stub",
+  "language": "zh",
+  "source_sha256": "f2e813f3a259ffd23abca5735771ec9eb6c74275185b3fe96de5095a21084742",
+  "generated_at": "2026-10-12T08:55:30Z",
+  "created_at": "2026-10-12T08:55:30Z",
+  "overall": {
+    "title": "测试论文",
+    "language": "zh",
+    "paper_type": "empirical",
+    "main_claim": "与原文结果一致",
+    "conclusion": "见原文",
+    "confidence": "low"
+  },
+  "answers": {
+    "question": {
+      "status": "found",
+      "answer": "作者研究的是本文标题所指的问题",
+      "evidence": [
+        {
+          "page": 1,
+          "quote": "管理世界工作论文",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "motivation": {
+      "status": "found",
+      "answer": "作者认为该问题值得研究，并与已有文献相关",
+      "evidence": [
+        {
+          "page": 1,
+          "quote": "管理世界工作论文",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "claim": {
+      "status": "found",
+      "answer": "作者的主要回答与原文结果一致",
+      "evidence": [
+        {
+          "page": 1,
+          "quote": "管理世界工作论文",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "data": {
+      "status": "found",
+      "answer": "数据来源与样本见原文该页",
+      "evidence": [
+        {
+          "page": 3,
+          "quote": "表   3   主要变量与描述统计",
+          "claimed_page": 2,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "variables": {
+      "status": "found",
+      "answer": "关键概念与变量见原文（原文未说明单位）",
+      "evidence": [
+        {
+          "page": 3,
+          "quote": "表   3   主要变量与描述统计",
+          "claimed_page": 2,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "method": {
+      "status": "found",
+      "answer": "不确定：原文该页没有完整说明识别策略",
+      "evidence": [
+        {
+          "page": 3,
+          "quote": "表   3   主要变量与描述统计",
+          "claimed_page": 2,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "evidence": {
+      "status": "found",
+      "answer": "核心结果与原文位置见该页描述",
+      "evidence": [
+        {
+          "page": 1,
+          "quote": "管理世界工作论文",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "robustness": {
+      "status": "found",
+      "answer": "不确定：稳健性检验细节原文未说明",
+      "evidence": [
+        {
+          "page": 1,
+          "quote": "管理世界工作论文",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "boundaries": {
+      "status": "found",
+      "answer": "结论边界受样本与时期限制（原文未说明外推条件）",
+      "evidence": [
+        {
+          "page": 1,
+          "quote": "管理世界工作论文",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "assessment": {
+      "status": "found",
+      "answer": "不确定：需要回到原文核对控制变量",
+      "evidence": [
+        {
+          "page": 3,
+          "quote": "表   3   主要变量与描述统计",
+          "claimed_page": 2,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "summary": {
+      "status": "found",
+      "answer": "本文用原文数据讨论核心问题与结果",
+      "evidence": [
+        {
+          "page": 1,
+          "quote": "管理世界工作论文",
+          "claimed_page": null,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "connections": {
+      "status": "found",
+      "answer": "与其他文献的联系原文未说明",
+      "evidence": [
+        {
+          "page": 3,
+          "quote": "表   3   主要变量与描述统计",
+          "claimed_page": 2,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    },
+    "next": {
+      "status": "found",
+      "answer": "下一步核对原文的方法与附录部分",
+      "evidence": [
+        {
+          "page": 3,
+          "quote": "表   3   主要变量与描述统计",
+          "claimed_page": 2,
+          "verified": true,
+          "similarity": 1.0,
+          "match_kind": "exact"
+        }
+      ],
+      "confidence": "medium",
+      "causal_strength": "unclear",
+      "verified_quotes": 1
+    }
+  },
+  "terms": [],
+  "reader_questions": [
+    "原文的识别策略是什么？"
+  ],
+  "warnings": [],
+  "verification": {
+    "claimed_quotes": 13,
+    "verified_quotes": 13,
+    "approximate_quotes": 0,
+    "corrected_pages": 6,
+    "corrections": [
+      "data:2->3",
+      "variables:2->3",
+      "method:2->3",
+      "assessment:2->3",
+      "connections:2->3",
+      "next:2->3"
+    ],
+    "page_count": 3,
+    "field_count": 13,
+    "not_found_fields": [],
+    "evidence_pages": [
+      1,
+      3
+    ]
+  },
+  "input": {
+    "pages_used": [
+      1,
+      3
+    ],
+    "first_page": 1,
+    "last_page": 3,
+    "truncated": true,
+    "chars": 1177,
+    "budget": 28000,
+    "chunks_used": 2,
+    "chunks_total": 2,
+    "note": "原文共 3 页，本次只送入 PDF 第 1–3 页；之后的页面未进入模型输入，相关栏目可能显示“原文未说明”。"
+  }
+}

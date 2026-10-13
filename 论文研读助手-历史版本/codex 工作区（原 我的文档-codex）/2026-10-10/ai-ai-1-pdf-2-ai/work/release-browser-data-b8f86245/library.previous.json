@@ -1,0 +1,92 @@
+{
+  "version": 2,
+  "settings": {
+    "vault_path": "",
+    "sync_enabled": false,
+    "last_sync": "",
+    "sync_error": "",
+    "ai": {
+      "provider": "ollama",
+      "base_url": "http://127.0.0.1:1",
+      "model": "synthetic-model",
+      "api_key_env": "",
+      "mode": "local_loopback",
+      "max_output_tokens": 4096,
+      "auto_analyze": false,
+      "max_concurrent_jobs": 1,
+      "config_revision": 2,
+      "credential_revision": 1,
+      "limits": {
+        "max_queue_depth": 20,
+        "max_requests_per_job": 2,
+        "daily_request_limit": 100
+      }
+    },
+    "last_rebind_parked": []
+  },
+  "papers": [
+    {
+      "id": "5ed1ec7e-90b9-4a03-bd44-714b10011f46",
+      "title": "合成验收论文",
+      "authors": "",
+      "year": "",
+      "venue": "",
+      "doi": "",
+      "citation": "",
+      "tags": "",
+      "language": "zh",
+      "type": "empirical",
+      "fields": {
+        "question": "",
+        "motivation": "",
+        "claim": "",
+        "data": "",
+        "variables": "",
+        "method": "",
+        "evidence": "",
+        "robustness": "",
+        "boundaries": "",
+        "assessment": "",
+        "summary": "",
+        "connections": "",
+        "next": ""
+      },
+      "steps": [
+        false,
+        false,
+        false,
+        false
+      ],
+      "annotations": [],
+      "pageOffset": 0,
+      "pageLabels": [],
+      "lastPage": 1,
+      "revision": 0,
+      "created": "2026-10-12T11:45:04.980+00:00",
+      "updated": "2026-10-12T11:45:04.980+00:00",
+      "archived": false,
+      "note_name": "合成验收论文--5ed1ec7e.md",
+      "analysis": {
+        "status": "stale",
+        "stage": "",
+        "progress": 100,
+        "message": "原文或设置已变化，这份参考需要重新生成",
+        "source_sha256": "f2e813f3a259ffd23abca5735771ec9eb6c74275185b3fe96de5095a21084742",
+        "prompt_version": "reading-card-v2",
+        "provider": "ollama",
+        "adapter": "fake",
+        "model": "fake-model",
+        "language": "zh",
+        "requested_at": "2026-10-12T11:45:04Z",
+        "started_at": "2026-10-12T11:45:05Z",
+        "completed_at": "2026-10-12T11:45:05Z",
+        "updated_at": "2026-10-12T11:46:33Z",
+        "duration_ms": 404,
+        "attempt": 1,
+        "error_code": "stale",
+        "error_message": "",
+        "answer_file": "5ed1ec7e-90b9-4a03-bd44-714b10011f46.json"
+      }
+    }
+  ]
+}

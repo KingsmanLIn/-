@@ -1,0 +1,406 @@
+{
+  "viewports": {
+    "1280x800": {
+      "viewport": {
+        "w": 1280,
+        "h": 800,
+        "dpr": 1
+      },
+      "sidebar": {
+        "w": 238,
+        "h": 800,
+        "top": 0,
+        "left": 0
+      },
+      "topbar": {
+        "w": 1042,
+        "h": 65,
+        "top": 0,
+        "left": 238
+      },
+      "paperHeader": {
+        "w": 992,
+        "h": 79,
+        "top": 87,
+        "left": 263
+      },
+      "ribbon": {
+        "w": 992,
+        "h": 39,
+        "top": 181,
+        "left": 263
+      },
+      "workspace": {
+        "w": 992,
+        "h": 549,
+        "top": 235,
+        "left": 263
+      },
+      "pdfPanel": {
+        "w": 585,
+        "h": 549,
+        "top": 235,
+        "left": 263
+      },
+      "pdfToolbar": {
+        "w": 583,
+        "h": 51,
+        "top": 236,
+        "left": 264
+      },
+      "pdfSubbar": {
+        "w": 583,
+        "h": 29,
+        "top": 287,
+        "left": 264
+      },
+      "pdfScroll": {
+        "w": 583,
+        "h": 429,
+        "top": 316,
+        "left": 264
+      },
+      "pdfFooter": {
+        "w": 583,
+        "h": 38,
+        "top": 745,
+        "left": 264
+      },
+      "notesPanel": {
+        "w": 390,
+        "h": 549,
+        "top": 235,
+        "left": 865
+      },
+      "canvasCss": {
+        "w": 539,
+        "h": 731.501
+      },
+      "pageWrap": {
+        "w": 539,
+        "h": 732,
+        "top": 338,
+        "left": 286
+      },
+      "scale": 0.9055,
+      "effectiveScale": 0.9055,
+      "scrollMetrics": {
+        "clientH": 429,
+        "scrollH": 776,
+        "clientW": 583,
+        "scrollW": 583
+      },
+      "verticalSlack": -302.501,
+      "horizontalSlack": 44,
+      "fitsPageCompletely": false,
+      "pageInput": "1",
+      "pageTotal": "/ 29",
+      "zoomSelectValue": "1",
+      "zoomOptions": [
+        "1:适合宽度",
+        "0.8:80%",
+        "1.25:125%",
+        "1.5:150%"
+      ],
+      "printedLabel": "PDF 第 1 页 · 文内 128",
+      "toolbarControlIds": [
+        "prev-page",
+        "page-input",
+        "next-page",
+        "zoom-select",
+        "download-pdf"
+      ]
+    },
+    "1600x1000": {
+      "viewport": {
+        "w": 1600,
+        "h": 1000,
+        "dpr": 1
+      },
+      "sidebar": {
+        "w": 260,
+        "h": 1000,
+        "top": 0,
+        "left": 0
+      },
+      "topbar": {
+        "w": 1340,
+        "h": 65,
+        "top": 0,
+        "left": 260
+      },
+      "paperHeader": {
+        "w": 1280,
+        "h": 85,
+        "top": 90,
+        "left": 290
+      },
+      "ribbon": {
+        "w": 1280,
+        "h": 39,
+        "top": 190,
+        "left": 290
+      },
+      "workspace": {
+        "w": 1280,
+        "h": 736,
+        "top": 244,
+        "left": 290
+      },
+      "pdfPanel": {
+        "w": 818,
+        "h": 736,
+        "top": 244,
+        "left": 290
+      },
+      "pdfToolbar": {
+        "w": 816,
+        "h": 51,
+        "top": 245,
+        "left": 291
+      },
+      "pdfSubbar": {
+        "w": 816,
+        "h": 29,
+        "top": 296,
+        "left": 291
+      },
+      "pdfScroll": {
+        "w": 816,
+        "h": 616,
+        "top": 325,
+        "left": 291
+      },
+      "pdfFooter": {
+        "w": 816,
+        "h": 38,
+        "top": 941,
+        "left": 291
+      },
+      "notesPanel": {
+        "w": 440,
+        "h": 736,
+        "top": 244,
+        "left": 1130
+      },
+      "canvasCss": {
+        "w": 772,
+        "h": 1047.72
+      },
+      "pageWrap": {
+        "w": 772,
+        "h": 1048,
+        "top": 347,
+        "left": 313
+      },
+      "scale": 1.2969,
+      "effectiveScale": 1.2969,
+      "scrollMetrics": {
+        "clientH": 616,
+        "scrollH": 1092,
+        "clientW": 816,
+        "scrollW": 816
+      },
+      "verticalSlack": -431.72,
+      "horizontalSlack": 44,
+      "fitsPageCompletely": false,
+      "pageInput": "1",
+      "pageTotal": "/ 29",
+      "zoomSelectValue": "1",
+      "zoomOptions": [
+        "1:适合宽度",
+        "0.8:80%",
+        "1.25:125%",
+        "1.5:150%"
+      ],
+      "printedLabel": "PDF 第 1 页 · 文内 128",
+      "toolbarControlIds": [
+        "prev-page",
+        "page-input",
+        "next-page",
+        "zoom-select",
+        "download-pdf"
+      ]
+    },
+    "1920x1080": {
+      "viewport": {
+        "w": 1920,
+        "h": 1080,
+        "dpr": 1
+      },
+      "sidebar": {
+        "w": 260,
+        "h": 1080,
+        "top": 0,
+        "left": 0
+      },
+      "topbar": {
+        "w": 1660,
+        "h": 65,
+        "top": 0,
+        "left": 260
+      },
+      "paperHeader": {
+        "w": 1600,
+        "h": 87,
+        "top": 90,
+        "left": 290
+      },
+      "ribbon": {
+        "w": 1600,
+        "h": 39,
+        "top": 192,
+        "left": 290
+      },
+      "workspace": {
+        "w": 1600,
+        "h": 814,
+        "top": 246,
+        "left": 290
+      },
+      "pdfPanel": {
+        "w": 1138,
+        "h": 814,
+        "top": 246,
+        "left": 290
+      },
+      "pdfToolbar": {
+        "w": 1136,
+        "h": 51,
+        "top": 247,
+        "left": 291
+      },
+      "pdfSubbar": {
+        "w": 1136,
+        "h": 29,
+        "top": 298,
+        "left": 291
+      },
+      "pdfScroll": {
+        "w": 1136,
+        "h": 694,
+        "top": 327,
+        "left": 291
+      },
+      "pdfFooter": {
+        "w": 1136,
+        "h": 38,
+        "top": 1021,
+        "left": 291
+      },
+      "notesPanel": {
+        "w": 440,
+        "h": 814,
+        "top": 246,
+        "left": 1450
+      },
+      "canvasCss": {
+        "w": 1092,
+        "h": 1482
+      },
+      "pageWrap": {
+        "w": 1092,
+        "h": 1482,
+        "top": 349,
+        "left": 313
+      },
+      "scale": 1.8344,
+      "effectiveScale": 1.8344,
+      "scrollMetrics": {
+        "clientH": 694,
+        "scrollH": 1526,
+        "clientW": 1136,
+        "scrollW": 1136
+      },
+      "verticalSlack": -788,
+      "horizontalSlack": 44,
+      "fitsPageCompletely": false,
+      "pageInput": "1",
+      "pageTotal": "/ 29",
+      "zoomSelectValue": "1",
+      "zoomOptions": [
+        "1:适合宽度",
+        "0.8:80%",
+        "1.25:125%",
+        "1.5:150%"
+      ],
+      "printedLabel": "PDF 第 1 页 · 文内 128",
+      "toolbarControlIds": [
+        "prev-page",
+        "page-input",
+        "next-page",
+        "zoom-select",
+        "download-pdf"
+      ]
+    }
+  },
+  "wheel": {
+    "pageBefore": "1",
+    "pageAfter": "1",
+    "scrollBefore": 0,
+    "scrollAfter": 360,
+    "wheelEventsObserved": 1,
+    "pageTurnedByWheel": false,
+    "scrollsWithWheel": true
+  },
+  "zoom150": {
+    "pageBefore": "1",
+    "pageAfter": "1",
+    "scrollBefore": 476,
+    "scrollAfter": 836,
+    "canvasH": 1571.57,
+    "scrollClientH": 616
+  },
+  "card": {
+    "markerStagesPresent": {
+      "question": true,
+      "assessment": true,
+      "next": true,
+      "summary": true
+    },
+    "markerCountInCard": 4,
+    "headings": [
+      "研究问题",
+      "问题的重要性与文献缺口",
+      "主要回答与贡献",
+      "数据与样本",
+      "关键概念与变量",
+      "研究方法与比较逻辑",
+      "核心结果及原文位置",
+      "稳健性与替代解释",
+      "结论的适用边界",
+      "我的判断与疑问",
+      "合上论文后的复述",
+      "与其他文献的联系",
+      "下一步阅读或研究行动",
+      "批注与术语"
+    ],
+    "cardMetaText": "臧文斌；吴舒祥；王一如；陈晨 · 2026实证：机制与因果评估 · 0/4 步已确认",
+    "unfilledPlaceholders": [
+      "待记录",
+      "待记录",
+      "待记录",
+      "待记录",
+      "待记录",
+      "待记录",
+      "待记录",
+      "待记录",
+      "待记录"
+    ],
+    "sourceExpression": "app.js renderCard(): Object.entries(FIELDS).map(([k,v]) => definition(p,k)[0] + p.fields[k])"
+  },
+  "_meta": {
+    "capturedBy": "tests/capture_baseline.py",
+    "appVersion": "1.0.0",
+    "paperProbed": "medical-2026-zang",
+    "markersInjected": {
+      "question": "ZZMARK-question",
+      "assessment": "ZZMARK-assessment",
+      "next": "ZZMARK-next",
+      "summary": "ZZMARK-summary"
+    },
+    "note": "markers exist only in the temporary copy of the library",
+    "sourceTree": "working copy, functionally identical to the released build",
+    "patchShapeNote": "/api/save applies only whitelisted top-level record keys from body.patch; manual values must be sent as patch.fields. Unknown patch keys are ignored silently with HTTP 200."
+  }
+}

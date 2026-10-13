@@ -1,0 +1,89 @@
+{
+  "version": "1.3.3",
+  "synthetic": true,
+  "real_api": false,
+  "checks": [
+    {
+      "name": "Release starts with empty library and AI disabled",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Portable server becomes healthy",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Anonymous library access refused",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Current-user launcher pipe produces session bootstrap",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Authenticated reader opens synthetic PDF",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Bootstrap removed from address",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Entire PDF page fits its reading viewport",
+      "ok": true,
+      "evidence": {
+        "page": [
+          377.859375,
+          489
+        ],
+        "viewport": [
+          732.3125,
+          525
+        ],
+        "zoom": "page"
+      }
+    },
+    {
+      "name": "Mouse wheel turns one complete PDF page",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "AI answers are hidden before user click",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Explicit click reveals verified reading reference",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Revealing reference does not overwrite personal reading card",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Collapsing notes increases PDF reading width",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "Full page still fits after resize",
+      "ok": true,
+      "evidence": null
+    },
+    {
+      "name": "No browser JavaScript errors",
+      "ok": true,
+      "evidence": []
+    }
+  ],
+  "errors": [],
+  "pass": true
+}

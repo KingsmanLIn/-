@@ -1,0 +1,53 @@
+[
+  {
+    "size": "1440x900",
+    "viewport": [
+      1440,
+      900
+    ],
+    "panelShare": 67,
+    "notesWidth": 372,
+    "canvas": [
+      738,
+      1002
+    ],
+    "overflow": 369,
+    "stacked": false,
+    "page": "1",
+    "file": "phase8-window-1440x900.png"
+  },
+  {
+    "size": "1366x768",
+    "viewport": [
+      1366,
+      768
+    ],
+    "panelShare": 67,
+    "notesWidth": 348,
+    "canvas": [
+      688,
+      934
+    ],
+    "overflow": 433,
+    "stacked": false,
+    "page": "1",
+    "file": "phase8-window-1366x768.png"
+  },
+  {
+    "size": "1024x768",
+    "viewport": [
+      1024,
+      768
+    ],
+    "panelShare": 67,
+    "notesWidth": 300,
+    "canvas": [
+      481,
+      653
+    ],
+    "overflow": 182,
+    "stacked": false,
+    "page": "1",
+    "file": "phase8-window-1024x768.png"
+  }
+]

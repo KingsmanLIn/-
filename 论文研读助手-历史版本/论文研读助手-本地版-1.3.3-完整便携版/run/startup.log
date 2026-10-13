@@ -1,0 +1,1001 @@
+{"event": "recover", "provider": "disabled", "count": 0, "outcome": "disabled"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+{"event": "bootstrap_issued", "count": 1}
+{"event": "import_enqueue", "paper_id": "c1db7cd2-b68b-4c1f-aad7-a4b649356831", "status": "waiting_for_provider", "reason": "provider_disabled"}
+{"event": "enqueue", "paper_id": "c1db7cd2-b68b-4c1f-aad7-a4b649356831", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "provider_available", "already_recorded": false, "job_id": "job-a5d906e680077938", "count": 1}
+{"event": "resume_waiting", "count": 1}
+{"event": "transition", "paper_id": "c1db7cd2-b68b-4c1f-aad7-a4b649356831", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "c1db7cd2-b68b-4c1f-aad7-a4b649356831", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "c1db7cd2-b68b-4c1f-aad7-a4b649356831", "status": "waiting_for_user", "stage": "", "progress": 0}
+{"event": "send_blocked", "paper_id": "c1db7cd2-b68b-4c1f-aad7-a4b649356831"}
+{"event": "bootstrap_issued", "count": 2}
+{"event": "enqueue", "paper_id": "93cf2c85-bdc6-484b-9b4d-93029bafe5de", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "import", "already_recorded": true, "job_id": "job-eb0b2113ca732fe3", "count": 1}
+{"event": "import_enqueue", "paper_id": "93cf2c85-bdc6-484b-9b4d-93029bafe5de", "status": "queued", "reason": "import", "job_id": "job-eb0b2113ca732fe3"}
+{"event": "transition", "paper_id": "93cf2c85-bdc6-484b-9b4d-93029bafe5de", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "93cf2c85-bdc6-484b-9b4d-93029bafe5de", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "93cf2c85-bdc6-484b-9b4d-93029bafe5de", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "provider_call", "paper_id": "93cf2c85-bdc6-484b-9b4d-93029bafe5de", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 0, "category": "config_error", "ok": false, "http_status": 0, "request_id": ""}
+{"event": "transition", "paper_id": "93cf2c85-bdc6-484b-9b4d-93029bafe5de", "status": "failed", "stage": "", "progress": 0}
+{"event": "failed", "paper_id": "93cf2c85-bdc6-484b-9b4d-93029bafe5de", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 839, "category": "config_error", "http_status": 0, "request_id": ""}
+{"event": "enqueue", "paper_id": "a4fad000-22bd-44a6-860b-6bd2813ded9c", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "import", "already_recorded": true, "job_id": "job-58666fc807479fb1", "count": 1}
+{"event": "import_enqueue", "paper_id": "a4fad000-22bd-44a6-860b-6bd2813ded9c", "status": "queued", "reason": "import", "job_id": "job-58666fc807479fb1"}
+{"event": "transition", "paper_id": "a4fad000-22bd-44a6-860b-6bd2813ded9c", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "a4fad000-22bd-44a6-860b-6bd2813ded9c", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "a4fad000-22bd-44a6-860b-6bd2813ded9c", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "provider_call", "paper_id": "a4fad000-22bd-44a6-860b-6bd2813ded9c", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 0, "category": "config_error", "ok": false, "http_status": 0, "request_id": ""}
+{"event": "transition", "paper_id": "a4fad000-22bd-44a6-860b-6bd2813ded9c", "status": "failed", "stage": "", "progress": 0}
+{"event": "failed", "paper_id": "a4fad000-22bd-44a6-860b-6bd2813ded9c", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 1187, "category": "config_error", "http_status": 0, "request_id": ""}
+{"event": "bootstrap_issued", "count": 3}
+{"event": "recover", "provider": "openai_compatible", "count": 0, "outcome": "ok"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+{"event": "bootstrap_issued", "count": 1}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51041)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 2}
+{"event": "bootstrap_issued", "count": 3}
+{"event": "recover", "provider": "openai_compatible", "count": 0, "outcome": "ok"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+{"event": "bootstrap_issued", "count": 1}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 55680)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 2}
+{"event": "enqueue", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "import", "already_recorded": true, "job_id": "job-e2617ee4425bebb6", "count": 1}
+{"event": "import_enqueue", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "queued", "reason": "import", "job_id": "job-e2617ee4425bebb6"}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "provider_call", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 21975, "category": "invalid_json", "ok": false, "http_status": 0, "request_id": ""}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "failed", "stage": "", "progress": 0}
+{"event": "failed", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 22807, "category": "invalid_json", "http_status": 0, "request_id": ""}
+{"event": "enqueue", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "manual", "already_recorded": false, "job_id": "job-654f18a5faed9ab5", "count": 2}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "provider_call", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 23625, "category": "invalid_json", "ok": false, "http_status": 0, "request_id": ""}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "failed", "stage": "", "progress": 0}
+{"event": "failed", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 24329, "category": "invalid_json", "http_status": 0, "request_id": ""}
+{"event": "bootstrap_issued", "count": 3}
+{"event": "enqueue", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "manual", "already_recorded": false, "job_id": "job-d968341663b46586", "count": 1}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "provider_call", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 69052, "category": "ok", "ok": true, "http_status": 0, "request_id": ""}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "validating", "progress": 80}
+{"event": "validation_failed", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "provider": "openai_compatible", "codes": ["page_corrected", "quote_missing"], "attempt": 1}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "repair_call", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 69384, "category": "ok", "ok": true}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "running", "stage": "saving", "progress": 95}
+{"event": "transition", "paper_id": "9edf1d4b-561b-47a2-860e-9119d865f54b", "status": "ready", "stage": "done", "progress": 100}
+{"event": "bootstrap_issued", "count": 4}
+{"event": "recover", "provider": "openai_compatible", "count": 0, "outcome": "ok"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+{"event": "bootstrap_issued", "count": 1}
+{"event": "bootstrap_issued", "count": 2}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 52492)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 64351)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 440, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 55815)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 59130)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 3}
+{"event": "bootstrap_issued", "count": 4}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 63401)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 5}
+{"event": "metadata_filled", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "count": 3}
+{"event": "enqueue", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "import", "already_recorded": true, "job_id": "job-03547192ca1acd3b", "count": 1}
+{"event": "import_enqueue", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "status": "queued", "reason": "import", "job_id": "job-03547192ca1acd3b"}
+{"event": "transition", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "metadata_filled", "paper_id": "83e2216e-9c08-47a2-8547-55a2501f5193", "count": 3}
+{"event": "enqueue", "paper_id": "83e2216e-9c08-47a2-8547-55a2501f5193", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "import", "already_recorded": true, "job_id": "job-ed866296c89e0535", "count": 1}
+{"event": "import_enqueue", "paper_id": "83e2216e-9c08-47a2-8547-55a2501f5193", "status": "queued", "reason": "import", "job_id": "job-ed866296c89e0535"}
+{"event": "provider_call", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 67575, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 1, "pass_total": 3, "parse_detail": ""}
+{"event": "transition", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "status": "running", "stage": "requesting", "progress": 61}
+{"event": "metadata_filled", "paper_id": "42ee57a0-1981-4b6e-b2a2-ed6631fd57cf", "count": 5}
+{"event": "enqueue", "paper_id": "42ee57a0-1981-4b6e-b2a2-ed6631fd57cf", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "import", "already_recorded": true, "job_id": "job-af878d7f7292dff0", "count": 1}
+{"event": "import_enqueue", "paper_id": "42ee57a0-1981-4b6e-b2a2-ed6631fd57cf", "status": "queued", "reason": "import", "job_id": "job-af878d7f7292dff0"}
+{"event": "provider_call", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 67631, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 2, "pass_total": 3, "parse_detail": ""}
+{"event": "transition", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "status": "running", "stage": "requesting", "progress": 68}
+{"event": "provider_call", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 83703, "category": "invalid_json", "ok": false, "http_status": 0, "request_id": "", "public_code": "invalid_response", "pass_index": 3, "pass_total": 3, "parse_detail": "bad_json@11909"}
+{"event": "transition", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "status": "failed", "stage": "", "progress": 0}
+{"event": "failed", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 220468, "category": "invalid_json", "http_status": 0, "request_id": "", "public_code": "invalid_response", "parse_detail": "bad_json@11909"}
+{"event": "transition", "paper_id": "83e2216e-9c08-47a2-8547-55a2501f5193", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "83e2216e-9c08-47a2-8547-55a2501f5193", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "83e2216e-9c08-47a2-8547-55a2501f5193", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "provider_call", "paper_id": "83e2216e-9c08-47a2-8547-55a2501f5193", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 88520, "category": "invalid_json", "ok": false, "http_status": 0, "request_id": "", "public_code": "invalid_response", "pass_index": 1, "pass_total": 3, "parse_detail": "bad_json@5284"}
+{"event": "transition", "paper_id": "83e2216e-9c08-47a2-8547-55a2501f5193", "status": "failed", "stage": "", "progress": 0}
+{"event": "failed", "paper_id": "83e2216e-9c08-47a2-8547-55a2501f5193", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 89932, "category": "invalid_json", "http_status": 0, "request_id": "", "public_code": "invalid_response", "parse_detail": "bad_json@5284"}
+{"event": "transition", "paper_id": "42ee57a0-1981-4b6e-b2a2-ed6631fd57cf", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "42ee57a0-1981-4b6e-b2a2-ed6631fd57cf", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "42ee57a0-1981-4b6e-b2a2-ed6631fd57cf", "status": "running", "stage": "requesting", "progress": 55}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 53867)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "provider_call", "paper_id": "42ee57a0-1981-4b6e-b2a2-ed6631fd57cf", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 91655, "category": "invalid_json", "ok": false, "http_status": 0, "request_id": "", "public_code": "output_truncated", "pass_index": 1, "pass_total": 3, "parse_detail": "empty_content"}
+{"event": "transition", "paper_id": "42ee57a0-1981-4b6e-b2a2-ed6631fd57cf", "status": "failed", "stage": "", "progress": 0}
+{"event": "failed", "paper_id": "42ee57a0-1981-4b6e-b2a2-ed6631fd57cf", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 93238, "category": "invalid_json", "http_status": 0, "request_id": "", "public_code": "output_truncated", "parse_detail": "empty_content"}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 53528)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 53679)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54494)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 6}
+{"event": "recover", "provider": "openai_compatible", "count": 0, "outcome": "ok"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 60946)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 1}
+{"event": "bootstrap_issued", "count": 2}
+{"event": "bootstrap_issued", "count": 3}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54423)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "paper_deleted", "paper_id": "83e2216e-9c08-47a2-8547-55a2501f5193", "count": 2, "outcome": "ok"}
+{"event": "paper_deleted", "paper_id": "42ee57a0-1981-4b6e-b2a2-ed6631fd57cf", "count": 2, "outcome": "ok"}
+{"event": "paper_deleted", "paper_id": "f63ba568-c2e0-4a5a-8875-ee53d69e57e0", "count": 2, "outcome": "ok"}
+{"event": "paper_deleted", "paper_id": "a4fad000-22bd-44a6-860b-6bd2813ded9c", "count": 1, "outcome": "ok"}
+{"event": "paper_deleted", "paper_id": "93cf2c85-bdc6-484b-9b4d-93029bafe5de", "count": 1, "outcome": "ok"}
+{"event": "paper_deleted", "paper_id": "c1db7cd2-b68b-4c1f-aad7-a4b649356831", "count": 1, "outcome": "ok"}
+{"event": "bootstrap_issued", "count": 4}
+{"event": "recover", "provider": "openai_compatible", "count": 0, "outcome": "ok"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62705)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 1}
+{"event": "bootstrap_issued", "count": 2}
+{"event": "bootstrap_issued", "count": 3}
+{"event": "recover", "provider": "openai_compatible", "count": 0, "outcome": "ok"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 59865)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 1}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62642)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "metadata_filled", "paper_id": "047cd47f-21db-4699-8dbb-7dce773bac9f", "count": 5}
+{"event": "import_enqueue", "paper_id": "047cd47f-21db-4699-8dbb-7dce773bac9f", "status": "waiting_for_user", "reason": "waiting_for_user"}
+{"event": "bootstrap_issued", "count": 2}
+{"event": "recover", "provider": "openai_compatible", "count": 0, "outcome": "ok"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+{"event": "bootstrap_issued", "count": 1}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 55388)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "metadata_filled", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "count": 4}
+{"event": "import_enqueue", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "waiting_for_user", "reason": "waiting_for_user"}
+{"event": "enqueue", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "manual", "already_recorded": false, "job_id": "job-0260ab99616df59d", "count": 1}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "bootstrap_issued", "count": 2}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 57419)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 3}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 119496, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 1, "pass_total": 3, "parse_detail": ""}
+{"event": "figures_attached", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "count": 2}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 61}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 58535)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51201)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 65061, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 2, "pass_total": 3, "parse_detail": ""}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 68}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 69078, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 3, "pass_total": 3, "parse_detail": ""}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "validating", "progress": 80}
+{"event": "validation_failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "codes": ["page_corrected", "length_limit", "quote_missing", "causal_overreach"], "attempt": 1}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "bootstrap_issued", "count": 4}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54778)
+----------------------------------------
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 64651)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 60453)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "repair_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 104483, "category": "invalid_json", "ok": false, "public_code": "invalid_response", "parse_detail": ""}
+{"event": "validation_failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "codes": ["invalid_response"], "attempt": 2}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "failed", "stage": "", "progress": 0}
+{"event": "failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 360427, "category": "validation_failed", "codes": ["invalid_response"]}
+{"event": "bootstrap_issued", "count": 5}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 60123)
+Traceback (most recent call last):
+----------------------------------------
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+----------------------------------------
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62110)
+----------------------------------------
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+Exception occurred during processing of request from ('127.0.0.1', 55788)
+Exception occurred during processing of request from ('127.0.0.1', 52368)
+Exception occurred during processing of request from ('127.0.0.1', 63110)
+Traceback (most recent call last):
+Exception occurred during processing of request from ('127.0.0.1', 50894)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+Traceback (most recent call last):
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+{"event": "bootstrap_issued", "count": 6}
+{"event": "bootstrap_issued", "count": 7}
+{"event": "supersede", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058"}
+{"event": "enqueue", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "force", "already_recorded": false, "job_id": "job-a0def8888d00907b", "count": 2}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "bootstrap_issued", "count": 8}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 65360)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 51395)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 75446, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 1, "pass_total": 3, "parse_detail": ""}
+{"event": "figures_attached", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "count": 2}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 61}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 42320, "category": "invalid_json", "ok": false, "http_status": 0, "request_id": "", "public_code": "invalid_response", "pass_index": 2, "pass_total": 3, "parse_detail": "bad_json@3924"}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "failed", "stage": "", "progress": 0}
+{"event": "failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 119972, "category": "invalid_json", "http_status": 0, "request_id": "", "public_code": "invalid_response", "parse_detail": "bad_json@3924"}
+{"event": "bootstrap_issued", "count": 9}
+{"event": "supersede", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058"}
+{"event": "enqueue", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "force", "already_recorded": false, "job_id": "job-0f6839bb3eef35f9", "count": 3}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 69161, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 1, "pass_total": 3, "parse_detail": ""}
+{"event": "figures_attached", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "count": 2}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 61}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 41965, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 2, "pass_total": 3, "parse_detail": ""}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 68}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 65747, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 3, "pass_total": 3, "parse_detail": ""}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "validating", "progress": 80}
+{"event": "validation_failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "codes": ["page_corrected", "length_limit", "causal_overreach"], "attempt": 1}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "repair_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 80835, "category": "ok", "ok": true, "public_code": "", "parse_detail": ""}
+{"event": "validation_failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "codes": ["page_corrected", "quote_missing"], "attempt": 2}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "failed", "stage": "", "progress": 0}
+{"event": "failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 259882, "category": "validation_failed", "codes": ["page_corrected", "quote_missing"]}
+{"event": "bootstrap_issued", "count": 10}
+{"event": "recover", "provider": "openai_compatible", "count": 0, "outcome": "ok"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 64914)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 1}
+{"event": "bootstrap_issued", "count": 2}
+{"event": "supersede", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058"}
+{"event": "enqueue", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "force", "already_recorded": false, "job_id": "job-95b4ff8e5f55ad97", "count": 4}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 60758, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 1, "pass_total": 3, "parse_detail": ""}
+{"event": "figures_attached", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "count": 2}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 61}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 61199, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 2, "pass_total": 3, "parse_detail": ""}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 68}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 58974, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 3, "pass_total": 3, "parse_detail": ""}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "validating", "progress": 80}
+{"event": "validation_failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "codes": ["quote_missing", "page_corrected", "length_limit", "causal_overreach"], "attempt": 1}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "repair_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 137145, "category": "invalid_json", "ok": false, "public_code": "invalid_response", "parse_detail": ""}
+{"event": "json_retry", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "category": "repair", "public_code": "invalid_response", "parse_detail": ""}
+{"event": "repair_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 80177, "category": "ok", "ok": true, "public_code": "", "parse_detail": ""}
+{"event": "validation_failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "codes": ["field_completeness", "page_corrected"], "attempt": 2}
+{"event": "send_blocked", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058"}
+{"event": "repair_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 0, "category": "config_error", "ok": false, "public_code": "budget_blocked", "parse_detail": ""}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "failed", "stage": "", "progress": 0}
+{"event": "failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 400535, "category": "validation_failed", "codes": ["field_completeness", "page_corrected"]}
+{"event": "bootstrap_issued", "count": 3}
+{"event": "recover", "provider": "openai_compatible", "count": 0, "outcome": "ok"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+{"event": "bootstrap_issued", "count": 1}
+{"event": "bootstrap_issued", "count": 2}
+{"event": "supersede", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058"}
+{"event": "enqueue", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "reason": "force", "already_recorded": false, "job_id": "job-56d64a6a8f537890", "count": 5}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "extracting", "progress": 15}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "chunking", "progress": 30}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 90943, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 1, "pass_total": 3, "parse_detail": ""}
+{"event": "figures_attached", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "count": 2}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 61}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 61237, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 2, "pass_total": 3, "parse_detail": ""}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 68}
+{"event": "provider_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 67122, "category": "ok", "ok": true, "http_status": 0, "request_id": "", "public_code": "", "pass_index": 3, "pass_total": 3, "parse_detail": ""}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "validating", "progress": 80}
+{"event": "validation_failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "codes": ["page_corrected", "length_limit", "causal_overreach"], "attempt": 1}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "requesting", "progress": 55}
+{"event": "repair_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 45731, "category": "ok", "ok": true, "public_code": "", "parse_detail": ""}
+{"event": "validation_failed", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "codes": ["page_corrected", "length_limit", "causal_overreach"], "attempt": 2}
+{"event": "repair_call", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "provider": "openai_compatible", "model": "deepseek-flash", "duration_ms": 67150, "category": "ok", "ok": true, "public_code": "", "parse_detail": ""}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "running", "stage": "saving", "progress": 95}
+{"event": "transition", "paper_id": "497bb7a8-5767-473d-843a-7540e724e058", "status": "ready", "stage": "done", "progress": 100}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 49197)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "recover", "provider": "openai_compatible", "count": 0, "outcome": "ok"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+{"event": "bootstrap_issued", "count": 1}
+{"event": "bootstrap_issued", "count": 2}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54356)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 3}
+{"event": "recover", "provider": "openai_compatible", "count": 0, "outcome": "ok"}
+{"event": "worker_started"}
+http://127.0.0.1:8765
+{"event": "bootstrap_issued", "count": 1}
+{"event": "bootstrap_issued", "count": 2}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 54780)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 3}
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 62244)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 64854)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 64705)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+----------------------------------------
+Exception occurred during processing of request from ('127.0.0.1', 53234)
+Traceback (most recent call last):
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 697, in process_request_thread
+    self.finish_request(request, client_address)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 362, in finish_request
+    self.RequestHandlerClass(request, client_address, self)
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socketserver.py", line 766, in __init__
+    self.handle()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 442, in handle
+    self.handle_one_request()
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\http\server.py", line 408, in handle_one_request
+    self.raw_requestline = self.rfile.readline(65537)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\ASUS\OneDrive\Desktop\论文研读助手-本地版-1.3.3-完整便携版\runtime\python312.zip\socket.py", line 720, in readinto
+    return self._sock.recv_into(b)
+           ^^^^^^^^^^^^^^^^^^^^^^^
+ConnectionResetError: [WinError 10054] 远程主机强迫关闭了一个现有的连接。
+----------------------------------------
+{"event": "bootstrap_issued", "count": 4}

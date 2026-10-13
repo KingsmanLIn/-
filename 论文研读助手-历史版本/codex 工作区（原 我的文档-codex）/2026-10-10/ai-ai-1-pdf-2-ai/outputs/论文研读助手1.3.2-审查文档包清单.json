@@ -1,0 +1,14 @@
+{
+  "zip": "outputs\\论文研读助手1.3.2-审查文档包.zip",
+  "sha256": "3abde0ad31a8babd8e26be89c22bb0b21665702554ec721f8049f7d007a51a51",
+  "members": [
+    "论文研读助手1.3.2-独立安全审查报告.md",
+    "论文研读助手1.3.2-待审清单逐项对照.md",
+    "论文研读助手1.3.2-待审清单逐项对照.csv",
+    "论文研读助手1.3.2-整改执行提示词.md",
+    "论文研读助手1.3.2-审查证据.json"
+  ],
+  "contains_application_code": false,
+  "contains_user_data": false,
+  "contains_keys": false
+}

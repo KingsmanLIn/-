@@ -1,0 +1,26 @@
+/* 正文可读性（AI 参考、阅读步骤、批注、阅读卡）
+   1.3.5（UI 整理）：字号全部改用 styles.css 里的 --fs-* 记号。
+   这里是“阅读内容”的基准：正文 14px、行高 1.7–1.8，中文段落不再出现 10px 以下的字。
+   窄屏只收紧留白与行高，不再把字号压到 12px 以下。 */
+.field .field-title{font-size:var(--fs-meta)}
+.field .field-hint{font-size:var(--fs-meta);line-height:var(--lh-base)}
+.field textarea{font-size:var(--fs-body);line-height:var(--lh-base)}
+.teacher-note{font-size:var(--fs-body);line-height:var(--lh-paragraph)}
+.teacher-note strong{font-size:var(--fs-meta)}
+.stage-description{font-size:var(--fs-body);line-height:var(--lh-paragraph)}
+.notes-tabs button{font-size:var(--fs-meta)}
+.check-stage{font-size:var(--fs-meta)}
+.check-stage small{font-size:var(--fs-meta)}
+.annotation-card p,.annotation-card blockquote{font-size:var(--fs-body);line-height:var(--lh-paragraph)}
+.card-preview{font-size:var(--fs-body);line-height:var(--lh-paragraph)}
+.card-preview h3{font-size:var(--fs-lg)}
+.comparison-table td{font-size:var(--fs-meta)}
+#paper-authors{font-size:var(--fs-meta)}
+.save-status{font-size:var(--fs-meta)}
+.ai-answer{font-size:var(--fs-body);line-height:var(--lh-paragraph)}
+@media(max-width:580px){
+  .notes-tabs button{font-size:var(--fs-meta)}
+  .teacher-note,.stage-description,.field .field-hint{font-size:var(--fs-meta)}
+  .field textarea{font-size:var(--fs-body)}
+  .save-status{font-size:var(--fs-meta)}
+}

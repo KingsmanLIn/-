@@ -1,0 +1,245 @@
+{
+  "label": "before",
+  "rows": [
+    {
+      "viewport": [
+        1366,
+        768
+      ],
+      "parts": {
+        "topbar": {
+          "top": 0,
+          "h": 65,
+          "w": 1128
+        },
+        "paperHeader": {
+          "top": 87,
+          "h": 80,
+          "w": 1078
+        },
+        "ribbon": {
+          "top": 182,
+          "h": 39,
+          "w": 1078
+        },
+        "workspace": {
+          "top": 236,
+          "h": 516,
+          "w": 1078
+        },
+        "toolbar": {
+          "top": 237,
+          "h": 51,
+          "w": 720
+        },
+        "subbar": {
+          "top": 288,
+          "h": 29,
+          "w": 720
+        },
+        "scroll": {
+          "top": 317,
+          "h": 396,
+          "w": 720
+        },
+        "footer": {
+          "top": 713,
+          "h": 38,
+          "w": 720
+        }
+      },
+      "chromePx": 346,
+      "pdfHeightPx": 396,
+      "pdfShareOfViewport": 51.6,
+      "canvas": [
+        676,
+        917
+      ],
+      "medianFontPx": 10.8,
+      "wholePage": false,
+      "zoom": "width",
+      "notesWidth": 340,
+      "pdfWidth": 722
+    },
+    {
+      "viewport": [
+        1920,
+        1080
+      ],
+      "parts": {
+        "topbar": {
+          "top": 0,
+          "h": 65,
+          "w": 1660
+        },
+        "paperHeader": {
+          "top": 90,
+          "h": 87,
+          "w": 1600
+        },
+        "ribbon": {
+          "top": 192,
+          "h": 39,
+          "w": 1600
+        },
+        "workspace": {
+          "top": 246,
+          "h": 814,
+          "w": 1600
+        },
+        "toolbar": {
+          "top": 247,
+          "h": 51,
+          "w": 1162
+        },
+        "subbar": {
+          "top": 298,
+          "h": 29,
+          "w": 1162
+        },
+        "scroll": {
+          "top": 327,
+          "h": 694,
+          "w": 1162
+        },
+        "footer": {
+          "top": 1021,
+          "h": 38,
+          "w": 1162
+        }
+      },
+      "chromePx": 353,
+      "pdfHeightPx": 694,
+      "pdfShareOfViewport": 64.3,
+      "canvas": [
+        485,
+        658
+      ],
+      "medianFontPx": 7.75,
+      "wholePage": true,
+      "zoom": "page",
+      "notesWidth": 420,
+      "pdfWidth": 1164
+    },
+    {
+      "viewport": [
+        1280,
+        800
+      ],
+      "parts": {
+        "topbar": {
+          "top": 0,
+          "h": 65,
+          "w": 1042
+        },
+        "paperHeader": {
+          "top": 87,
+          "h": 79,
+          "w": 992
+        },
+        "ribbon": {
+          "top": 181,
+          "h": 39,
+          "w": 992
+        },
+        "workspace": {
+          "top": 235,
+          "h": 549,
+          "w": 992
+        },
+        "toolbar": {
+          "top": 236,
+          "h": 51,
+          "w": 663
+        },
+        "subbar": {
+          "top": 287,
+          "h": 29,
+          "w": 663
+        },
+        "scroll": {
+          "top": 316,
+          "h": 429,
+          "w": 663
+        },
+        "footer": {
+          "top": 745,
+          "h": 38,
+          "w": 663
+        }
+      },
+      "chromePx": 345,
+      "pdfHeightPx": 429,
+      "pdfShareOfViewport": 53.6,
+      "canvas": [
+        619,
+        840
+      ],
+      "medianFontPx": 9.89,
+      "wholePage": false,
+      "zoom": "width",
+      "notesWidth": 311,
+      "pdfWidth": 665
+    },
+    {
+      "viewport": [
+        1600,
+        900
+      ],
+      "parts": {
+        "topbar": {
+          "top": 0,
+          "h": 65,
+          "w": 1340
+        },
+        "paperHeader": {
+          "top": 90,
+          "h": 85,
+          "w": 1280
+        },
+        "ribbon": {
+          "top": 190,
+          "h": 39,
+          "w": 1280
+        },
+        "workspace": {
+          "top": 244,
+          "h": 636,
+          "w": 1280
+        },
+        "toolbar": {
+          "top": 245,
+          "h": 51,
+          "w": 856
+        },
+        "subbar": {
+          "top": 296,
+          "h": 29,
+          "w": 856
+        },
+        "scroll": {
+          "top": 325,
+          "h": 516,
+          "w": 856
+        },
+        "footer": {
+          "top": 841,
+          "h": 38,
+          "w": 856
+        }
+      },
+      "chromePx": 351,
+      "pdfHeightPx": 516,
+      "pdfShareOfViewport": 57.3,
+      "canvas": [
+        812,
+        1102
+      ],
+      "medianFontPx": 12.97,
+      "wholePage": false,
+      "zoom": "width",
+      "notesWidth": 406,
+      "pdfWidth": 858
+    }
+  ]
+}

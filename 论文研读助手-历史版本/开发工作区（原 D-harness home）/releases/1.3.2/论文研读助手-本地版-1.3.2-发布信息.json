@@ -1,0 +1,40 @@
+{
+  "version": "1.3.2",
+  "out": "D:\\harness home\\releases\\1.3.2",
+  "packages": [
+    {
+      "label": "全新安装",
+      "description": "只带出厂示例文献，用于新机器",
+      "folder": "论文研读助手-本地版-1.3.2-全新安装",
+      "zip": "D:\\harness home\\releases\\1.3.2\\论文研读助手-本地版-1.3.2-全新安装.zip",
+      "zip_bytes": 10168324,
+      "zip_sha256": "2D7CC8F2B62532EA527CD6057599FBF85807D43E62867E0495917C521B36C799",
+      "files": 234,
+      "library": "D:\\harness home\\paper-reader\\tests\\fixtures\\library-v1.json",
+      "library_sha256": "3436614B83FF12E1EEB2CBEAF69E09B54B0D1AAD96AC100525F9493FE98902EC"
+    },
+    {
+      "label": "升级包",
+      "description": "带上你当前的文献库与三篇论文",
+      "folder": "论文研读助手-本地版-1.3.2-升级包",
+      "zip": "D:\\harness home\\releases\\1.3.2\\论文研读助手-本地版-1.3.2-升级包.zip",
+      "zip_bytes": 10167371,
+      "zip_sha256": "B506FD23644D14EE26B2D0D094E988DFB779D8A348C5FFB1037A2D1EB85982F0",
+      "files": 234,
+      "library": "D:\\harness home\\paper-reader\\data\\library.json",
+      "library_sha256": "B1BF35435EDB42B3A52FA4FC3F7E6E48922758969562300B6222223596A566E7"
+    }
+  ],
+  "smoke": {
+    "ok": true,
+    "passed": 23,
+    "failed": 0,
+    "tail": [
+      "written: D:\\harness home\\paper-reader\\tests\\release-smoke.json"
+    ]
+  },
+  "live_install_untouched": true,
+  "live_library_sha_before": "35EF842613E0",
+  "live_library_sha_after": "35EF842613E0",
+  "live_library_note": "build did not touch it"
+}

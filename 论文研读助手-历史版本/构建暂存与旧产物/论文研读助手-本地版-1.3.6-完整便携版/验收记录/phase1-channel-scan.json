@@ -1,0 +1,30 @@
+{
+  "channels": {
+    "analysis.status_payload": [],
+    "library.json": [],
+    "extracted/medical-2026-zang.json": [],
+    "process_log": [],
+    "http/": [],
+    "http/static/app.js": [],
+    "http/api/health": [],
+    "http/api/state": [],
+    "http/api/ai-settings": [],
+    "http/api/backup": [],
+    "backup/library.json": [],
+    "backup/papers/medical-2026-zang.pdf": [],
+    "backup/notes/臧文斌等（2026）-医疗控费机制.md": [],
+    "backup/extracted/medical-2026-zang.json": [],
+    "backup/papers/fertility-2026-coffey.pdf": [],
+    "backup/notes/Coffey等（2026）-低生育率是否稳定.md": [],
+    "backup/papers/finance-2021-zhang.pdf": [],
+    "backup/notes/张晓晶（2021）-金融发展与共同富裕.md": [],
+    "backup/manifest.json": []
+  },
+  "findings": [],
+  "requests": 1,
+  "exercised": true,
+  "status": "failed",
+  "public_code": "auth_failed",
+  "backup_bytes": 13959,
+  "leaked_channels": []
+}

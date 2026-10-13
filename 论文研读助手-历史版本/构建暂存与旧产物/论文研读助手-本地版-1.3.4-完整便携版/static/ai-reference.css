@@ -1,0 +1,44 @@
+/* AI 参考（阶段 6）：独立视觉层级，不改变人工阅读流的样式 */
+.ai-status-bar{display:flex;flex-wrap:wrap;align-items:center;gap:7px;margin:10px 0 6px}
+.ai-chip{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;border-radius:999px;font-size:11px;background:#eef1e8;color:#5d6a58;border:1px solid #dfe4d8}
+.ai-chip.ready{background:#e4efe4;color:#2f5a3a;border-color:#cfe0cf}
+.ai-chip.queued,.ai-chip.running{background:#e6edf5;color:#3a5675;border-color:#d3e0ee}
+.ai-chip.waiting_for_user,.ai-chip.waiting_for_provider{background:#f6efdc;color:#7a6231;border-color:#ebdfc2}
+.ai-chip.failed{background:#f7e7e2;color:#8a4c3a;border-color:#eed6cd}
+.ai-chip.stale,.ai-chip.cancelled{background:#efe9f4;color:#5b4a70;border-color:#e2d9ec}
+.ai-chip-detail{font-size:11px;color:#7d867a;max-width:100%}
+.ai-action{border:1px solid #d7e0d2;background:#fbfcf7;color:#4d6449;font-size:11px;padding:4px 9px;border-radius:7px}
+.ai-action:hover{background:#eef3e8}
+.ai-disclaimer{margin:0 0 12px;font-size:11px;line-height:1.7;color:#7d867a;background:#f6f7f1;border-left:3px solid #cdd8c4;padding:7px 10px;border-radius:0 7px 7px 0}
+.card-field{padding:9px 0;border-top:1px dashed #e6e9e0}
+.card-field-head{display:flex;align-items:baseline;justify-content:space-between;gap:9px}
+.card-field-head h3{margin:0}
+.ai-open{border:1px solid #cfe0cf;background:#f2f7ef;color:#3f6a49;font-size:11px;padding:3px 9px;border-radius:7px;white-space:nowrap}
+.ai-open:hover{background:#e5f0e1}
+.ai-panel{margin-top:9px;background:#f4f8f4;border:1px solid #d9e6d9;border-left:4px solid #7fa87f;border-radius:0 9px 9px 0;padding:10px 12px}
+.ai-panel.loading,.ai-panel.error{background:#f7f7f2;border-color:#e4e4da;border-left-color:#c9c9bb}
+.ai-meta{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:7px}
+.ai-tag{font-size:10px;padding:2px 7px;border-radius:6px;background:#e6efe6;color:#4e6b4e}
+.ai-answer{margin:0 0 8px;font-size:13px;line-height:1.8;color:#2b3a2f;white-space:pre-wrap}
+.ai-evidence{list-style:none;margin:0 0 8px;padding:0}
+.ai-evidence li{display:flex;gap:8px;align-items:flex-start;margin-bottom:5px}
+.ai-page{border:1px solid #cfe0cf;background:#fff;color:#3f6a49;font-size:11px;padding:2px 7px;border-radius:6px;white-space:nowrap}
+.ai-page:hover{background:#e9f2e6}
+.ai-quote{font-size:11px;line-height:1.7;color:#5c6a5c;border-left:2px solid #d3e2d3;padding-left:8px}
+.ai-none{margin:0 0 6px;font-size:11px;color:#8a8f83}
+.ai-actions{margin-top:4px}
+.ai-footnote{margin:7px 0 0;font-size:10px;color:#8a9384}
+@media(max-width:580px){.ai-answer{font-size:12px}.ai-quote{font-size:10px}.ai-open{font-size:10px;padding:3px 6px}}
+
+/* 输入范围提示：长论文被截断时在 AI 面板顶部说明送入了哪些页 */
+.ai-input-note{margin:0 0 8px;font-size:10px;line-height:1.7;color:#7a6a3f;background:#fbf6e8;border:1px solid #f0e6c8;border-radius:6px;padding:6px 8px}
+.ai-corrected{margin-left:6px;font-size:10px;color:#8a6a3a}
+
+/* 引文核对状态：逐字命中与“待人工核对”必须一眼可分 */
+.ai-verified{margin-left:6px;font-size:10px;color:#3f6a49;background:#eef6ec;border:1px solid #d3e2d3;border-radius:5px;padding:1px 5px;white-space:nowrap}
+.ai-unverified{margin-left:6px;font-size:10px;line-height:1.6;color:#8a5a1f;background:#fdf3e3;border:1px solid #f0dcb8;border-radius:5px;padding:1px 6px}
+
+/* 模型自报的提醒（例如“有引文与原文不完全一致”）按原样展示 */
+.ai-warnings{margin:0 0 8px;padding-left:18px;font-size:10px;line-height:1.7;color:#7a6a3f}
+.ai-warnings li{margin-bottom:2px}
+

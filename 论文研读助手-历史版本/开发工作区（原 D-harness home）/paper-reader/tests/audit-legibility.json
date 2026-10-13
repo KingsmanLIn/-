@@ -1,0 +1,171 @@
+{
+  "papers": {
+    "medical-2026-zang": {
+      "opened": true,
+      "title": "",
+      "1366x768": {
+        "ok": true,
+        "spans": 80,
+        "medianFontPx": 10.9914,
+        "p10FontPx": 9.06122,
+        "maxFontPx": 36.2449,
+        "scaleFactor": 1.156,
+        "canvas": [
+          688,
+          934
+        ],
+        "pageVisible": false,
+        "zoom": "width"
+      },
+      "1920x1080": {
+        "ok": true,
+        "spans": 80,
+        "medianFontPx": 9.42908,
+        "p10FontPx": 7.77329,
+        "maxFontPx": 31.0932,
+        "scaleFactor": 0.991,
+        "canvas": [
+          590,
+          801
+        ],
+        "pageVisible": true,
+        "zoom": "page"
+      },
+      "2560x1440": {
+        "ok": true,
+        "spans": 80,
+        "medianFontPx": 13.6669,
+        "p10FontPx": 11.2669,
+        "maxFontPx": 45.0676,
+        "scaleFactor": 1.437,
+        "canvas": [
+          855,
+          1161
+        ],
+        "pageVisible": true,
+        "zoom": "page"
+      }
+    },
+    "fertility-2026-coffey": {
+      "opened": true,
+      "title": "",
+      "1366x768": {
+        "ok": true,
+        "spans": 35,
+        "medianFontPx": 13.4902,
+        "p10FontPx": 13.4902,
+        "maxFontPx": 13.4902,
+        "scaleFactor": 1.124,
+        "canvas": [
+          688,
+          890
+        ],
+        "pageVisible": false,
+        "zoom": "width"
+      },
+      "1920x1080": {
+        "ok": true,
+        "spans": 35,
+        "medianFontPx": 12.1364,
+        "p10FontPx": 12.1364,
+        "maxFontPx": 12.1364,
+        "scaleFactor": 1.011,
+        "canvas": [
+          619,
+          801
+        ],
+        "pageVisible": true,
+        "zoom": "page"
+      },
+      "2560x1440": {
+        "ok": true,
+        "spans": 35,
+        "medianFontPx": 17.5909,
+        "p10FontPx": 17.5909,
+        "maxFontPx": 17.5909,
+        "scaleFactor": 1.466,
+        "canvas": [
+          897,
+          1161
+        ],
+        "pageVisible": true,
+        "zoom": "page"
+      }
+    },
+    "finance-2021-zhang": {
+      "opened": true,
+      "title": "",
+      "1366x768": {
+        "ok": true,
+        "spans": 83,
+        "medianFontPx": 11.2124,
+        "p10FontPx": 9.53629,
+        "maxFontPx": 22.7715,
+        "scaleFactor": 1.156,
+        "canvas": [
+          688,
+          973
+        ],
+        "pageVisible": false,
+        "zoom": "width"
+      },
+      "1920x1080": {
+        "ok": true,
+        "spans": 83,
+        "medianFontPx": 9.22986,
+        "p10FontPx": 7.85014,
+        "maxFontPx": 18.7452,
+        "scaleFactor": 0.952,
+        "canvas": [
+          566,
+          801
+        ],
+        "pageVisible": true,
+        "zoom": "page"
+      },
+      "2560x1440": {
+        "ok": true,
+        "spans": 83,
+        "medianFontPx": 13.3781,
+        "p10FontPx": 11.3783,
+        "maxFontPx": 27.17,
+        "scaleFactor": 1.379,
+        "canvas": [
+          821,
+          1161
+        ],
+        "pageVisible": true,
+        "zoom": "page"
+      }
+    }
+  },
+  "notes": "medianFontPx is the on-screen size of the PDF body text in CSS px",
+  "fitWidthAt1366": {
+    "ok": true,
+    "spans": 83,
+    "medianFontPx": 11.2124,
+    "p10FontPx": 9.53629,
+    "maxFontPx": 22.7715,
+    "scaleFactor": 1.156,
+    "canvas": [
+      688,
+      973
+    ],
+    "pageVisible": false,
+    "zoom": "width"
+  },
+  "zoom125At1366": {
+    "ok": true,
+    "spans": 83,
+    "medianFontPx": 7.04339,
+    "p10FontPx": 5.99051,
+    "maxFontPx": 14.3046,
+    "scaleFactor": 0.726,
+    "canvas": [
+      432,
+      611
+    ],
+    "pageVisible": false,
+    "zoom": "1.25"
+  }
+}

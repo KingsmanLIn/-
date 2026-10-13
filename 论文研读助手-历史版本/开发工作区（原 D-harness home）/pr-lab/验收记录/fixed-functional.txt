@@ -1,0 +1,198 @@
+test_fertility_english_paper (test_pdftext.BundledPapers.test_fertility_english_paper) ... skipped 'Real original paper excluded by synthetic-data-only authorization'
+test_medical_chinese_paper (test_pdftext.BundledPapers.test_medical_chinese_paper) ... skipped 'Real original paper excluded by synthetic-data-only authorization'
+test_pdftotext_backend_matches_page_counts (test_pdftext.BundledPapers.test_pdftotext_backend_matches_page_counts) ... skipped 'Real original paper excluded by synthetic-data-only authorization'
+test_punctuation_only_text_layer_is_not_evidence (test_pdftext.BundledPapers.test_punctuation_only_text_layer_is_not_evidence)
+A scan can carry a text layer of nothing but spaces and punctuation. ... ok
+test_real_text_is_still_usable (test_pdftext.BundledPapers.test_real_text_is_still_usable) ... ok
+test_scanned_finance_paper_has_no_text_layer (test_pdftext.BundledPapers.test_scanned_finance_paper_has_no_text_layer) ... skipped 'Real original paper excluded by synthetic-data-only authorization'
+test_sparse_text_layer_is_not_evidence (test_pdftext.BundledPapers.test_sparse_text_layer_is_not_evidence)
+Many characters but almost no content: a scan artefact, not readable text. ... ok
+test_body_text_is_never_removed_as_furniture (test_pdftext.CleaningIsConservative.test_body_text_is_never_removed_as_furniture) ... ok
+test_hyphen_joining_is_off_by_default_and_conservative_when_on (test_pdftext.CleaningIsConservative.test_hyphen_joining_is_off_by_default_and_conservative_when_on) ... ok
+test_ligatures_and_invisible_characters_are_normalised (test_pdftext.CleaningIsConservative.test_ligatures_and_invisible_characters_are_normalised) ... ok
+test_numbers_and_units_are_untouched (test_pdftext.CleaningIsConservative.test_numbers_and_units_are_untouched) ... ok
+test_running_header_and_page_number_are_detected (test_pdftext.CleaningIsConservative.test_running_header_and_page_number_are_detected) ... ok
+test_superscripts_are_not_flattened (test_pdftext.CleaningIsConservative.test_superscripts_are_not_flattened) ... ok
+test_broken_pdf_is_reported (test_pdftext.NoTextLayer.test_broken_pdf_is_reported) ... ok
+test_missing_file_is_reported_not_raised (test_pdftext.NoTextLayer.test_missing_file_is_reported_not_raised) ... ok
+test_scanned_pdf_reports_images_and_no_text (test_pdftext.NoTextLayer.test_scanned_pdf_reports_images_and_no_text) ... ok
+test_truly_blank_page (test_pdftext.NoTextLayer.test_truly_blank_page) ... ok
+test_english_numbers_survive (test_pdftext.NumbersSurvive.test_english_numbers_survive) ... ok
+test_table_values_extracted_verbatim (test_pdftext.NumbersSurvive.test_table_values_extracted_verbatim) ... ok
+test_chinese_pages (test_pdftext.PageStructure.test_chinese_pages) ... ok
+test_english_pages (test_pdftext.PageStructure.test_english_pages) ... ok
+test_page_sizes_are_present (test_pdftext.PageStructure.test_page_sizes_are_present) ... ok
+test_two_column_reading_order (test_pdftext.PageStructure.test_two_column_reading_order) ... ok
+test_extractor_reports_available_backends (test_chunk_cache.BackendSelection.test_extractor_reports_available_backends) ... ok
+test_pdftotext_and_builtin_agree_on_page_count (test_chunk_cache.BackendSelection.test_pdftotext_and_builtin_agree_on_page_count) ... ok
+test_prefer_builtin_only (test_chunk_cache.BackendSelection.test_prefer_builtin_only) ... ok
+test_chunk_ids_and_order (test_chunk_cache.ChunkStructure.test_chunk_ids_and_order) ... ok
+test_chunk_pages_really_contain_the_chunk_text (test_chunk_cache.ChunkStructure.test_chunk_pages_really_contain_the_chunk_text)
+Every chunk's evidence pages must map back to the original page text. ... ok
+test_empty_page_list_gives_no_chunks (test_chunk_cache.ChunkStructure.test_empty_page_list_gives_no_chunks) ... ok
+test_overlap_is_about_ten_percent (test_chunk_cache.ChunkStructure.test_overlap_is_about_ten_percent) ... ok
+test_page_of_offset_maps_inside_the_chunk (test_chunk_cache.ChunkStructure.test_page_of_offset_maps_inside_the_chunk) ... ok
+test_page_range_covers_each_chunk (test_chunk_cache.ChunkStructure.test_page_range_covers_each_chunk) ... ok
+test_real_paper_chunks_map_back_to_pages (test_chunk_cache.ChunkStructure.test_real_paper_chunks_map_back_to_pages) ... skipped 'Real paper content excluded; synthetic page/chunk mapping is tested'
+test_sections_are_detected_and_named (test_chunk_cache.ChunkStructure.test_sections_are_detected_and_named) ... ok
+test_size_limit_is_respected (test_chunk_cache.ChunkStructure.test_size_limit_is_respected) ... ok
+test_cache_is_validated_against_the_source_hash (test_chunk_cache.ExtractionCache.test_cache_is_validated_against_the_source_hash) ... ok
+test_cache_key_falls_back_to_the_source_hash (test_chunk_cache.ExtractionCache.test_cache_key_falls_back_to_the_source_hash) ... ok
+test_cache_records_extractor_version_and_page_count (test_chunk_cache.ExtractionCache.test_cache_records_extractor_version_and_page_count) ... ok
+test_cleaning_and_chunking_helpers (test_chunk_cache.ExtractionCache.test_cleaning_and_chunking_helpers) ... ok
+test_corrupt_cache_is_ignored_and_rewritten (test_chunk_cache.ExtractionCache.test_corrupt_cache_is_ignored_and_rewritten) ... ok
+test_page_count_mismatch_invalidates_the_cache (test_chunk_cache.ExtractionCache.test_page_count_mismatch_invalidates_the_cache) ... ok
+test_scanned_pdf_is_cached_as_no_text_layer (test_chunk_cache.ExtractionCache.test_scanned_pdf_is_cached_as_no_text_layer) ... ok
+test_second_extraction_hits_the_cache (test_chunk_cache.ExtractionCache.test_second_extraction_hits_the_cache) ... ok
+test_version_change_invalidates_the_cache (test_chunk_cache.ExtractionCache.test_version_change_invalidates_the_cache) ... ok
+test_failure_record_fields (test_reading_card.FailureLogFormat.test_failure_record_fields)
+The failure record keeps fixed fields and never the model's own text. ... ok
+test_summarise_problems_shape (test_reading_card.FailureLogFormat.test_summarise_problems_shape) ... ok
+test_all_quotes_forged (test_reading_card.FailureSamples.test_all_quotes_forged) ... ok
+test_broken_json_is_not_parseable (test_reading_card.FailureSamples.test_broken_json_is_not_parseable) ... ok
+test_causal_overstatement (test_reading_card.FailureSamples.test_causal_overstatement) ... ok
+test_empty_answer_text (test_reading_card.FailureSamples.test_empty_answer_text) ... ok
+test_evidence_missing_for_found_status (test_reading_card.FailureSamples.test_evidence_missing_for_found_status) ... ok
+test_forged_quote (test_reading_card.FailureSamples.test_forged_quote) ... ok
+test_length_limits (test_reading_card.FailureSamples.test_length_limits) ... ok
+test_missing_fields (test_reading_card.FailureSamples.test_missing_fields) ... ok
+test_not_found_written_as_proof_of_absence (test_reading_card.FailureSamples.test_not_found_written_as_proof_of_absence) ... ok
+test_out_of_range_page (test_reading_card.FailureSamples.test_out_of_range_page) ... ok
+test_overall_shape (test_reading_card.FailureSamples.test_overall_shape) ... ok
+test_page_outside_the_document_is_a_hard_error (test_reading_card.FailureSamples.test_page_outside_the_document_is_a_hard_error) ... ok
+test_too_few_verified_quotes (test_reading_card.FailureSamples.test_too_few_verified_quotes) ... ok
+test_unknown_field (test_reading_card.FailureSamples.test_unknown_field) ... ok
+test_wrong_page_is_corrected_and_recorded (test_reading_card.FailureSamples.test_wrong_page_is_corrected_and_recorded)
+A real quote on the wrong page is corrected, not accepted silently. ... ok
+test_wrong_status_and_confidence_enums (test_reading_card.FailureSamples.test_wrong_status_and_confidence_enums) ... ok
+test_zero_and_negative_page (test_reading_card.FailureSamples.test_zero_and_negative_page) ... ok
+test_chinese_card_passes_and_normalises (test_reading_card.LegalCards.test_chinese_card_passes_and_normalises) ... ok
+test_english_card_passes (test_reading_card.LegalCards.test_english_card_passes) ... ok
+test_not_found_answer_is_allowed_and_normalised (test_reading_card.LegalCards.test_not_found_answer_is_allowed_and_normalised) ... ok
+test_common_prefix_truncation_is_accepted (test_reading_card.LenientMode.test_common_prefix_truncation_is_accepted) ... ok
+test_quote_normalisation_map (test_reading_card.LenientMode.test_quote_normalisation_map) ... ok
+test_whitespace_and_punctuation_differences_are_tolerated (test_reading_card.LenientMode.test_whitespace_and_punctuation_differences_are_tolerated) ... ok
+test_empty_card_helper_is_valid_and_explicit (test_reading_card.PromptContract.test_empty_card_helper_is_valid_and_explicit) ... ok
+test_prompt_version (test_reading_card.PromptContract.test_prompt_version) ... ok
+test_repair_prompt_carries_problems_and_bad_json (test_reading_card.PromptContract.test_repair_prompt_carries_problems_and_bad_json) ... ok
+test_request_uses_the_prompt_version_system_prompt (test_reading_card.PromptContract.test_request_uses_the_prompt_version_system_prompt) ... ok
+test_system_prompt_states_all_rules (test_reading_card.PromptContract.test_system_prompt_states_all_rules) ... ok
+test_user_prompt_lists_all_fields_and_chunks (test_reading_card.PromptContract.test_user_prompt_lists_all_fields_and_chunks) ... ok
+test_failed_log_has_stable_fields_and_no_secret (test_reading_card_jobs.FailureLogFormat.test_failed_log_has_stable_fields_and_no_secret) ... ok
+test_status_endpoint_exposes_the_failure (test_reading_card_jobs.FailureLogFormat.test_status_endpoint_exposes_the_failure) ... ok
+test_all_quotes_forged (test_reading_card_jobs.FailureSamplesBlockReady.test_all_quotes_forged) ... ok
+test_bad_json (test_reading_card_jobs.FailureSamplesBlockReady.test_bad_json) ... ok
+test_causal_overstatement (test_reading_card_jobs.FailureSamplesBlockReady.test_causal_overstatement) ... ok
+test_forged_quote (test_reading_card_jobs.FailureSamplesBlockReady.test_forged_quote) ... ok
+test_missing_field (test_reading_card_jobs.FailureSamplesBlockReady.test_missing_field) ... ok
+test_page_out_of_range (test_reading_card_jobs.FailureSamplesBlockReady.test_page_out_of_range) ... ok
+test_both_outputs_invalid_fails_without_displaying_text (test_reading_card_jobs.OneRepairAttempt.test_both_outputs_invalid_fails_without_displaying_text) ... ok
+test_first_output_invalid_second_valid_reaches_ready (test_reading_card_jobs.OneRepairAttempt.test_first_output_invalid_second_valid_reaches_ready) ... ok
+test_repair_request_failure_also_fails (test_reading_card_jobs.OneRepairAttempt.test_repair_request_failure_also_fails) ... ok
+test_ai_text_never_enters_paper_fields (test_reading_card_jobs.ValidPipeline.test_ai_text_never_enters_paper_fields) ... ok
+test_answer_endpoint_reports_verification (test_reading_card_jobs.ValidPipeline.test_answer_endpoint_reports_verification) ... ok
+test_valid_card_reaches_ready_with_verified_quotes (test_reading_card_jobs.ValidPipeline.test_valid_card_reaches_ready_with_verified_quotes) ... ok
+test_build_adapter_follows_settings (test_analysis_jobs.Adapters.test_build_adapter_follows_settings) ... ok
+test_disabled_adapter_fails_fast (test_analysis_jobs.Adapters.test_disabled_adapter_fails_fast) ... ok
+test_health_check_reports_missing_model (test_analysis_jobs.Adapters.test_health_check_reports_missing_model) ... ok
+test_http_auth_error_is_categorised (test_analysis_jobs.Adapters.test_http_auth_error_is_categorised) ... ok
+test_invalid_json_is_categorised (test_analysis_jobs.Adapters.test_invalid_json_is_categorised) ... ok
+test_json_inside_a_fence_is_refused_by_strict_parser (test_analysis_jobs.Adapters.test_json_inside_a_fence_is_refused_by_strict_parser) ... ok
+test_key_is_read_from_a_registered_environment_name_only (test_analysis_jobs.Adapters.test_key_is_read_from_a_registered_environment_name_only) ... ok
+test_log_lines_only_carry_provider_model_duration_and_category (test_analysis_jobs.Adapters.test_log_lines_only_carry_provider_model_duration_and_category) ... ok
+test_ollama_payload_shape (test_analysis_jobs.Adapters.test_ollama_payload_shape) ... ok
+test_openai_compatible_payload_shape_and_key_header (test_analysis_jobs.Adapters.test_openai_compatible_payload_shape_and_key_header) ... ok
+test_path_traversal_in_a_relative_path_is_refused (test_analysis_jobs.Adapters.test_path_traversal_in_a_relative_path_is_refused)
+A path that tries to escape the approved base path never reaches the transport. ... ok
+test_redaction_removes_keys (test_analysis_jobs.Adapters.test_redaction_removes_keys) ... ok
+test_unreachable_is_categorised (test_analysis_jobs.Adapters.test_unreachable_is_categorised) ... ok
+test_cancel_before_start_marks_cancelled (test_analysis_jobs.Cancellation.test_cancel_before_start_marks_cancelled) ... ok
+test_cancel_while_running_marks_cancelled (test_analysis_jobs.Cancellation.test_cancel_while_running_marks_cancelled) ... ok
+test_two_papers_in_parallel_do_not_clobber_a_human_save (test_analysis_jobs.ConcurrencyAndIsolation.test_two_papers_in_parallel_do_not_clobber_a_human_save)
+A human save during a running worker must survive (worker writes analysis only). ... ok
+test_worker_never_touches_reader_fields (test_analysis_jobs.ConcurrencyAndIsolation.test_worker_never_touches_reader_fields) ... ok
+test_worker_thread_processes_the_queue (test_analysis_jobs.ConcurrencyAndIsolation.test_worker_thread_processes_the_queue) ... ok
+test_a_sent_timeout_is_unknown_and_not_retried (test_analysis_jobs.FailurePaths.test_a_sent_timeout_is_unknown_and_not_retried)
+A request that reached the provider must not be re-sent automatically. ... ok
+test_an_unsent_transport_failure_is_retried_once (test_analysis_jobs.FailurePaths.test_an_unsent_transport_failure_is_retried_once)
+An unreachable provider received nothing, so the retry is safe and bounded. ... ok
+test_failed_can_be_retried_manually (test_analysis_jobs.FailurePaths.test_failed_can_be_retried_manually) ... ok
+test_invalid_json_fails_without_retry (test_analysis_jobs.FailurePaths.test_invalid_json_fails_without_retry) ... ok
+test_pdf_without_text_layer_fails_with_actionable_message (test_analysis_jobs.FailurePaths.test_pdf_without_text_layer_fails_with_actionable_message) ... ok
+test_refusal_is_recorded_as_refused (test_analysis_jobs.FailurePaths.test_refusal_is_recorded_as_refused) ... ok
+test_disabled_provider_yields_waiting_for_provider (test_analysis_jobs.NoProvider.test_disabled_provider_yields_waiting_for_provider) ... ok
+test_reading_still_works_without_a_provider (test_analysis_jobs.NoProvider.test_reading_still_works_without_a_provider)
+With no provider the reader is fully usable; only analysis waits. ... ok
+test_worker_keeps_waiting_when_provider_disappears (test_analysis_jobs.NoProvider.test_worker_keeps_waiting_when_provider_disappears) ... ok
+test_duplicate_enqueue_is_idempotent (test_analysis_jobs.QueueingStates.test_duplicate_enqueue_is_idempotent) ... ok
+test_enqueue_sets_queued_and_returns_immediately (test_analysis_jobs.QueueingStates.test_enqueue_sets_queued_and_returns_immediately) ... ok
+test_import_records_state_without_waiting (test_analysis_jobs.QueueingStates.test_import_records_state_without_waiting)
+Default settings: the imported paper waits for the user, and import is fast. ... ok
+test_new_paper_starts_without_analysis (test_analysis_jobs.QueueingStates.test_new_paper_starts_without_analysis) ... ok
+test_ready_is_not_requeued_unless_forced (test_analysis_jobs.QueueingStates.test_ready_is_not_requeued_unless_forced) ... ok
+test_a_restored_queued_row_is_not_an_authorisation (test_analysis_jobs.RecoveryAndStale.test_a_restored_queued_row_is_not_an_authorisation)
+A backup restores paper state, never an approval: nothing is sent. ... ok
+test_queued_job_survives_a_restart (test_analysis_jobs.RecoveryAndStale.test_queued_job_survives_a_restart) ... ok
+test_ready_becomes_stale_when_the_model_changes (test_analysis_jobs.RecoveryAndStale.test_ready_becomes_stale_when_the_model_changes) ... ok
+test_ready_becomes_stale_when_the_prompt_version_changes (test_analysis_jobs.RecoveryAndStale.test_ready_becomes_stale_when_the_prompt_version_changes) ... ok
+test_ready_becomes_stale_when_the_source_changes (test_analysis_jobs.RecoveryAndStale.test_ready_becomes_stale_when_the_source_changes) ... ok
+test_recovered_job_waits_for_the_user_without_a_new_approval (test_analysis_jobs.RecoveryAndStale.test_recovered_job_waits_for_the_user_without_a_new_approval) ... ok
+test_running_job_from_a_crash_waits_for_the_user (test_analysis_jobs.RecoveryAndStale.test_running_job_from_a_crash_waits_for_the_user)
+Security release: a crash must not become permission to send again. ... ok
+test_waiting_for_provider_becomes_queued_once_a_provider_exists (test_analysis_jobs.RecoveryAndStale.test_waiting_for_provider_becomes_queued_once_a_provider_exists) ... ok
+test_every_state_change_is_persisted (test_analysis_jobs.SuccessPath.test_every_state_change_is_persisted) ... ok
+test_idempotency_after_success (test_analysis_jobs.SuccessPath.test_idempotency_after_success) ... ok
+test_success_transitions_and_answer_file (test_analysis_jobs.SuccessPath.test_success_transitions_and_answer_file) ... ok
+test_concurrent_writes_never_produce_a_mixed_file (test_storage.AtomicWrites.test_concurrent_writes_never_produce_a_mixed_file) ... ok
+test_delete_analysis_removes_only_the_answer (test_storage.AtomicWrites.test_delete_analysis_removes_only_the_answer) ... ok
+test_extracted_cache_round_trip (test_storage.AtomicWrites.test_extracted_cache_round_trip) ... ok
+test_interrupted_write_keeps_the_previous_file (test_storage.AtomicWrites.test_interrupted_write_keeps_the_previous_file)
+Requirement: simulate an interrupted analysis write; the old file survives. ... ok
+test_no_temporary_files_are_left_behind (test_storage.AtomicWrites.test_no_temporary_files_are_left_behind) ... ok
+test_partial_write_is_never_parsed_as_valid (test_storage.AtomicWrites.test_partial_write_is_never_parsed_as_valid)
+Even a torn file is reported as unreadable instead of silently accepted. ... ok
+test_size_limits_are_enforced (test_storage.AtomicWrites.test_size_limits_are_enforced) ... ok
+test_broken_file_message_has_no_file_body (test_storage.ErrorMessagesAreSafe.test_broken_file_message_has_no_file_body) ... ok
+test_rejected_names_are_quoted_but_nothing_else_leaks (test_storage.ErrorMessagesAreSafe.test_rejected_names_are_quoted_but_nothing_else_leaks) ... ok
+test_size_and_validation_errors_do_not_echo_content (test_storage.ErrorMessagesAreSafe.test_size_and_validation_errors_do_not_echo_content) ... ok
+test_file_and_directory_name_validation (test_storage.PathSafety.test_file_and_directory_name_validation) ... ok
+test_paper_id_validation (test_storage.PathSafety.test_paper_id_validation) ... ok
+test_paths_stay_inside_the_data_directory (test_storage.PathSafety.test_paths_stay_inside_the_data_directory) ... ok
+test_unknown_files_in_analyses_are_ignored (test_storage.PathSafety.test_unknown_files_in_analyses_are_ignored) ... ok
+test_backup_carries_analyses_and_extracted_cache (test_backup_restore.BackupContents.test_backup_carries_analyses_and_extracted_cache) ... ok
+test_backup_never_carries_sync_state_or_secrets (test_backup_restore.BackupContents.test_backup_never_carries_sync_state_or_secrets) ... ok
+test_backup_without_answer_files_is_still_complete (test_backup_restore.BackupContents.test_backup_without_answer_files_is_still_complete) ... ok
+test_card_fields_and_note_export_after_old_backup_restore (test_backup_restore.ReadingCardStillOpens.test_card_fields_and_note_export_after_old_backup_restore) ... ok
+test_corrupt_answer_in_backup_does_not_break_restore (test_backup_restore.RestoreAcrossVersions.test_corrupt_answer_in_backup_does_not_break_restore) ... ok
+test_malicious_archive_members_are_ignored (test_backup_restore.RestoreAcrossVersions.test_malicious_archive_members_are_ignored)
+A crafted ZIP cannot make the restore write outside data/analyses. ... ok
+test_restore_never_arms_the_ai_or_sync (test_backup_restore.RestoreAcrossVersions.test_restore_never_arms_the_ai_or_sync) ... ok
+test_restore_round_trip_keeps_manual_records_and_answers (test_backup_restore.RestoreAcrossVersions.test_restore_round_trip_keeps_manual_records_and_answers) ... ok
+test_restoring_into_a_library_that_already_has_the_paper_keeps_the_local_copy (test_backup_restore.RestoreAcrossVersions.test_restoring_into_a_library_that_already_has_the_paper_keeps_the_local_copy) ... ok
+test_version_1_backup_without_new_members_still_restores (test_backup_restore.RestoreAcrossVersions.test_version_1_backup_without_new_members_still_restores)
+An old ZIP: version 1 library, papers and notes only - no analyses/extracted/manifest. ... ok
+test_ai_settings_round_trip_without_storing_a_key (test_api_v2.ApiV2.test_ai_settings_round_trip_without_storing_a_key) ... ok
+test_analysis_endpoint_is_read_only_metadata (test_api_v2.ApiV2.test_analysis_endpoint_is_read_only_metadata) ... ok
+test_analysis_endpoint_rejects_bad_ids (test_api_v2.ApiV2.test_analysis_endpoint_rejects_bad_ids) ... ok
+test_backup_includes_manifest_and_restores_into_a_fresh_library (test_api_v2.ApiV2.test_backup_includes_manifest_and_restores_into_a_fresh_library) ... ok
+test_cookie_without_csrf_is_refused (test_api_v2.ApiV2.test_cookie_without_csrf_is_refused)
+A session cookie alone is not enough for a state-changing request. ... ok
+test_health_reports_the_new_app_version (test_api_v2.ApiV2.test_health_reports_the_new_app_version) ... ok
+test_missing_token_is_refused (test_api_v2.ApiV2.test_missing_token_is_refused)
+No cookie and no header token: the write is refused. ... ok
+test_rejected_ai_settings (test_api_v2.ApiV2.test_rejected_ai_settings)
+Validation errors are 400; the credential is present, so it is not an auth refusal. ... ok
+test_save_cannot_write_analysis_metadata (test_api_v2.ApiV2.test_save_cannot_write_analysis_metadata) ... ok
+test_state_reports_schema_version_and_defaults (test_api_v2.ApiV2.test_state_reports_schema_version_and_defaults) ... ok
+test_broken_library_reports_a_sentence (test_startup.StartupPaths.test_broken_library_reports_a_sentence) ... ok
+test_launcher_reuses_its_own_service (test_startup.StartupPaths.test_launcher_reuses_its_own_service) ... ok
+test_launcher_starts_the_service (test_startup.StartupPaths.test_launcher_starts_the_service) ... ok
+test_launcher_survives_a_taken_port (test_startup.StartupPaths.test_launcher_survives_a_taken_port) ... ok
+test_no_permission_error_path_remains (test_startup.StartupPaths.test_no_permission_error_path_remains) ... ok
+test_second_server_reports_already_open_without_crashing (test_startup.StartupPaths.test_second_server_reports_already_open_without_crashing)
+The reported crash: the second start raised PermissionError on instance.lock. ... ok
+
+----------------------------------------------------------------------
+Ran 172 tests in 46.400s
+
+OK (skipped=5)

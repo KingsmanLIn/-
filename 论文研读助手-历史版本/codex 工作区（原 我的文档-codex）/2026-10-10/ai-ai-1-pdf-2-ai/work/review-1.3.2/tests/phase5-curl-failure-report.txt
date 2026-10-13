@@ -1,0 +1,22 @@
+# Phase 5 failure-path curl report
+
+## POST generate (invalid JSON on the model side)
+{"run": {"paper_id": "medical-2026-zang", "status": "queued", "queued": true, "reason": "force"}, "status": {"paper_id": "medical-2026-zang", "status": "queued", "stage": "queued", "progress": 0, "message": "已加入分析队列", "requested_at": "2026-10-10T09:07:41Z", "started_at": "", "completed_at": "", "updated_at": "2026-10-10T09:07:41Z", "duration_ms": 0, "attempt": 0, "provider": "ollama", "adapter": "fake", "model": "fake-model", "prompt_version": "reading-card-v1", "language": "zh", "error_code": "", "error_summary": "", "answer_file": "", "has_answer": false, "in_queue": true, "running_now": false, "generated_at": "2026-10-10T09:07:41.153+00:00"}}
+HTTP 200 in 0.020996s
+
+## GET status (summary only, no answer text)
+{"paper_id": "medical-2026-zang", "status": "failed", "stage": "", "progress": 0, "message": "模型返回的内容两次都没有通过校验，未展示任何未校验文本", "requested_at": "2026-10-10T09:07:41Z", "started_at": "2026-10-10T09:07:41Z", "completed_at": "2026-10-10T09:07:41Z", "updated_at": "2026-10-10T09:07:41Z", "duration_ms": 452, "attempt": 1, "provider": "ollama", "adapter": "fake", "model": "fake-model", "prompt_version": "reading-card-v1", "language": "zh", "error_code": "validation_failed", "error_summary": "field_completeness；evidence_unverified；empty_card", "answer_file": "", "has_answer": false, "in_queue": false, "running_now": false, "generated_at": "2026-10-10T09:07:47.169+00:00"}
+HTTP 200 in 0.001197s
+
+## GET answer (withheld while failed)
+{"paper_id": "medical-2026-zang", "analysis": {"status": "failed", "stage": "", "progress": 0, "message": "模型返回的内容两次都没有通过校验，未展示任何未校验文本", "source_sha256": "cc262f10be80931a33aeb3109151d44f48718987120978cf4ba6df7b1f4d1032", "prompt_version": "reading-card-v1", "provider": "ollama", "adapter": "fake", "model": "fake-model", "language": "zh", "requested_at": "2026-10-10T09:07:41Z", "started_at": "2026-10-10T09:07:41Z", "completed_at": "2026-10-10T09:07:41Z", "updated_at": "2026-10-10T09:07:41Z", "duration_ms": 452, "attempt": 1, "error_code": "validation_failed", "error_message": "field_completeness；evidence_unverified；empty_card", "answer_file": ""}, "status": "failed", "answer": null, "answer_error": "文件不存在", "answer_available": false, "reason": "模型返回的内容两次都没有通过校验，未展示任何未校验文本", "generated_at": "2026-10-10T09:07:47.181+00:00"}
+HTTP 200 in 0.002117s
+
+## POST generate again after fixing the provider
+{"run": {"paper_id": "medical-2026-zang", "status": "queued", "queued": true, "reason": "force"}, "status": {"paper_id": "medical-2026-zang", "status": "queued", "stage": "queued", "progress": 0, "message": "已加入分析队列", "requested_at": "2026-10-10T09:07:47Z", "started_at": "2026-10-10T09:07:41Z", "completed_at": "2026-10-10T09:07:41Z", "updated_at": "2026-10-10T09:07:47Z", "duration_ms": 452, "attempt": 1, "provider": "ollama", "adapter": "fake", "model": "fake-model", "prompt_version": "reading-card-v1", "language": "zh", "error_code": "", "error_summary": "", "answer_file": "", "has_answer": false, "in_queue": true, "running_now": false, "generated_at": "2026-10-10T09:07:47.199+00:00"}}
+HTTP 200 in 0.008695s
+
+## GET status after retry
+{"paper_id": "medical-2026-zang", "status": "failed", "stage": "", "progress": 0, "message": "模型返回的内容两次都没有通过校验，未展示任何未校验文本", "requested_at": "2026-10-10T09:07:47Z", "started_at": "2026-10-10T09:07:47Z", "completed_at": "2026-10-10T09:07:47Z", "updated_at": "2026-10-10T09:07:47Z", "duration_ms": 66, "attempt": 2, "provider": "ollama", "adapter": "fake", "model": "fake-model", "prompt_version": "reading-card-v1", "language": "zh", "error_code": "validation_failed", "error_summary": "field_completeness；evidence_unverified；empty_card", "answer_file": "", "has_answer": false, "in_queue": false, "running_now": false, "generated_at": "2026-10-10T09:07:53.210+00:00"}
+HTTP 200 in 0.001549s
+

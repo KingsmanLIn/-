@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "approvals": {},
+  "jobs": {},
+  "active": {},
+  "spend": [],
+  "outcomes": {},
+  "targets": {
+    "local_loopback|http://127.0.0.1:61546/v1": {
+      "credential_ref": "env:PAPER_READER_REVIEW_HEALTH",
+      "model": "",
+      "approved_at": "2026-10-12T08:58:51Z"
+    }
+  }
+}

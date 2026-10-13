@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "approvals": {
+    "medical-2026-zang": {
+      "approval_id": "ap-81fa115491fe992f",
+      "paper_id": "medical-2026-zang",
+      "target_identity": "local_loopback|http://127.0.0.1:62775/v1",
+      "credential_ref": "",
+      "model": "stub",
+      "scope": "single_paper",
+      "revoked": false,
+      "granted_at": "2026-10-12T08:58:51Z"
+    }
+  },
+  "jobs": {
+    "medical-2026-zang": {
+      "job_id": "job-3b930e87ecc62510",
+      "paper_id": "medical-2026-zang",
+      "generation": 1,
+      "source_sha256": "128ebca554065069a82c69bf5b12924fc47ab702bed517727094ccd1a5365923",
+      "profile_id": "prof-dcc80e7833310c65",
+      "adapter": "openai_compatible",
+      "mode": "local_loopback",
+      "target_identity": "local_loopback|http://127.0.0.1:62775/v1",
+      "model": "stub",
+      "credential_ref": "",
+      "credential_revision": 1,
+      "config_revision": 1,
+      "policy_version": "job-policy-v1",
+      "prompt_version": "reading-card-v2",
+      "language": "zh",
+      "approval_id": "ap-81fa115491fe992f",
+      "budget_id": "bud-e5bf510a31567f86",
+      "created_at": "2026-10-12T08:58:51Z",
+      "reason": "manual"
+    }
+  },
+  "active": {
+    "medical-2026-zang": "job-3b930e87ecc62510"
+  },
+  "spend": [],
+  "outcomes": {},
+  "targets": {
+    "local_loopback|http://127.0.0.1:62775/v1": {
+      "credential_ref": "",
+      "model": "stub",
+      "approved_at": "2026-10-12T08:58:51Z"
+    }
+  },
+  "journal": [
+    {
+      "job_id": "job-3b930e87ecc62510",
+      "paper_id": "medical-2026-zang",
+      "kind": "first",
+      "sequence": 1,
+      "target_identity": "local_loopback|http://127.0.0.1:62775/v1",
+      "started_at": "2026-10-12T08:58:51Z",
+      "settled": "sent",
+      "note": "cancelled",
+      "started_at_epoch": 1791795531.9202595
+    },
+    {
+      "job_id": "job-3b930e87ecc62510",
+      "paper_id": "medical-2026-zang",
+      "kind": "first:adapt",
+      "sequence": 2,
+      "target_identity": "local_loopback|http://127.0.0.1:62775/v1",
+      "started_at": "2026-10-12T08:58:51Z",
+      "settled": "sent",
+      "note": "adapt",
+      "started_at_epoch": 1791795531.9226947
+    }
+  ]
+}

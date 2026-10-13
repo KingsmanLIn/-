@@ -1,0 +1,66 @@
+/* 阅读区布局
+   阶段 7：PDF 为主区域，窄屏保持可读的上下布局。
+   阶段 10：压缩上方条目、提供“收起记录栏”，把高度与宽度让给原文。 */
+
+/* 视觉隐藏但保留给读屏软件的页码提示 */
+.visually-hidden{position:absolute!important;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
+
+/* 记录栏收起按钮：仅在桌面两栏布局下出现 */
+.panel-toggle{display:none}
+
+@media(min-width:931px){
+  /* PDF 面板至少占工作区 65%（实测 1366/1280 为 67%），笔记栏随之收窄但保留可编辑宽度。
+     grid-template-rows:minmax(0,1fr) 让两栏都能在视口高度内收缩，各自内部滚动。 */
+  .workspace{display:grid;grid-template-columns:minmax(67%,1fr) minmax(300px,min(33%,420px));grid-template-rows:minmax(0,1fr);gap:14px;align-items:stretch;flex:1;min-height:0}
+  .pdf-panel{width:auto;min-width:0;min-height:0}
+  .notes-panel{width:auto;min-width:0;max-width:none;min-height:0}
+
+  /* 1. 压缩上方条目，把高度让给原文 -------------------------------------- */
+  .topbar{height:48px;padding:0 20px}
+  .topbar .eyebrow{display:none}
+  .view-name{font-size:12px}
+  .reader-view{padding:12px 16px 10px;gap:9px}
+  .reading-ribbon{padding:6px 12px;gap:12px}
+  .reading-ribbon p{font-size:9px}
+
+  /* 标题条：单行横排，作者与标签折到右侧，不再各占一行 */
+  .paper-strip{display:flex;align-items:center;gap:14px;flex-shrink:0;min-width:0}
+  .paper-strip h1{font-size:14px;line-height:1.4;margin:0;flex:0 1 auto;min-width:0;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:56%}
+  .paper-strip-side{display:flex;align-items:center;gap:8px;min-width:0;flex:1 1 auto;
+    overflow:hidden;white-space:nowrap}
+  .paper-strip .paper-meta{margin:0;gap:5px;flex-wrap:nowrap}
+  .paper-strip .paper-meta .chip{font-size:8px;padding:3px 6px}
+  .paper-strip #paper-authors{margin:0;font-size:9px;overflow:hidden;text-overflow:ellipsis}
+  .paper-strip .paper-actions{margin:0;gap:6px;flex:0 0 auto}
+  .paper-strip .paper-actions .small-button{font-size:10px;padding:5px 9px}
+
+  /* 工具条与页脚压到一行高 */
+  .pdf-toolbar{padding:6px 12px;gap:8px;flex-wrap:nowrap}
+  .pdf-toolbar .panel-label{font-size:10px}
+  .pdf-subbar{padding:4px 12px;font-size:9px}
+  .pdf-footer{padding:5px 12px}
+  .pdf-scroll{padding:12px}
+
+  /* 2. 收起记录栏：原文区占满工作区宽度 ---------------------------------- */
+  .panel-toggle{display:inline-block;margin-left:auto;border:1px solid #d7e0d2;background:#fbfcf7;
+    color:#4d6449;font-size:10px;padding:4px 8px;border-radius:7px;white-space:nowrap}
+  .panel-toggle:hover{background:#eef3e8}
+  .workspace.notes-collapsed{grid-template-columns:minmax(0,1fr)}
+  .workspace.notes-collapsed .notes-panel{display:none}
+  .workspace.notes-collapsed .pdf-toolbar .panel-label::after{content:" · 记录栏已收起"}
+}
+
+/* 整页可见时不产生同页内的无意义滚动；手动放大后恢复滚动 */
+.pdf-scroll.page-fits{overflow-y:hidden}
+.pdf-scroll.page-fits .pdf-page{margin-bottom:0}
+
+@media(max-width:930px){
+  /* 窄屏：仍是上下布局，标题条回到块状，收起按钮不参与布局 */
+  .paper-strip{display:block;min-width:0}
+  .paper-strip h1{margin:0 0 6px}
+  .paper-strip-side{display:block}
+  .paper-strip .paper-actions{display:flex;gap:7px;margin-top:9px}
+  .workspace.notes-collapsed .notes-panel{display:flex}
+  .pdf-scroll{padding:12px}
+}

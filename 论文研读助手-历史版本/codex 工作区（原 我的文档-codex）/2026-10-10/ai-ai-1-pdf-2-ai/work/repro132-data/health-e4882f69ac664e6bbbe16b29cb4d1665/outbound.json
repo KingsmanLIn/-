@@ -1,0 +1,11 @@
+{
+  "schema": 1,
+  "approvals": {
+    "local_loopback|http://127.0.0.1:62970/v1": {
+      "credential_ref": "env:PAPER_READER_REVIEW_HEALTH",
+      "model": "",
+      "approved_at": "2026-10-12T08:55:35Z"
+    }
+  },
+  "updated_at": "2026-10-12T08:55:35Z"
+}

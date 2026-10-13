@@ -1,0 +1,130 @@
+{
+  "sandbox": "C:\\Users\\ASUS\\AppData\\Local\\Temp\\release-smoke-86jczkde",
+  "source": "D:\\harness home\\paper-reader",
+  "steps": [
+    {
+      "name": "layout copied",
+      "ok": true,
+      "detail": "236 files"
+    },
+    {
+      "name": "no development material",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "launch.py started the service",
+      "ok": true,
+      "detail": "http://127.0.0.1:8799"
+    },
+    {
+      "name": "index.html served without a page token",
+      "ok": true,
+      "detail": "version 1.3.2"
+    },
+    {
+      "name": "launcher pipe issued a bootstrap",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "name": "bootstrap exchanged for a session",
+      "ok": true,
+      "detail": "ok"
+    },
+    {
+      "name": "asset /static/app.js",
+      "ok": true,
+      "detail": "200 60538B"
+    },
+    {
+      "name": "asset /static/reader-layout.css",
+      "ok": true,
+      "detail": "200 3549B"
+    },
+    {
+      "name": "asset /static/ai-reference.css",
+      "ok": true,
+      "detail": "200 3628B"
+    },
+    {
+      "name": "asset /static/styles.css",
+      "ok": true,
+      "detail": "200 20699B"
+    },
+    {
+      "name": "asset /static/guides.js",
+      "ok": true,
+      "detail": "200 11962B"
+    },
+    {
+      "name": "asset /vendor/pdfjs/pdf.min.mjs",
+      "ok": true,
+      "detail": "200 430304B"
+    },
+    {
+      "name": "asset /vendor/pdfjs/pdf.worker.min.mjs",
+      "ok": true,
+      "detail": "200 1244253B"
+    },
+    {
+      "name": "health has no token or path",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "state readable",
+      "ok": true,
+      "detail": "3 papers, v2"
+    },
+    {
+      "name": "production library migrated in the sandbox",
+      "ok": true,
+      "detail": "v2 / 3 papers"
+    },
+    {
+      "name": "human fields survive",
+      "ok": true,
+      "detail": "13 fields, analysis=none"
+    },
+    {
+      "name": "pdf download",
+      "ok": true,
+      "detail": "200 3356294B application/pdf"
+    },
+    {
+      "name": "markdown export",
+      "ok": true,
+      "detail": "200 1800B"
+    },
+    {
+      "name": "analysis endpoints wired",
+      "ok": true,
+      "detail": "health provider=disabled"
+    },
+    {
+      "name": "token still enforced",
+      "ok": true,
+      "detail": 403
+    },
+    {
+      "name": "no secret pattern in the package",
+      "ok": true,
+      "detail": []
+    },
+    {
+      "name": "no credentials file created",
+      "ok": true,
+      "detail": ""
+    }
+  ],
+  "files": 236,
+  "version": "1.3.2",
+  "papers": 3,
+  "schema_version": 2,
+  "run_files": [
+    "server.json"
+  ],
+  "stopped_pid": 15140,
+  "ok": true
+}

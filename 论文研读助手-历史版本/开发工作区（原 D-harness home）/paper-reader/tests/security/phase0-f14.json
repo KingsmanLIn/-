@@ -1,0 +1,36 @@
+{
+  "precondition": {
+    "status": "waiting_for_user",
+    "provider": "ollama",
+    "auto_analyze": false
+  },
+  "ui_click_maps_to": {
+    "body": {},
+    "force": false
+  },
+  "enqueue_retry_force_false": {
+    "paper_id": "medical-2026-zang",
+    "status": "waiting_for_user",
+    "queued": false,
+    "reason": "waiting_for_user"
+  },
+  "status_after_click": "waiting_for_user",
+  "message_after_click": "点击栏目右侧按钮查看 AI 参考",
+  "provider_calls_after_click": 0,
+  "status_after_drain": "waiting_for_user",
+  "provider_calls_after_drain": 0,
+  "enqueue_from_none": {
+    "paper_id": "medical-2026-zang",
+    "status": "queued",
+    "queued": true,
+    "reason": "retry"
+  },
+  "provider_calls_after_none": 0,
+  "guard_lines": [
+    "244: if not force and status == \"waiting_for_user\":",
+    "248: \"reason\": \"waiting_for_user\"}"
+  ],
+  "ui_call": [
+    "183: if(forceRun)await api('analysis/'+id+'/generate',forceRun==='force'?{force:true}:{});"
+  ]
+}
