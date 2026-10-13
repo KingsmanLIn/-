@@ -1,0 +1,9 @@
+{
+  "version": "1.3.8",
+  "platform": "Windows x64",
+  "python": "3.12.14",
+  "original_zip_sha256": "2d7cc8f2b62532ea527cd6057599fbf85807d43e62867e0495917c521b36c799",
+  "patched_from": "1.3.7",
+  "private_data_included": false,
+  "real_api_tested": false
+}
