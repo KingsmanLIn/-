@@ -1,7 +1,0 @@
-http://127.0.0.1:8765
-{"event": "recover", "requeued": [], "stale": [], "provider": "disabled", "disabled": true}
-{"event": "worker_started"}
-http://127.0.0.1:8765
-{"event": "recover", "provider": "disabled", "count": 0, "outcome": "disabled"}
-{"event": "worker_started"}
-http://127.0.0.1:8765
