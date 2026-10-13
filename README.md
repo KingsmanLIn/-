@@ -1,7 +1,7 @@
 # 论文研读助手 V1.3.8
 
 **(这是一份vibe coding的软件，发布前只经过了其他AI的独立审查，无法保证软件完全安全）**
-<img width="1280" height="720" alt="ev_com_14_14" src="https://github.com/user-attachments/assets/b9e6cc99-c703-4626-b3ce-37228a5480f2" />
+<img width="50%" height="50%" alt="ev_com_14_14" src="https://github.com/user-attachments/assets/b9e6cc99-c703-4626-b3ce-37228a5480f2" />
 #
 --
 **带着问题读，留下自己的理解。**
