@@ -1,8 +1,11 @@
 # 论文研读助手 V1.3.8
 
-**(这是一份vibe coding的软件，发布前只经过了其他AI的独立审查，无法保证软件完全安全）**
+**(这是一份vibe coding的软件，发布前只经过了其他AI的独立审查，无法保证软件不出岔子，项目遵循MITLICENSE开源）**
 <img width="50%" height="50%" alt="ev_com_14_14" src="https://github.com/user-attachments/assets/b9e6cc99-c703-4626-b3ce-37228a5480f2" />
-#
+
+**如果你觉得软件对你有帮助，那请你帮我点一个star吧！**
+
+**RR作为文科学生没有经费第一次vibe coding烧了五六十大米，如果愿意的话文末可以帮RR回回血喵！在此谢过大家**
 --
 **带着问题读，留下自己的理解。**
 
@@ -190,6 +193,10 @@ AI 参考用于辅助理解与核对。研究判断、引文使用和最终结�
 **升级或卸载会删除论文吗？**
 
 1.3.8 的覆盖安装保留文献库，卸载也默认保留数据；卸载时明确选择删除数据才会移除文献库。升级与迁移前可使用完整备份留存一份副本。
+
+## 软件如果帮到你入门读繁杂的论文或者给你提供了阅读文献上的帮助，if愿意的话，可以请我吃一顿饭堂吗？量力而行喵！**
+<img width="20%" height="20%" alt="55ba12d717de3c40a8dd297af1d55fb3" src="https://github.com/user-attachments/assets/86368c9b-7f7b-4b10-9d0e-af4b24f6f17f" /><img width="50%" height="50%" alt="zev_com_30_23" src="https://github.com/user-attachments/assets/e3cca081-9e56-4fdf-a566-cc0801194c2f" />
+
 
 ## 问题反馈
 
